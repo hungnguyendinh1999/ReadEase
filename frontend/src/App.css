@@ -1,0 +1,12 @@
+.icon {
+  transition: transform 2.0s ease-in-out;
+}
+
+.icon:hover {
+  transform: rotate(360deg);
+}
+
+.link {
+  text-decoration: none;
+  color: var(--main-white);
+}

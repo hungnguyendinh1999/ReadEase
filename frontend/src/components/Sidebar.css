@@ -12,17 +12,12 @@
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-#icon {
+#sidebar-icon {
   width: 100%;
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 20px;
   padding-bottom: 20px;
-  transition: transform 2.0s ease-in-out;
-}
-
-#icon:hover {
-  transform: rotate(360deg);
 }
 
 #icon-holder {
@@ -57,16 +52,11 @@
 
 .nav-title {
   width: 100%;
-  text-color: var(--main-white);
+  color: var(--main-white);
   text-align: center;
   font-size: 12px;
   font-weight: bold;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-}
-
-.nav-link {
-  text-decoration: none;
-  color: var(--main-white);
 }
