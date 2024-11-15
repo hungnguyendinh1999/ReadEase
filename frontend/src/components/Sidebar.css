@@ -70,3 +70,11 @@
   text-decoration: none;
   color: var(--main-white);
 }
+
+.menu-items {
+  flex-grow: 1;
+}
+
+.settings-container {
+  padding-top: 20px;
+}

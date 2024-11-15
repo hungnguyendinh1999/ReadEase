@@ -4,23 +4,41 @@ import "./Sidebar.css";
 import Icon from "../assets/icon.png"
 
 interface SidebarProps {
-    params: {imageSrc: string, title: string, path: string}[];
+  params: { imageSrc: string, title: string, path: string }[];
+  onSettingsClick: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({params}) => {
+const Sidebar: React.FC<SidebarProps> = ({ params, onSettingsClick }) => {
+  const menuItems = params.filter((item) => item.title !== "Settings");
+  const settingsItem = params.find((item) => item.title === "Settings");
+
   return (
     <div className="sidebar">
-        <div id="icon-holder">
-            <img id="icon" src={Icon} />
-        </div>
-        {params.map((params, index) => (
-            <Link className="nav-link" to={params.path}>
-                <div key={"nav-cont-icon-" + index} className="nav-container" onClick={params.onClick}>
-                    <img key={"nav-btn-icon-" + index} className="nav-icon" src={params.imageSrc} />
-                    <p key={"nav-btn-title-" + index} className="nav-title"> {params.title} </p>
-                </div>
-            </Link>
+      <div id="icon-holder">
+        <img id="icon" src={Icon} alt="Sidebar Icon" />
+      </div>
+      <div className="menu-items">
+        {menuItems.map((item, index) => (
+          <Link key={"nav-link-" + index} className="nav-link" to={item.path}>
+            <div className="nav-container">
+              <img className="nav-icon" src={item.imageSrc} alt={item.title} />
+              <p className="nav-title">{item.title}</p>
+            </div>
+          </Link>
         ))}
+      </div>
+      
+      {settingsItem && (
+        <div className="settings-container">
+          {/* Remove the Link and use onSettingsClick to open modal */}
+          <div className="nav-link" onClick={onSettingsClick} style={{ cursor: "pointer" }}>
+            <div className="nav-container">
+              <img className="nav-icon" src={settingsItem.imageSrc} alt={settingsItem.title} />
+              <p className="nav-title">{settingsItem.title}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
