@@ -1,10 +1,10 @@
 :root {
-  --main-black: #333333;
-  --main-white: #F5F5F5;
-  --main-gray: #A8A8A8;
-  --main-hover: #505050;
+    --main-black: #333333;
+    --main-white: #F5F5F5;
+    --main-gray: #A8A8A8;
+    --main-hover: #505050;
 }
 
 body {
-  background-color: var(--main-gray);
+    background-color: var(--main-gray);
 }

@@ -1,12 +1,51 @@
 .icon {
-  transition: transform 2.0s ease-in-out;
+    transition: transform 2.0s ease-in-out;
 }
 
 .icon:hover {
-  transform: rotate(360deg);
+    transform: rotate(360deg);
 }
 
 .link {
-  text-decoration: none;
-  color: var(--main-white);
+    text-decoration: none;
+    color: var(--main-white);
+}
+
+.button {
+    background-color: var(--main-black);
+    border: var(--main-black) 2px solid;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+}
+
+.button > p {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: var(--main-white);
+    font-size: 18px;
+    font-weight: bold;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.button-img {
+    background-color: var(--main-black);
+    border: var(--main-black) 2px solid;
+    border-radius: 50vw;
+    cursor: pointer;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    margin: 5px;
+}
+
+.button-img > img {
+    height: 35%;
 }

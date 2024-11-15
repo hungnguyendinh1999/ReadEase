@@ -1,12 +1,12 @@
 import React from "react";
+import DemoVoiceBar from "../components/DemoVoiceBar";
 
 const SettingScreen: React.FC = () => {
-  return (
-    <div>
-      <h1>Setting Screen</h1>
-      <p>This is some content.</p>
-    </div>
-  );
+    return (
+        <div>
+            <DemoVoiceBar />
+        </div>
+    );
 };
 
 export default SettingScreen;

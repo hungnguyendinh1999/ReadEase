@@ -1,0 +1,7 @@
+#demo-voice-bar {
+    width: 200px;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    flex-direction: row;
+}
