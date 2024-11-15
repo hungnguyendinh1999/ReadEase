@@ -4,10 +4,10 @@ import Sidebar from "./components/SideBar"
 import SummaryIcon from "./assets/summary.png"
 import SettingIcon from "./assets/setting.png"
 import ReadAloudIcon from "./assets/read-aloud.png"
-import SummaryScreen from "./screen/SummaryScreen.tsx"
-import ReadaloudScreen from "./screen/ReadaloudScreen.tsx"
-import SettingScreen from "./screen/SettingScreen.tsx"
-import HomeScreen from "./screen/HomeScreen.tsx"
+import SummaryScreen from "./screen/SummaryScreen"
+import ReadaloudScreen from "./screen/ReadaloudScreen"
+import SettingScreen from "./screen/SettingScreen"
+import HomeScreen from "./screen/HomeScreen"
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
