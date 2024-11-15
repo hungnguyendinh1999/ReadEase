@@ -1,3 +1,11 @@
+:root {
+  --main-black: #333333;
+  --main-white: #F5F5F5;
+  --main-gray: #A8A8A8;
+  --main-hover: #505050;
+}
+
 body {
   padding: 20px;
+  background-color: var(--main-gray);
 }
