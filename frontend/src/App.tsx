@@ -10,10 +10,10 @@ import SettingScreen from "./screen/SettingScreen"
 import Modal from "./components/Modal";
 import HomeScreen from "./screen/HomeScreen"
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import React, { useState } from "react";
 
-const App: React.FC = () => {
+function AppLayout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Settings state
@@ -33,12 +33,14 @@ const App: React.FC = () => {
     { imageSrc: SettingIcon, title: "Settings", path: "/settings" }, // Path isn't used for settings
   ];
 
+  const hideSidebar = useLocation().pathname === "/";
+
   return (
     <Router>
-      <div style={{ display: "flex" }}>
+      <div>
+        {!hideSidebar && <Sidebar params={sidebarParams} onSettingsClick={openModal} />}
         {/* Pass openModal as onSettingsClick to Sidebar */}
-        <Sidebar params={sidebarParams} onSettingsClick={openModal} />
-        <div style={{ marginLeft: "90px", padding: "20px" }}>
+        <div style={{ marginLeft: "80px" }}>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/summary" element={<SummaryScreen />} />
@@ -67,4 +69,10 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default function App() {
+  return (
+      <Router>
+          <AppLayout />
+      </Router>
+  );
+}

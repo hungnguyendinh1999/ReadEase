@@ -14,19 +14,17 @@ const Sidebar: React.FC<SidebarProps> = ({ params, onSettingsClick }) => {
 
   return (
     <div className="sidebar">
-      <div id="icon-holder">
-        <img id="icon" src={Icon} alt="Sidebar Icon" />
-      </div>
-      <div className="menu-items">
-        {menuItems.map((item, index) => (
-          <Link key={"nav-link-" + index} className="nav-link" to={item.path}>
-            <div className="nav-container">
-              <img className="nav-icon" src={item.imageSrc} alt={item.title} />
-              <p className="nav-title">{item.title}</p>
-            </div>
-          </Link>
+        <div id="icon-holder">
+            <img id="sidebar-icon" className="icon" src={Icon} />
+        </div>
+        {params.map((params, index) => (
+            <Link key={"nav-btn-link-" + index} className="link" to={params.path}>
+                <div key={"nav-btn-icon-" + index} className="nav-container" onClick={params.onClick}>
+                    <img key={"nav-btn-icon-" + index} className="nav-icon" src={params.imageSrc} />
+                    <p key={"nav-btn-title-" + index} className="nav-title"> {params.title} </p>
+                </div>
+            </Link>
         ))}
-      </div>
       
       {settingsItem && (
         <div className="settings-container">
