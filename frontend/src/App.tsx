@@ -30,42 +30,39 @@ function AppLayout() {
   const sidebarParams = [
     { imageSrc: SummaryIcon, title: "Summary", path: "/summary" },
     { imageSrc: ReadAloudIcon, title: "Read Aloud", path: "/readaloud" },
-    { imageSrc: SettingIcon, title: "Settings", path: "/settings" }, // Path isn't used for settings
+    { imageSrc: SettingIcon, title: "Settings", path: "/settings" },
   ];
 
   const hideSidebar = useLocation().pathname === "/";
 
   return (
-    <Router>
-      <div>
-        {!hideSidebar && <Sidebar params={sidebarParams} onSettingsClick={openModal} />}
-        {/* Pass openModal as onSettingsClick to Sidebar */}
-        <div style={{ marginLeft: "80px" }}>
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/summary" element={<SummaryScreen />} />
-            <Route path="/readaloud" element={<ReadaloudScreen />} />
-          </Routes>
-          {/* Render the settings modal */}
-          <Modal isOpen={isModalOpen} onClose={closeModal}>
+    <div>
+      {!hideSidebar && <Sidebar params={sidebarParams} onSettingsClick={openModal} />}
+      <div style={{ marginLeft: "80px" }}>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/summary" element={<SummaryScreen />} />
+          <Route path="/readaloud" element={<ReadaloudScreen />} />
+        </Routes>
+        {/* Render the settings modal */}
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
           <SettingScreen
-              voice={voice}
-              setVoice={setVoice}
-              backgroundColor={backgroundColor}
-              setBackgroundColor={setBackgroundColor}
-              fontColor={fontColor}
-              setFontColor={setFontColor}
-              fontTypeface={fontTypeface}
-              setFontTypeface={setFontTypeface}
-              fontWeight={fontWeight}
-              setFontWeight={setFontWeight}
-              fontSize={fontSize}
-              setFontSize={setFontSize}
-            />
-          </Modal>
-        </div>
+            voice={voice}
+            setVoice={setVoice}
+            backgroundColor={backgroundColor}
+            setBackgroundColor={setBackgroundColor}
+            fontColor={fontColor}
+            setFontColor={setFontColor}
+            fontTypeface={fontTypeface}
+            setFontTypeface={setFontTypeface}
+            fontWeight={fontWeight}
+            setFontWeight={setFontWeight}
+            fontSize={fontSize}
+            setFontSize={setFontSize}
+          />
+        </Modal>
       </div>
-    </Router>
+    </div>
   );
 };
 

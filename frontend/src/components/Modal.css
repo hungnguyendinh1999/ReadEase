@@ -9,15 +9,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
 }
 
-.modal-content {
-  background: white !important;
+.modal-content.custom-modal-content {
+  background: white;
   padding: 20px;
   border-radius: 8px;
   width: 90%;
-  max-width: 500px;
+  max-width: 800px;
+  min-width: 400px;
+  max-height: 80vh;
+  min-height: 400px;
+  height: auto;
+  overflow-y: auto;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   position: relative;
 }
