@@ -1,6 +1,8 @@
-# CS5170-GPT-React-Workshop
+# ReadEase: An Assistive Learning Platform for Dyslexia
 
-Follow along workshop for CS5170
+
+
+## Installation instruction
 
 To install necessary software go the project root folders for both the frontend and server folders, and enter: `npm i`
 
