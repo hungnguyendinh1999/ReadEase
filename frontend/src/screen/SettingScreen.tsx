@@ -23,6 +23,7 @@ import ColorPicker from "../components/molecules/ColorPicker";
 import Dropdown from "../components/atom/Dropdown";
 import PlayVoiceButton from "../components/PlayVoiceButton";
 
+
 const predefinedBackgroundColors = ["#A8DADC", "#F4A261", "#457B9D", "#FFE8D6", "#1D3557", "#FFFFFF", "#000000"];
 const predefinedFontColors = ["#1D3557", "#F4F1DE", "#457B9D", "#264653", "#A8DADC", "#FFFFFF", "#000000"];
 const voiceOptions = ["Alloy", "Echo", "Fable", "Nova", "Onyx", "Shimmer", "daddy"];
@@ -31,6 +32,93 @@ const typeFaces = ["Arial", "Times New Roman", "Courier New", "Verdana", "Comic 
 const fontMaxSize = 36;
 const fontMinSize = 12;
 const fontRange = Array.from({ length: fontMaxSize - fontMinSize + 1 }, (_, i) => `${i + fontMinSize}`);
+
+const presets = [
+  {
+    name: ""
+  },
+  {
+    name: "Light Mode",
+    backgroundColor: "#FFFFFF",
+    fontColor: "#000000",
+    fontTypeface: "Arial",
+    fontWeight: "normal",
+    fontSize: "18px",
+    fontStyle: "normal",
+    textDecoration: "none",
+  },
+  {
+    name: "Dark Mode",
+    backgroundColor: "#000000",
+    fontColor: "#FFFFFF",
+    fontTypeface: "Arial",
+    fontWeight: "bold",
+    fontSize: "18px",
+    fontStyle: "italic",
+    textDecoration: "none",
+  },
+  {
+    name: "Classic",
+    backgroundColor: "#FFE8D6",
+    fontColor: "#1D3557",
+    fontTypeface: "Times New Roman",
+    fontWeight: "normal",
+    fontSize: "18px",
+    fontStyle: "normal",
+    textDecoration: "none",
+  },
+  {
+    name: "Pastel",
+    backgroundColor: "#f3f1e3",
+    fontColor: "#61797f",
+    fontTypeface: "Verdana",
+    fontWeight: "bold",
+    fontSize: "18px",
+    fontStyle: "none",
+    textDecoration: "none",
+  },
+  {
+    name: "Pastel Blue",
+    backgroundColor: "#D8EFFE",
+    fontColor: "#2E4A62",
+    fontTypeface: "Verdana",
+    fontWeight: "bold",
+    fontSize: "18px",
+    fontStyle: "none",
+    textDecoration: "none",
+  },
+  {
+    name: "Pastel Green",
+    backgroundColor: "#DFFFE3",
+    fontColor: "#3A4A28",
+    fontTypeface: "Verdana",
+    fontWeight: "bold",
+    fontSize: "18px",
+    fontStyle: "none",
+    textDecoration: "none",
+  },
+  {
+    name: "Pastel Yellow",
+    backgroundColor: "#FFF9E3",
+    fontColor: "#4D4D4D",
+    fontTypeface: "Verdana",
+    fontWeight: "bold",
+    fontSize: "18px",
+    fontStyle: "none",
+    textDecoration: "none",
+  },
+  {
+    name: "Pastel Purple",
+    backgroundColor: "#EAEAFF",
+    fontColor: "#2D3142",
+    fontTypeface: "Verdana",
+    fontWeight: "bold",
+    fontSize: "18px",
+    fontStyle: "none",
+    textDecoration: "none",
+  }
+];
+
 
 interface SettingScreenProps {
   voice: string;
@@ -50,7 +138,6 @@ interface SettingScreenProps {
   textDecoration: string;
   setTextDecoration: React.Dispatch<React.SetStateAction<string>>;
 }
-
 
 const SettingScreen: React.FC<SettingScreenProps> = () => {
   const {
@@ -72,6 +159,10 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
     setFontSize,
   } = useSettings();
 
+  // Local state to manage selected preset
+  const [selectedPresetName, setSelectedPresetName] = useState("");
+
+  // Local state to manage settings
   const [localSettings, setLocalSettings] = useState({
     voice,
     backgroundColor,
@@ -83,8 +174,19 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
     fontSize,
   });
 
-  const [userText, setUserText] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+  // Function to handle preset change
+  const handlePresetChange = (presetName: string) => {
+    setSelectedPresetName(presetName);
+    const selectedPreset = presets.find((preset) => preset.name === presetName);
+    if (selectedPreset) {
+      setLocalSettings((prev) => ({
+        ...prev,
+        ...selectedPreset,
+      }));
+    }
+  };
   
+  // Map voice to sound file
   const voiceMap: { [key: string]: string } = {
     alloy: alloyVoice,
     echo: echoVoice,
@@ -94,12 +196,16 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
     shimmer: shimmerVoice,
     daddy: daddyVoice,
   };
+  // Get the sound file path based on the selected voice (won't work with raw path in React for some reason)
   const selectedSoundPath = voiceMap[localSettings.voice.toLowerCase()];
 
+  // Function to update a setting in local state
   const updateSetting = (key: string, value: string) => {
+    setSelectedPresetName("");
     setLocalSettings((prev) => ({ ...prev, [key]: value }));
   };
 
+  // Function to toggle a style setting in local state (for bold, italics, underline)
   const toggleStyle = (
     key: keyof typeof localSettings,
     value: string,
@@ -111,6 +217,10 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
     }));
   };
 
+  // Local state to manage user text in textbox (initially set to a default text)
+  const [userText, setUserText] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+
+  // Settings (left-side) configuration
   const settingsConfig = [
     {
       key: "voice",
@@ -247,6 +357,12 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
         <div className="settings-right">
           <div className="presets">
             <h3>Presets</h3>
+            <Dropdown
+              label="Select Preset"
+              options={presets.map((preset) => preset.name)}
+              value={selectedPresetName}
+              onChange={(e) => handlePresetChange(e.target.value)}
+            />
           </div>
         </div>
       </div>
