@@ -21,6 +21,10 @@ const predefinedFontColors = ["#1D3557", "#F4F1DE", "#457B9D", "#264653", "#A8DA
 const voiceOptions = ["Voice 1", "Voice 2", "Voice 3", "Voice 4", "Voice 5"];
 const typeFaces = ["Arial", "Times New Roman", "Courier New", "Verdana", "Comic Sans MS"];
 
+const fontMaxSize = 36;
+const fontMinSize = 12;
+const fontRange = Array.from({ length: fontMaxSize - fontMinSize + 1 }, (_, i) => `${i + fontMinSize}`);
+
 interface SettingScreenProps {
   voice: string;
   setVoice: React.Dispatch<React.SetStateAction<string>>;
@@ -72,7 +76,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
     fontSize,
   });
 
-  const [userText, setUserText] = useState("Sample Text Here");
+  const [userText, setUserText] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
 
   const updateSetting = (key: string, value: string) => {
     setLocalSettings((prev) => ({ ...prev, [key]: value }));
@@ -155,8 +159,8 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       component: (
         <Dropdown
           label=""
-          options={Array.from({ length: 17 }, (_, i) => (i + 8).toString())}
-          value={localSettings.fontSize}
+          options={fontRange}
+          value={localSettings.fontSize.replace("px", "")}
           onChange={(e) => updateSetting("fontSize", `${e.target.value}px`)}
         />
       ),
@@ -245,6 +249,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
             }}
             value={userText}
             onChange={(e) => setUserText(e.target.value)}
+            placeholder="Enter text here..."
           />
         </fieldset>
       </div>

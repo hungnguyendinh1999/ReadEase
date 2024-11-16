@@ -1,5 +1,7 @@
 import React from "react";
 
+import ColorButton from "../atom/ColorButton";
+
 interface ColorPickerProps {
   label: string;
   colors: string[]; 
@@ -19,18 +21,10 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
         <label>{label}</label>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           {colors.map((color) => (
-            <button
-              key={color}
-              style={{
-                backgroundColor: color,
-                border: selectedColor === color ? "2px solid #000" : "1px solid #ccc",
-                height: "20px",
-                width: "20px",
-                cursor: "pointer",
-                borderRadius: "25%",
-              }}
+            <ColorButton
+              color={color}
+              isSelected={color === selectedColor}
               onClick={() => onColorSelect(color)}
-              aria-label={`Select color ${color}`}
             />
           ))}
         </div>

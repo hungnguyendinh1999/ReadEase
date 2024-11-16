@@ -7,7 +7,7 @@
     resize: none;
     color: var(--textbox-font-color);
     background-color: var(--textbox-background-color);
-    font-family: var(--textbox-font-family);
+    font-family: var(--textbox-font-typeface);
     font-weight: var(--textbox-font-weight);
     font-size: var(--textbox-font-size);
     font-style: var(--textbox-font-style);
