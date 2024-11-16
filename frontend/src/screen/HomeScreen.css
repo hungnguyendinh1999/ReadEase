@@ -1,121 +1,99 @@
 #home-pane {
-  height: 100vh;
-  width: 100%;
-  background-color: var(--main-black);
+    height: 100vh;
+    width: 100%;
+    background-color: var(--main-black);
 }
 
 #home-pane-left {
-  width: 60%;
-  height: 100%;
-  float: left;
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center;    /* Centers vertically */
-  flex-direction: column;
-  background-color: var(--main-gray);
-  clip-path: polygon(0 0, 100% 0, 80% 25%, 90% 65%, 75% 100%, 0 100%);
+    width: 60%;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    flex-direction: column;
+    background-color: var(--main-gray);
+    clip-path: polygon(0 0, 100% 0, 80% 25%, 90% 65%, 75% 100%, 0 100%);
 }
 
 #home-icon {
-  width: 30%;
-  margin-left: 25%;
-  margin-right: 45%;
-  margin-bottom: 20px;
+    width: 30%;
+    margin-left: 25%;
+    margin-right: 45%;
+    margin-bottom: 20px;
 }
 
 #home-title {
-  text-align: center;
-  text-color: var(--main-black);
-  font-size: 40px;
-  font-weight: bold;
-  margin-right: 20%;
+    text-align: center;
+    text-color: var(--main-black);
+    font-size: 40px;
+    font-weight: bold;
+    margin-right: 20%;
 }
 
 #home-subtitle {
-  text-align: center;
-  color: var(--main-black);
-  font-size: 20px;
-  margin-top: -15px;
-  font-weight: bold;
-  margin-right: 20%;
+    text-align: center;
+    color: var(--main-black);
+    font-size: 20px;
+    margin-top: -15px;
+    font-weight: bold;
+    margin-right: 20%;
 }
 
-.home-customize-btn {
-  margin-right: 20%;
-  margin-top: 20px;
-  background-color: var(--main-black);
-  border: var(--main-black) 2px solid;
-  border-radius: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  cursor: pointer;
-  text-align: center;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 15px;
-}
-
-.home-customize-btn-title {
-  width: 100%;
-  text-align: center;
-  color: var(--main-white);
-  font-size: 18px;
-  font-weight: bold;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+#home-customize-btn {
+    margin-right: 20%;
+    margin-top: 20px;
 }
 
 #home-pane-right {
-  width: 40%;
-  height: 100%;
-  float: right;
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center;    /* Centers vertically */
-  flex-direction: column;
+    width: 40%;
+    height: 100%;
+    float: right;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    flex-direction: column;
 }
 
 #home-feature {
-  width: 80%;
-  text-align: left;
-  color: var(--main-white);
-  font-size: 35px;
-  font-weight: bold;
-  margin-right: 20%;
+    width: 80%;
+    text-align: left;
+    color: var(--main-white);
+    font-size: 35px;
+    font-weight: bold;
+    margin-right: 20%;
 }
 
 .home-feature-btn {
-  width: 80%;
-  margin-right: 20%;
-  margin-top: 20px;
-  border: var(--main-white) 2px solid;
-  border-radius: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  cursor: pointer;
+    width: 80%;
+    margin-right: 20%;
+    margin-top: 20px;
+    border: var(--main-white) 2px solid;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    cursor: pointer;
 }
 
 .home-feature-title {
-  width: 100%;
-  text-align: left;
-  color: var(--main-white);
-  font-size: 25px;
-  font-weight: bold;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+    width: 100%;
+    text-align: left;
+    color: var(--main-white);
+    font-size: 25px;
+    font-weight: bold;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .home-feature-desc {
-  width: 100%;
-  text-align: left;
-  color: var(--main-white);
-  font-size: 15px;
-  margin-top: -15px;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+    width: 100%;
+    text-align: left;
+    color: var(--main-white);
+    font-size: 15px;
+    margin-top: -15px;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }

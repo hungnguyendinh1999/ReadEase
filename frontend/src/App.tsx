@@ -1,5 +1,4 @@
 import "./App.css";
-
 import Sidebar from "./components/SideBar"
 import SummaryIcon from "./assets/summary.png"
 import SettingIcon from "./assets/setting.png"
@@ -12,6 +11,7 @@ import HomeScreen from "./screen/HomeScreen"
 
 import { BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import React, { useState } from "react";
+import {useEffect} from "react";
 
 function AppLayout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +23,8 @@ function AppLayout() {
   const [fontTypeface, setFontTypeface] = useState("Arial");
   const [fontWeight, setFontWeight] = useState("normal");
   const [fontSize, setFontSize] = useState("12pt");
+  const [fontStyle, setFontStyle] = useState("normal");
+  const [textDecoration, setTextDecoration] = useState("none");
   
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -33,7 +35,7 @@ function AppLayout() {
     { imageSrc: SettingIcon, title: "Settings", path: "/settings" },
   ];
 
-  const hideSidebar = useLocation().pathname === "/";
+    const hideSidebar = useLocation().pathname === "/";
 
   return (
     <div>
@@ -59,6 +61,10 @@ function AppLayout() {
             setFontWeight={setFontWeight}
             fontSize={fontSize}
             setFontSize={setFontSize}
+            fontStyle={fontStyle}
+            setFontStyle={setFontStyle}
+            textDecoration={textDecoration}
+            setTextDecoration={setTextDecoration}
           />
         </Modal>
       </div>

@@ -17,7 +17,7 @@ const openai = new OpenAI({
  * @param messages the message history to load in
  * @returns gpt response object
  */
-const getGptResonse =  async (messages) => await openai.chat.completions.create({
+const getGptResonse = async (messages) => await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: messages,
 });
@@ -29,24 +29,24 @@ function base64_encode(file) {
     return new Buffer(bitmap).toString('base64');
 }
 
-const getImageResponse =  async (messages, path) => await openai.chat.completions.create({
+const getImageResponse = async (messages, path) => await openai.chat.completions.create({
     model: "gpt-4o",
     messages: [
-    {
-        role: "user", 
-        content: [
-            {
-                "type": "text",
-                "text": "Describe this image"
-              },
-            { 
-                "type": "image_url",
-                "image_url": {
-                    "url": "data:image/jpeg;base64," + base64_encode(path),
-            }
-        }] 
-    }, 
-     ...messages],
+        {
+            role: "user",
+            content: [
+                {
+                    "type": "text",
+                    "text": "Describe this image"
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": "data:image/jpeg;base64," + base64_encode(path),
+                    }
+                }]
+        },
+        ...messages],
 });
 
-export { getGptResonse, getImageResponse };
+export {getGptResonse, getImageResponse};
