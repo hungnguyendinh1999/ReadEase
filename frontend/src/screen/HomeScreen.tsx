@@ -11,7 +11,7 @@ const HomeScreen: React.FC = () => {
                 <img className="icon" id="home-icon" src={Icon}/>
                 <p id="home-title">ReadEase</p>
                 <p id="home-subtitle">An Assistive Learning Platform for Dyslexia</p>
-                <Link id="home-customize-btn" className="link button" to="/setting">
+                <Link id="home-customize-btn" className="link button" to="/summary">
                     <p>Customize Your Experience</p>
                 </Link>
             </div>

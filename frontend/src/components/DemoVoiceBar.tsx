@@ -5,6 +5,7 @@ import FableVoice from "../assets/voices/fable.wav"
 import NovaVoice from "../assets/voices/nova.wav"
 import OnyxVoice from "../assets/voices/onyx.wav"
 import ShimmerVoice from "../assets/voices/shimmer.wav"
+import DaddyVoice from "../assets/voices/daddy.mp3"
 import PlayVoiceButton from "./PlayVoiceButton";
 import Dropdown from "./atom/Dropdown";
 import './DemoVoiceBar.css';
@@ -24,8 +25,10 @@ const DemoVoiceBar: React.FC = () => {
             setSoundPath(NovaVoice);
         } else if (voice === "Onyx") {
             setSoundPath(OnyxVoice);
-        } else {
+        } else if (voice === "Alloy") {
             setSoundPath(AlloyVoice);
+        } else {
+            setSoundPath(DaddyVoice);
         }
     }
 
@@ -39,7 +42,7 @@ const DemoVoiceBar: React.FC = () => {
         setVoice(event.target.value);
     };
 
-    const options = ["Alloy", "Echo", "Fable", "Nova", "Onyx", "Shimmer"];
+    const options = ["Alloy", "Echo", "Fable", "Nova", "Onyx", "Shimmer", "Daddy"];
 
     return (
         <div id="demo-voice-bar">

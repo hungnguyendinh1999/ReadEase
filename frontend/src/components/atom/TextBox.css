@@ -5,13 +5,16 @@
     font-size: 16px;
     border: none;
     resize: none;
+    color: var(--textbox-font-color);
+    background-color: var(--textbox-background-color);
+    font-family: var(--textbox-font-typeface);
+    font-weight: var(--textbox-font-weight);
+    font-size: var(--textbox-font-size);
+    font-style: var(--textbox-font-style);
+    text-decoration: var(--textbox-text-decoration);
 }
 
 .custom-textbox:focus {
     outline: none;
     border: none;
-}
-
-textarea {
-    background-color: var(--subtle-background);
 }
