@@ -13,7 +13,7 @@
 #summary-container {
     border: 1px solid #ccc; /* Light gray border */
     border-radius: 18px; /* Rounded corners */
-    background-color: var(--subtle-background); /* Subtle background color */
+    background-color: var(--textbox-background-color); /* Subtle background color */
     display: flex;
     flex-direction: column; /* Stack elements vertically */
     gap: 12px; /* Space between elements */
@@ -36,6 +36,7 @@
     justify-content: space-between; /* Align buttons to the left */
     gap: 12px; /* Space between the buttons */
     border-top: var(--main-black) 1px solid;
+    background-color: var(--main-white);
     width: 100%;
     padding: 15px;
 }
