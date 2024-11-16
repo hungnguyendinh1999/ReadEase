@@ -1,25 +1,25 @@
 .style-toggle-button {
   padding: 8px 16px;
   margin: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-gray);
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: var(--subtle-background);
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 .style-toggle-button.active {
-  background-color: #000;
-  border-color: #5a5a5a;
-  color: #fff;
+  background-color: var(--main-black);
+  border-color: var(--main-gray);
+  color: var(--main-white);
 }
 
 .style-toggle-button:hover {
-  background-color: #ddd;
-  color: #000;
+  background-color: var(--main-hover);
+  color: var(--main-white);
 }
 
 .style-toggle-button.active:hover {
-  background-color: #333;
-  color: #fff;
+  background-color: var(--main-black);
+  color: var(--main-white);
 }

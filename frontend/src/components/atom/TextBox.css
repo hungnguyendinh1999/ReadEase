@@ -18,7 +18,3 @@
     outline: none;
     border: none;
 }
-
-textarea {
-    background-color: var(--subtle-background);
-}

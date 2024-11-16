@@ -5,7 +5,8 @@
   font-weight: bold;
   gap: 24px;
   padding: 16px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--main-gray);
+  color: var(--main-black)
 }
 
 .settings-left {
@@ -14,7 +15,7 @@
   min-width: 350px;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid var(--main-gray);
 }
 
 .settings-right {
@@ -59,7 +60,6 @@
 
 .sample-textbox {
   width: 100%;
-  border-radius: 5px;
   padding: 8px;
 }
 
@@ -76,14 +76,14 @@
 .apply-button {
   padding: 8px 16px;
   margin: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--main-gray);
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: var(--subtle-background);
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
 }
 
 .apply-button:hover {
-  background-color: #ddd;
-  color: #000;
+  background-color: var(--main-hover-light);
+  color: var(--main-black);
 }
