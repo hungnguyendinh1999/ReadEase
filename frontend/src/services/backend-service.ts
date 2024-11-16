@@ -1,17 +1,9 @@
 /**
- * Contains the class definition for HttpService class, and service routes.
- * HttpService provides easy extension for additional routes.
- * @author Christopher Curtis
- */
-import {Message, ServiceCategory} from "../types";
-import apiClient from "./api-client";
-
-/**
- * Defines a resuable HTTP-Service class.
+ * Defines a reusable HTTP-Service class.
  * Contains a post method.
  */
 class HttpService {
-    endpoint: string;
+    private readonly baseURL: string;
 
     /**
      * Constructs an HTTP service object. Base URL is defined the api-client file.
@@ -19,46 +11,21 @@ class HttpService {
      * @param endpoint the target route to post to
      */
     constructor(endpoint: string) {
-        this.endpoint = endpoint;
+        this.baseURL = "http://127.0.0.1:8080" + endpoint;
     }
 
-    /**
-     * Performs a post request and loads in the provided message histroy
-     * @param messages message history to
-     * @returns response object from endpoint, and abort logic
-     */
-    get(info: string) {
-        const controller = new AbortController();
-        const request = apiClient.get(this.endpoint + "/" + info, {signal: controller.signal});
-        return {request, cancel: () => controller.abort()};
-    }
-
-    /**
-     * Performs a post request and loads in the provided message histroy
-     * @param messages message history to
-     * @returns response object from endpoint, and abort logic
-     */
-    getImage(info: string) {
-        const controller = new AbortController();
-        const request = apiClient.get(this.endpoint + "/" + info, {signal: controller.signal, responseType: 'blob'});
-        return {request, cancel: () => controller.abort()};
+    get() {
+        return fetch(this.baseURL, {method: "GET"})
     }
 
     post(data: any) {
-        const controller = new AbortController();
-        const request = apiClient.post(this.endpoint, {params: data, signal: controller.signal});
-        return {request, cancel: () => controller.abort()};
-    }
-
-    /**
-     * Performs a post request and loads in the provided message histroy
-     * @param messages message history to
-     * @returns response object from endpoint, and abort logic
-     */
-    postMessages(messages: { role: string; content: string; }[]) {
-        const controller = new AbortController();
-        const request = apiClient.post(this.endpoint, {params: {messages: messages}, signal: controller.signal});
-        return {request, cancel: () => controller.abort()};
+        return fetch(this.baseURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ params: [data] })
+        })
     }
 }
 
@@ -66,58 +33,15 @@ class HttpService {
  * Creates a connection for unmodfied chat interactions.
  * @returns new HttpService object to the default response route.
  */
-const createResponseService = () => {
-    return new HttpService("/response");
+const createSummarizeResponseService = () => {
+    return new HttpService("/summarize");
 }
 
-/**
- * Creates a connection for parentally controlled interactions.
- * @returns new HttpService object to the parental route.
- */
-const createParentalService = () => {
-    return new HttpService("/parental");
-}
-
-/**
- * Creates a connection for gpt interactions with specific domain knowledge.
- * @returns new HttpService object to the expert route.
- */
-const createExpertResponseService = () => {
-    return new HttpService("/expert");
-}
-
-const createImageService = () => {
-    return new HttpService("/image");
-}
-
-const createSampleImageService = () => {
-    return new HttpService("/sample-image");
-}
-
-const createService = (type: ServiceCategory) => {
-    return new HttpService("/" + type);
-}
-
-const postPayload = (type: ServiceCategory, payload: Message[]) => {
-    const {request, cancel} = createService(type).postMessages(payload);
-    return {request, cancel};
-}
-
-/**
- * Creates a connection for sending user "likes".
- * @returns new HttpService object to the "like" route.
- */
-const createLikeService = () => {
-    return new HttpService("/like");
+const createTTSResponseService = () => {
+    return new HttpService("/tts");
 }
 
 export {
-    createResponseService,
-    createParentalService,
-    createExpertResponseService,
-    createLikeService,
-    createSampleImageService,
-    createImageService,
-    postPayload,
-    createService
+    createSummarizeResponseService,
+    createTTSResponseService,
 };

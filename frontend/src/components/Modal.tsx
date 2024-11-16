@@ -1,5 +1,6 @@
 import React from "react";
 import "./Modal.css";
+import CloseButton from "../assets/close.png"
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,7 +14,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content custom-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>X</button>
+        <img src={CloseButton} className="modal-close" onClick={onClose}/>
         {children}
       </div>
     </div>

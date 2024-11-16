@@ -186,7 +186,11 @@ const SettingScreen: React.FC = () => {
       icon: VoiceIcon,
       label: "Voice",
       component: (
-        <DemoVoiceBar />
+        <DemoVoiceBar voice={localSettings.voice} onChange={(v) =>
+            setLocalSettings((prev) => ({
+              ...prev,
+              voice: v,
+            }))} />
       ),
     },
     {
@@ -317,18 +321,18 @@ const SettingScreen: React.FC = () => {
       </div>
       <div className="sample-textbox">
         <fieldset>
-          <legend>Sample Textbox</legend>
+          <legend style={{fontSize: "18px", fontWeight: "bold"}}>Sample Textbox</legend>
           <textarea
             style={{
               width: "100%",
               height: "100px",
               borderRadius: "16px",
-              border: "0px",
+              border: "2px var(--main-gray) solid",
               padding: "4px 8px",
               resize: "none",
               outline: "none",
               boxSizing: "border-box",
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1);",
+              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
               color: localSettings.fontColor,
               backgroundColor: localSettings.backgroundColor,
               fontFamily: localSettings.fontTypeface,
