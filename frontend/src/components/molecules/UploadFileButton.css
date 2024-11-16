@@ -11,15 +11,13 @@
 }
 
 .upload-file-button:hover {
-    background-color: var(--main-hover); /* Subtle hover effect */
+    background-color: var(--main-gray); /* Subtle hover effect */
 }
 
 .upload-file-button .button-icon {
-    width: 32px; /* Smaller width for compact appearance */
-    height: 32px; /* Match width and height for square icon */
+    width: 20px; /* Smaller width for compact appearance */
 }
 
 .upload-file-button .button-label {
     font-size: 14px; /* Slightly smaller font for a subtle, clean look */
-    color: #333;
 }

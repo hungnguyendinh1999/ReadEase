@@ -33,23 +33,20 @@ const SummaryScreen: FC = () => {
     };
 
     return (
-        <div>
-            <h1>Summary Screen</h1>
-            <div className="textbox-container">
-                <div className="summary-screen">
-                    {/* Use custom TextBox component */}
-                    <TextBox
-                        value={text}
-                        onChange={handleTextChange}
-                        placeholder="Type text here... or upload a txt file"
-                    />
-
-                    <div className="separator"></div>
+        <div id="summary-screen">
+            <div id="flex-box">
+                <div id="summary-container">
+                    <div id="summary-textbox-container">
+                        {/* Use custom TextBox component */}
+                        <TextBox value={text} onChange={handleTextChange}
+                            placeholder="Type text here, or upload a txt file"
+                        />
+                    </div>
 
                     {/* Button Group */}
-                    <div className="button-group">
+                    <div id="summary-button-group">
                         {/* Left aligned button */}
-                        <div className="left-buttons">
+                        <div id="summary-left-buttons">
                             <UploadFileButton
                                 label="Upload File"
                                 onClick={handleFileUpload}
@@ -57,11 +54,9 @@ const SummaryScreen: FC = () => {
                         </div>
 
                         {/* Right aligned button */}
-                        <div className="right-buttons">
-                            <Dropdown
-                                options={["Default", "ELI5", "Intermediate", "Advanced"]}
-                                value={vocabLevel}
-                                onChange={handleVocabLevelChange}
+                        <div id="summary-right-buttons">
+                            <Dropdown options={["Default", "ELI5", "Intermediate", "Advanced"]}
+                                value={vocabLevel} onChange={handleVocabLevelChange}
                             />
                             <SubmitButton label="" onClick={handleSubmit}/>
                         </div>

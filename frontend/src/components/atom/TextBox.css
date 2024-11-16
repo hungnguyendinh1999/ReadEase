@@ -1,11 +1,10 @@
 .custom-textbox {
     width: 100%;
-    margin-bottom: 20px;
+    height: 100%;
     padding: 5px;
     font-size: 16px;
     border: none;
     resize: none;
-    height: 69vh; /*Change for height*/
 }
 
 .custom-textbox:focus {

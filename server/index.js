@@ -7,7 +7,7 @@
 import express from 'express';
 import cors from "cors";
 import expertContext from "./expertcontext.js";
-import {getGptResonse, getImageResponse} from './openaiService.js';
+import {getGptResonse, getImageResponse, getTTSResponse} from './openaiService.js';
 
 // This message history is used for testing
 const DEFAULT_MESSAGE_HISTORY = [{"role": "user", "content": "Hello!"}, {
@@ -99,10 +99,25 @@ app.get('/chatroom-image', async (req, res) => {
     res.send(response.choices[0].message.content);
 });
 
-// TODO: CREATE YOUR OWN CUSTOM ROUTE - HAVE IT TAKEN IN A NEW SAMPLE IMAGE AND RECIEVE A CUSTOM ROLE DESCRIPTION
+app.get('/tts', async (req, res) => {
+    const {text} = req.query;
 
+    if (!text) {
+        return res.status(400).send("No text provided");
+    }
 
-// TODO: CREATE YOUR OWN CUSTOM ROUTE - IT SHOULD PERFORM A FEW-SHOT TRAINING WITH TEXT
+    const mp3 = await getTTSResponse(text)
+
+    // Convert the MP3 response to a buffer
+    const buffer = Buffer.from(await mp3.arrayBuffer());
+
+    // Send the buffer to the client with appropriate headers
+    res.set({
+        "Content-Type": "audio/mpeg",
+        "Content-Disposition": "inline; filename=tts.mp3",
+    });
+    res.send(buffer);
+});
 
 // We define the port to listen on, and do so
 const port = process.env.PORT || 8080;
