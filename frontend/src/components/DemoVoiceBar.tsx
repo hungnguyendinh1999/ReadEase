@@ -44,7 +44,7 @@ const DemoVoiceBar: React.FC = () => {
     return (
         <div id="demo-voice-bar">
             <Dropdown width="70%" options={options} value={selectedVoice} onChange={handleSelect}/>
-            <PlayVoiceButton soundPath={soundPath} pauseOnToggle={true}/>
+            <PlayVoiceButton soundPath={soundPath}/>
         </div>
     );
 };
