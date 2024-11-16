@@ -13,13 +13,12 @@
 }
 
 .submit-text-button:hover {
-    background-color: var(--main-hover); /* Darker blue on hover */
+    background-color: var(--main-gray); /* Darker blue on hover */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
 }
 
 .submit-text-button .button-icon {
-    width: 32px; /* Smaller width for compact appearance */
-    height: 32px; /* Match width and height for square icon */
+    width: 28px; /* Smaller width for compact appearance */
 }
 
 .submit-text-button .button-label {
