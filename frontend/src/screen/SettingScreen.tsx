@@ -1,5 +1,6 @@
 // SettingScreen.tsx
 import React, { useState } from "react";
+import { useSettings } from "../contexts/SettingsContext";
 
 import dummyAudio from '../assets/mommy.mp3';
 import VoiceIcon from '../assets/voice-icon.png';
@@ -20,54 +21,46 @@ const predefinedFontColors = ["#1D3557", "#F4F1DE", "#457B9D", "#264653", "#A8DA
 const voiceOptions = ["Voice 1", "Voice 2", "Voice 3", "Voice 4", "Voice 5"];
 const typeFaces = ["Arial", "Times New Roman", "Courier New", "Verdana", "Comic Sans MS"];
 
-type LocalSettings = {
-  voice: string;
-  backgroundColor: string;
-  fontColor: string;
-  fontTypeface: string;
-  fontWeight: string;
-  fontStyle: string;
-  textDecoration: string;
-  fontSize: string;
-};
-
 interface SettingScreenProps {
   voice: string;
-  setVoice: (value: string) => void;
+  setVoice: React.Dispatch<React.SetStateAction<string>>;
   backgroundColor: string;
-  setBackgroundColor: (value: string) => void;
+  setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
   fontColor: string;
-  setFontColor: (value: string) => void;
+  setFontColor: React.Dispatch<React.SetStateAction<string>>;
   fontTypeface: string;
-  setFontTypeface: (value: string) => void;
+  setFontTypeface: React.Dispatch<React.SetStateAction<string>>;
   fontWeight: string;
-  setFontWeight: (value: string) => void;
-  fontStyle: string;
-  setFontStyle: (value: string) => void;
-  textDecoration: string;
-  setTextDecoration: (value: string) => void;
+  setFontWeight: React.Dispatch<React.SetStateAction<string>>;
   fontSize: string;
-  setFontSize: (value: string) => void;
+  setFontSize: React.Dispatch<React.SetStateAction<string>>;
+  fontStyle: string;
+  setFontStyle: React.Dispatch<React.SetStateAction<string>>;
+  textDecoration: string;
+  setTextDecoration: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SettingScreen: React.FC<SettingScreenProps> = ({
-  voice,
-  setVoice,
-  backgroundColor,
-  setBackgroundColor,
-  fontColor,
-  setFontColor,
-  fontTypeface,
-  setFontTypeface,
-  fontWeight,
-  setFontWeight,
-  fontStyle,
-  setFontStyle,
-  textDecoration,
-  setTextDecoration,
-  fontSize,
-  setFontSize,
-}) => {
+
+const SettingScreen: React.FC<SettingScreenProps> = () => {
+  const {
+    voice,
+    setVoice,
+    backgroundColor,
+    setBackgroundColor,
+    fontColor,
+    setFontColor,
+    fontTypeface,
+    setFontTypeface,
+    fontWeight,
+    setFontWeight,
+    fontStyle,
+    setFontStyle,
+    textDecoration,
+    setTextDecoration,
+    fontSize,
+    setFontSize,
+  } = useSettings();
+
   const [localSettings, setLocalSettings] = useState({
     voice,
     backgroundColor,
@@ -86,8 +79,8 @@ const SettingScreen: React.FC<SettingScreenProps> = ({
   };
 
   const toggleStyle = (
-    key: keyof LocalSettings, 
-    value: string, 
+    key: keyof typeof localSettings,
+    value: string,
     defaultValue: string
   ) => {
     setLocalSettings((prev) => ({
@@ -205,7 +198,7 @@ const SettingScreen: React.FC<SettingScreenProps> = ({
           {settingsConfig.map(({ key, icon, label, component, isSection }) => {
             if (isSection) {
               return (
-                <div className="settings-section-header">
+                <div key={key} className="settings-section-header">
                   {icon && <img src={icon} className="settings-icon" alt={`${label} Icon`} />}
                   <span>{label}</span>
                 </div>
@@ -228,7 +221,6 @@ const SettingScreen: React.FC<SettingScreenProps> = ({
         <div className="settings-right">
           <div className="presets">
             <h3>Presets</h3>
-
           </div>
         </div>
       </div>
@@ -256,7 +248,8 @@ const SettingScreen: React.FC<SettingScreenProps> = ({
           />
         </fieldset>
       </div>
-      <button onClick={() => {
+      <button
+        onClick={() => {
           setVoice(localSettings.voice);
           setBackgroundColor(localSettings.backgroundColor);
           setFontColor(localSettings.fontColor);
@@ -265,9 +258,10 @@ const SettingScreen: React.FC<SettingScreenProps> = ({
           setFontStyle(localSettings.fontStyle);
           setTextDecoration(localSettings.textDecoration);
           setFontSize(localSettings.fontSize);
-        }}>
-          Apply Settings
-        </button>
+        }}
+      >
+        Apply Settings
+      </button>
     </div>
   );
 };

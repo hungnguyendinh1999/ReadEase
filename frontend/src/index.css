@@ -4,6 +4,14 @@
     --main-gray: #A8A8A8;
     --main-hover: #505050;
     --subtle-background: #f9f9f9;
+
+    --textbox-background-color: #ffffff;
+    --textbox-font-color: #000000;
+    --textbox-font-family: Arial, sans-serif;
+    --textbox-font-weight: normal;
+    --textbox-font-size: 12pt;
+    --textbox-font-style: normal;
+    --textbox-text-decoration: none;
 }
 
 body {

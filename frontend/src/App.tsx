@@ -11,7 +11,7 @@ import HomeScreen from "./screen/HomeScreen"
 
 import { BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import React, { useState } from "react";
-import {useEffect} from "react";
+import { SettingsProvider } from "./contexts/SettingsContext";
 
 function AppLayout() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,8 +74,10 @@ function AppLayout() {
 
 export default function App() {
   return (
+    <SettingsProvider>
       <Router>
-          <AppLayout />
+        <AppLayout />
       </Router>
+    </SettingsProvider>
   );
 }

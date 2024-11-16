@@ -12,7 +12,7 @@
 
 #readalout-container {
     border-radius: 18px; /* Rounded corners */
-    background-color: var(--subtle-background); /* Subtle background color */
+    background-color: var(--textbox-background-color);
     gap: 12px; /* Space between elements */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     width: 95%; /* Adjust as needed */
