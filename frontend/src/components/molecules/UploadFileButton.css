@@ -1,0 +1,25 @@
+.upload-file-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px; /* Smaller padding for a compact look */
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.upload-file-button:hover {
+  background-color: var(--main-hover); /* Subtle hover effect */
+}
+
+.upload-file-button .button-icon {
+  width: 32px; /* Smaller width for compact appearance */
+  height: 32px; /* Match width and height for square icon */
+}
+
+.upload-file-button .button-label {
+  font-size: 14px; /* Slightly smaller font for a subtle, clean look */
+  color: #333;
+}
