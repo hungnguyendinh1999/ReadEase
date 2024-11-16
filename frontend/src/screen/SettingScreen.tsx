@@ -111,27 +111,7 @@ const presets = [
   }
 ];
 
-
-interface SettingScreenProps {
-  voice: string;
-  setVoice: React.Dispatch<React.SetStateAction<string>>;
-  backgroundColor: string;
-  setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
-  fontColor: string;
-  setFontColor: React.Dispatch<React.SetStateAction<string>>;
-  fontTypeface: string;
-  setFontTypeface: React.Dispatch<React.SetStateAction<string>>;
-  fontWeight: string;
-  setFontWeight: React.Dispatch<React.SetStateAction<string>>;
-  fontSize: string;
-  setFontSize: React.Dispatch<React.SetStateAction<string>>;
-  fontStyle: string;
-  setFontStyle: React.Dispatch<React.SetStateAction<string>>;
-  textDecoration: string;
-  setTextDecoration: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const SettingScreen: React.FC<SettingScreenProps> = () => {
+const SettingScreen: React.FC = () => {
   const {
     voice,
     setVoice,
