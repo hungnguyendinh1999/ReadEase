@@ -3,7 +3,7 @@
  * HttpService provides easy extension for additional routes.
  * @author Christopher Curtis
  */
-import { Message, ServiceCategory } from "../types";
+import {Message, ServiceCategory} from "../types";
 import apiClient from "./api-client";
 
 /**
@@ -24,41 +24,41 @@ class HttpService {
 
     /**
      * Performs a post request and loads in the provided message histroy
-     * @param messages message history to 
+     * @param messages message history to
      * @returns response object from endpoint, and abort logic
      */
     get(info: string) {
         const controller = new AbortController();
-        const request = apiClient.get(this.endpoint + "/" + info, { signal: controller.signal });
-        return { request, cancel: () => controller.abort() };
+        const request = apiClient.get(this.endpoint + "/" + info, {signal: controller.signal});
+        return {request, cancel: () => controller.abort()};
     }
 
     /**
      * Performs a post request and loads in the provided message histroy
-     * @param messages message history to 
+     * @param messages message history to
      * @returns response object from endpoint, and abort logic
      */
     getImage(info: string) {
         const controller = new AbortController();
-        const request = apiClient.get(this.endpoint + "/" + info, { signal: controller.signal, responseType: 'blob' });
-        return { request, cancel: () => controller.abort() };
+        const request = apiClient.get(this.endpoint + "/" + info, {signal: controller.signal, responseType: 'blob'});
+        return {request, cancel: () => controller.abort()};
     }
 
     post(data: any) {
         const controller = new AbortController();
-        const request = apiClient.post(this.endpoint, { params: data, signal: controller.signal });
-        return { request, cancel: () => controller.abort() };
+        const request = apiClient.post(this.endpoint, {params: data, signal: controller.signal});
+        return {request, cancel: () => controller.abort()};
     }
 
     /**
      * Performs a post request and loads in the provided message histroy
-     * @param messages message history to 
+     * @param messages message history to
      * @returns response object from endpoint, and abort logic
      */
     postMessages(messages: { role: string; content: string; }[]) {
         const controller = new AbortController();
-        const request = apiClient.post(this.endpoint, { params: { messages: messages }, signal: controller.signal });
-        return { request, cancel: () => controller.abort() };
+        const request = apiClient.post(this.endpoint, {params: {messages: messages}, signal: controller.signal});
+        return {request, cancel: () => controller.abort()};
     }
 }
 
@@ -100,7 +100,7 @@ const createService = (type: ServiceCategory) => {
 
 const postPayload = (type: ServiceCategory, payload: Message[]) => {
     const {request, cancel} = createService(type).postMessages(payload);
-    return { request, cancel };
+    return {request, cancel};
 }
 
 /**
@@ -111,4 +111,13 @@ const createLikeService = () => {
     return new HttpService("/like");
 }
 
-export { createResponseService, createParentalService, createExpertResponseService, createLikeService, createSampleImageService, createImageService, postPayload, createService };
+export {
+    createResponseService,
+    createParentalService,
+    createExpertResponseService,
+    createLikeService,
+    createSampleImageService,
+    createImageService,
+    postPayload,
+    createService
+};

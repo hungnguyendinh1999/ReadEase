@@ -1,48 +1,48 @@
 .button-group {
-  display: flex;
-  align-items: center; /* Vertically align buttons and dropdown */
-  justify-content: space-between; /* Align buttons to the left */
-  gap: 12px; /* Space between the buttons */
-  width: 100%;
-  margin-top: 5px;
-  margin-bottom: 5px;
+    display: flex;
+    align-items: center; /* Vertically align buttons and dropdown */
+    justify-content: space-between; /* Align buttons to the left */
+    gap: 12px; /* Space between the buttons */
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .summary-screen {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .left-buttons {
-  display: flex;
-  gap: 12px; /* Space between buttons on the left */
+    display: flex;
+    gap: 12px; /* Space between buttons on the left */
 }
 
 .right-buttons {
-  display: flex;
-  gap: 12px; /* Space between buttons on the right */
+    display: flex;
+    gap: 12px; /* Space between buttons on the right */
 }
 
 .separator {
-  height: 1px;
-  background-color: var(--main-gray); /* Light gray color */
-  margin: 0px; /* Space around the line */
-  width: 105%; /* Full width + a lil bit more */
+    height: 1px;
+    background-color: var(--main-gray); /* Light gray color */
+    margin: 0px; /* Space around the line */
+    width: 105%; /* Full width + a lil bit more */
 }
 
 .textbox-container {
-  border: 1px solid #ccc; /* Light gray border */
-  border-radius: 18px; /* Rounded corners */
-  background-color: var(--subtle-background); /* Subtle background color */
-  padding: 20px 16px 0px 20px;
-  display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  gap: 12px; /* Space between elements */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  width: 80%; /* Adjust as needed */
-  max-width: 789px; /* Optional: Limit the width for better appearance */
-  margin: 0 auto; /* Center horizontally */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 18px; /* Rounded corners */
+    background-color: var(--subtle-background); /* Subtle background color */
+    padding: 20px 16px 0px 20px;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 12px; /* Space between elements */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 80%; /* Adjust as needed */
+    max-width: 789px; /* Optional: Limit the width for better appearance */
+    margin: 0 auto; /* Center horizontally */
 }
