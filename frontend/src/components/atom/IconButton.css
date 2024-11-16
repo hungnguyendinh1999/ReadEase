@@ -12,15 +12,13 @@
 }
 
 .icon-button:hover {
-    background-color: var(--main-hover);
+    background-color: var(--main-gray);
 }
 
 .button-icon {
     width: 24px;
-    height: 24px;
 }
 
 .button-label {
     font-size: 14px;
-    color: #333;
 }

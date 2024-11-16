@@ -1,24 +1,23 @@
 import React, {useState, useRef, useEffect} from "react";
-import "./PlayVoiceButton.css";
 import PlayIcon from "../assets/play.png"
 import PauseIcon from "../assets/pause.png"
 import StopIcon from "../assets/stop.png"
+import PlayBIcon from "../assets/play-black.png"
+import PauseBIcon from "../assets/pause-black.png"
+import StopBIcon from "../assets/stop-black.png"
 
 interface PlayVoiceButtonProps {
     soundPath: string;
     pauseOnToggle?: boolean;
-    playIcon?: string;
-    pauseIcon?: string;
-    stopIcon?: string;
+    inverseColor?: boolean;
+    size?: number;
 }
 
-const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({
-                                                             soundPath,
-                                                             pauseOnToggle = false,
-                                                             playIcon = PlayIcon,
-                                                             pauseIcon = PauseIcon,
-                                                             stopIcon = StopIcon
-                                                         }) => {
+const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({soundPath, pauseOnToggle = false, inverseColor = false, size=30}) => {
+    const playIcon = inverseColor ? PlayBIcon : PlayIcon;
+    const pauseIcon = inverseColor ? PauseBIcon : PauseIcon;
+    const stopIcon = inverseColor ? StopBIcon : StopIcon;
+
     const audioRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [label, setLabel] = useState(playIcon);
@@ -77,7 +76,9 @@ const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({
     }, [soundPath]);
 
     return (
-        <div id="voice-btn" className="button-img" onClick={togglePlay}>
+        <div id="voice-btn" className="button-img" style={inverseColor ?
+            {backgroundColor: "#F5F5F5", height: size, width: size} :
+            {backgroundColor: "#333333", height: size, width: size}} onClick={togglePlay}>
             <img src={label}/>
             <audio onCanPlay={handleCanPlay} ref={audioRef} src={soundPath}/>
         </div>

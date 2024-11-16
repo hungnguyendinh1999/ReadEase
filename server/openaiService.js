@@ -6,9 +6,11 @@
 import OpenAI from 'openai';
 import fs from 'fs';
 
+let apiKey = fs.readFileSync("./api_key.txt", 'utf8').trim();
+
 // Creates an OpenAI connection using the provided api key
 const openai = new OpenAI({
-    apiKey: "<YOUR API KEY HERE>"
+    apiKey: apiKey
 });
 
 /**
@@ -49,4 +51,10 @@ const getImageResponse = async (messages, path) => await openai.chat.completions
         ...messages],
 });
 
-export {getGptResonse, getImageResponse};
+const getTTSResponse = async (message) => await openai.audio.speech.create({
+    model: "tts-1",
+    voice: "alloy",
+    input: message,
+});
+
+export {getGptResonse, getImageResponse, getTTSResponse};

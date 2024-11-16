@@ -127,3 +127,5 @@ dist
 .pnp.*
 
 .idea/*
+server/api_key.txt
+.DS_Store
