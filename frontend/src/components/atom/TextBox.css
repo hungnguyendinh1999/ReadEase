@@ -1,0 +1,18 @@
+.custom-textbox {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    resize: none;
+    height: 69vh; /*Change for height*/
+}
+
+.custom-textbox:focus {
+    outline: none;
+    border: none;
+}
+
+textarea {
+    background-color: var(--subtle-background);
+}

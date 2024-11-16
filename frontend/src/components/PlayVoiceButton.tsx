@@ -12,8 +12,13 @@ interface PlayVoiceButtonProps {
     stopIcon?: string;
 }
 
-const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({soundPath, pauseOnToggle = false,
-                                                             playIcon = PlayIcon, pauseIcon = PauseIcon, stopIcon = StopIcon}) => {
+const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({
+                                                             soundPath,
+                                                             pauseOnToggle = false,
+                                                             playIcon = PlayIcon,
+                                                             pauseIcon = PauseIcon,
+                                                             stopIcon = StopIcon
+                                                         }) => {
     const audioRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [label, setLabel] = useState(playIcon);

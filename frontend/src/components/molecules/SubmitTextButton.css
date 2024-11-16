@@ -1,0 +1,29 @@
+.submit-text-button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: white; /* White text */
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 16px; /* Slightly larger padding for modern feel */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.submit-text-button:hover {
+    background-color: var(--main-hover); /* Darker blue on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+.submit-text-button .button-icon {
+    width: 32px; /* Smaller width for compact appearance */
+    height: 32px; /* Match width and height for square icon */
+}
+
+.submit-text-button .button-label {
+    font-size: 14px; /* Slightly smaller font for a subtle, clean look */
+    color: #333;
+}
+  

@@ -1,4 +1,4 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, {FC, ChangeEvent} from 'react';
 import './Dropdown.css';
 
 interface DropdownProps {
@@ -9,9 +9,9 @@ interface DropdownProps {
     width?: string;
 }
 
-const Dropdown: FC<DropdownProps> = ({ options, value, onChange, label, width }) => {
+const Dropdown: FC<DropdownProps> = ({options, value, onChange, label, width}) => {
     return (
-        <div className="dropdown-container" style={{ width: width }}>
+        <div className="dropdown-container" style={{width: width}}>
             {label && <label className="dropdown-label">{label}</label>}
             <select className="dropdown" value={value} onChange={onChange}>
                 {options.map((option, index) => (

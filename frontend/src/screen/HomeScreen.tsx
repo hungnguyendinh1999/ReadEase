@@ -19,11 +19,13 @@ const HomeScreen: React.FC = () => {
                 <p id="home-feature">Core Features</p>
                 <Link className="link home-feature-btn" to="/summary">
                     <p className="home-feature-title">Summarization</p>
-                    <p className="home-feature-desc">to break down lengthy passages into simple, digestible summaries.</p>
+                    <p className="home-feature-desc">to break down lengthy passages into simple, digestible
+                        summaries.</p>
                 </Link>
                 <Link className="link home-feature-btn" to="/readaloud">
                     <p className="home-feature-title">Text-to-Speech</p>
-                    <p className="home-feature-desc">to convert text into audio, making reading easier and more accessible.</p>
+                    <p className="home-feature-desc">to convert text into audio, making reading easier and more
+                        accessible.</p>
                 </Link>
             </div>
         </div>
