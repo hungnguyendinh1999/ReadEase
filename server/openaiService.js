@@ -16,45 +16,32 @@ const openai = new OpenAI({
 /**
  * Function for getting a response from the gpt model.
  * Uses the provided message history
- * @param messages the message history to load in
+ * @param message the message history to load in
+ * @param context the context message to help form a response
  * @returns gpt response object
  */
-const getGptResonse = async (messages) => await openai.chat.completions.create({
+const getGPTSummarizeResonse = async (message, context) => await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: messages,
-});
-
-function base64_encode(file) {
-    // read binary data
-    var bitmap = fs.readFileSync(file);
-    // convert binary data to base64 encoded string
-    return new Buffer(bitmap).toString('base64');
-}
-
-const getImageResponse = async (messages, path) => await openai.chat.completions.create({
-    model: "gpt-4o",
     messages: [
         {
             role: "user",
-            content: [
-                {
-                    "type": "text",
-                    "text": "Describe this image"
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": "data:image/jpeg;base64," + base64_encode(path),
-                    }
-                }]
+            content: message
         },
-        ...messages],
+        {
+            "role": "system",
+            "content": "Summarize this given user message"
+        },
+        {
+            "role": "system",
+            "content": context
+        }
+    ],
 });
 
-const getTTSResponse = async (message) => await openai.audio.speech.create({
+const getTTSResponse = async (message, voice) => await openai.audio.speech.create({
     model: "tts-1",
-    voice: "alloy",
+    voice: voice,
     input: message,
 });
 
-export {getGptResonse, getImageResponse, getTTSResponse};
+export {getGPTSummarizeResonse, getTTSResponse};
