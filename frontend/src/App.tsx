@@ -1,5 +1,5 @@
 import "./App.css";
-
+import React from "react"
 import Sidebar from "./components/SideBar"
 import SummaryIcon from "./assets/summary.png"
 import SettingIcon from "./assets/setting.png"
