@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useSettings } from "../contexts/SettingsContext";
 
-import dummyAudio from '../assets/mommy.mp3';
 import VoiceIcon from '../assets/voice-icon.png';
 import BackgroundColorIcon from '../assets/background-color-icon.png';
 import FontIcon from '../assets/font-icon.png';
@@ -11,14 +10,22 @@ import TypefaceIcon from '../assets/typeface-icon.png';
 import WeightIcon from '../assets/weight-icon.png';
 import FontSizeIcon from '../assets/font-size-icon.png';
 
+import alloyVoice from "../assets/voices/alloy.wav";
+import echoVoice from "../assets/voices/echo.wav";
+import fableVoice from "../assets/voices/fable.wav";
+import novaVoice from "../assets/voices/nova.wav";
+import onyxVoice from "../assets/voices/onyx.wav";
+import shimmerVoice from "../assets/voices/shimmer.wav";
+import daddyVoice from "../assets/voices/daddy.mp3";
+
 import "./SettingScreen.css";
 import ColorPicker from "../components/molecules/ColorPicker";
 import Dropdown from "../components/atom/Dropdown";
-import SettingField from "../components/molecules/SettingField";
+import PlayVoiceButton from "../components/PlayVoiceButton";
 
 const predefinedBackgroundColors = ["#A8DADC", "#F4A261", "#457B9D", "#FFE8D6", "#1D3557", "#FFFFFF", "#000000"];
 const predefinedFontColors = ["#1D3557", "#F4F1DE", "#457B9D", "#264653", "#A8DADC", "#FFFFFF", "#000000"];
-const voiceOptions = ["Voice 1", "Voice 2", "Voice 3", "Voice 4", "Voice 5"];
+const voiceOptions = ["Alloy", "Echo", "Fable", "Nova", "Onyx", "Shimmer", "daddy"];
 const typeFaces = ["Arial", "Times New Roman", "Courier New", "Verdana", "Comic Sans MS"];
 
 const fontMaxSize = 36;
@@ -77,6 +84,17 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
   });
 
   const [userText, setUserText] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+  
+  const voiceMap: { [key: string]: string } = {
+    alloy: alloyVoice,
+    echo: echoVoice,
+    fable: fableVoice,
+    nova: novaVoice,
+    onyx: onyxVoice,
+    shimmer: shimmerVoice,
+    daddy: daddyVoice,
+  };
+  const selectedSoundPath = voiceMap[localSettings.voice.toLowerCase()];
 
   const updateSetting = (key: string, value: string) => {
     setLocalSettings((prev) => ({ ...prev, [key]: value }));
@@ -98,7 +116,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       key: "voice",
       icon: VoiceIcon,
       label: "Voice",
-      component: (
+      component1: (
         <Dropdown
           label=""
           options={voiceOptions}
@@ -106,12 +124,15 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
           onChange={(e) => updateSetting("voice", e.target.value)}
         />
       ),
+      component2: (
+        <PlayVoiceButton soundPath={selectedSoundPath} />
+      ),
     },
     {
       key: "backgroundColor",
       icon: BackgroundColorIcon,
       label: "Background Color",
-      component: (
+      component1: (
         <ColorPicker
           label=""
           colors={predefinedBackgroundColors}
@@ -130,7 +151,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       key: "fontColor",
       icon: FontColorIcon,
       label: "Font Color",
-      component: (
+      component1: (
         <ColorPicker
           label=""
           colors={predefinedFontColors}
@@ -143,7 +164,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       key: "fontTypeface",
       icon: TypefaceIcon,
       label: "Typeface",
-      component: (
+      component1: (
         <Dropdown
           label=""
           options={typeFaces}
@@ -156,7 +177,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       key: "fontSize",
       icon: FontSizeIcon,
       label: "Size",
-      component: (
+      component1: (
         <Dropdown
           label=""
           options={fontRange}
@@ -169,7 +190,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       key: "fontWeight",
       icon: WeightIcon,
       label: "Weight",
-      component: (
+      component1: (
         <div className="weight-buttons">
           <button
             className={localSettings.fontWeight === "bold" ? "active" : ""}
@@ -199,7 +220,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       <div className="settings-content-container">
         <div className="settings-left">
           <h3>Settings</h3>
-          {settingsConfig.map(({ key, icon, label, component, isSection }) => {
+          {settingsConfig.map(({ key, icon, label, component1, component2, isSection }) => {
             if (isSection) {
               return (
                 <div key={key} className="settings-section-header">
@@ -217,7 +238,8 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
               >
                 {icon && <img src={icon} className="settings-icon" alt={`${label} Icon`} />}
                 <span>{label}</span>
-                {component}
+                {component1}
+                {component2}
               </div>
             );
           })}

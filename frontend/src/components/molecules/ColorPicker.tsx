@@ -20,8 +20,9 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
       <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
         <label>{label}</label>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {colors.map((color) => (
+          {colors.map((color, index) => (
             <ColorButton
+              key={color || index}
               color={color}
               isSelected={color === selectedColor}
               onClick={() => onColorSelect(color)}
