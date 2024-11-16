@@ -22,6 +22,7 @@ import "./SettingScreen.css";
 import ColorPicker from "../components/molecules/ColorPicker";
 import Dropdown from "../components/atom/Dropdown";
 import PlayVoiceButton from "../components/PlayVoiceButton";
+import StyleToggleButton from "../components/atom/StyleToggleButton";
 
 
 const predefinedBackgroundColors = ["#A8DADC", "#F4A261", "#457B9D", "#FFE8D6", "#1D3557", "#FFFFFF", "#000000"];
@@ -302,24 +303,23 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
       label: "Weight",
       component1: (
         <div className="weight-buttons">
-          <button
-            className={localSettings.fontWeight === "bold" ? "active" : ""}
+          <div className="weight-buttons">
+          <StyleToggleButton
+            label="Bold"
+            isActive={localSettings.fontWeight === "bold"}
             onClick={() => toggleStyle("fontWeight", "bold", "normal")}
-          >
-            Bold
-          </button>
-          <button
-            className={localSettings.fontStyle === "italic" ? "active" : ""}
+          />
+          <StyleToggleButton
+            label="Italics"
+            isActive={localSettings.fontStyle === "italic"}
             onClick={() => toggleStyle("fontStyle", "italic", "normal")}
-          >
-            Italics
-          </button>
-          <button
-            className={localSettings.textDecoration === "underline" ? "active" : ""}
+          />
+          <StyleToggleButton
+            label="Underline"
+            isActive={localSettings.textDecoration === "underline"}
             onClick={() => toggleStyle("textDecoration", "underline", "none")}
-          >
-            Underline
-          </button>
+          />
+        </div>
         </div>
       ),
     },
@@ -392,6 +392,7 @@ const SettingScreen: React.FC<SettingScreenProps> = () => {
         </fieldset>
       </div>
       <button
+        className="apply-button"
         onClick={() => {
           setVoice(localSettings.voice);
           setBackgroundColor(localSettings.backgroundColor);

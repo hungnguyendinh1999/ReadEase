@@ -63,11 +63,6 @@
   padding: 8px;
 }
 
-.weight-buttons button.active {
-  background-color: #007BFF;
-  color: white;
-}
-
 .settings-section-header {
   display: flex;
   align-items: center;
@@ -76,4 +71,19 @@
 
 .setting-row.indented {
   margin-left: 24px;
+}
+
+.apply-button {
+  padding: 8px 16px;
+  margin: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.apply-button:hover {
+  background-color: #ddd;
+  color: #000;
 }
