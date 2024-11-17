@@ -10,6 +10,10 @@
     transition: background-color 0.3s ease;
 }
 
+.speaker-button .button-icon {
+    width: 50px; /* Smaller width for compact appearance */
+}
+
 .speaker-button:hover {
     background-color: transparent; /* Subtle hover effect */
 }

@@ -171,7 +171,7 @@ const SummaryScreen: FC = () => {
                 <div className="flex-box">
                     <div id="summary-output-container">
                         <div id="summary-title-wrapper">
-                            <div id="summary-title" className="center-text ">
+                            <div id="summary-title" className="center-text disable-selection">
                                 <h1>Summarized Text</h1>
                             </div>
                             <div id="summary-speaker">
