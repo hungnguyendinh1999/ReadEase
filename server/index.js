@@ -37,9 +37,16 @@ app.post('/summarize', async (req, res) => {
         return res.status(400).send("No message or context provided");
     }
 
-    // const response = await getGPTSummarizeResponse(message);
-    // res.send(response.choices[0].message.content); // Send back to FE
-    res.send(context) // FOr testing purposes only
+    if (!context.harmContext) {
+        return res.status(400).send("Missing harmContext under context")
+    }
+
+    if (!context.vocabLevelContext) {
+        return res.status(400).send("Missing vocabLevelContext under context")
+    }
+    const response = await getGPTSummarizeResponse(message);
+    res.send(response.choices[0].message.content); // Send back to FE
+    // res.send(context) // FOr testing purposes only
 });
 
 app.post('/tts', async (req, res) => {

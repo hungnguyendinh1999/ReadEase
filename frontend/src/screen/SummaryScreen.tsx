@@ -24,9 +24,9 @@ const vocabLevelArray: VocabLevel[] = [
 const harmContext =
     "If the input text contains harmful, illegal, or offensive content, respond with 'Content not allowed.' and give a 1-sentence explanation.";
 
-const constructContext = (selectedVocabLevelString: string) => {
+const constructVocabContext = (selectedVocabLevelString: string) => {
     const defaultContext =
-        "Summarize in a neutral and concise manner. " + harmContext;
+        "In a neutral and concise manner. "
     // get selectedVocabLevel from selectedVocabLevelString
     const vocabLevel = vocabLevelArray.find(
         (option) => option.level === selectedVocabLevelString
@@ -82,12 +82,15 @@ const SummaryScreen: FC = () => {
         setHeight("10%");
         console.log("sending text of length" + text.length);
 
-        const context = constructContext(vocabLevel);
+        const context = constructVocabContext(vocabLevel);
         try {
             // Request Summary
             const response = await createSummarizeResponseService().post({
                 message: text.trim(),
-                context: context,
+                context: {
+                    harmContext:harmContext,
+                    vocabLevelContext: context
+                }
             });
 
             if (!response.ok) {

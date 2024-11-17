@@ -33,7 +33,11 @@ const getGPTSummarizeResponse = async (message, context) => await openai.chat.co
         },
         {
             "role": "system",
-            "content": context
+            "content": context.harmContext
+        },
+        {
+            "role": "system",
+            "content": context.vocabLevelContext
         }
     ],
 });
