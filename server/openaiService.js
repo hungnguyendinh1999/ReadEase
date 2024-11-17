@@ -20,7 +20,7 @@ const openai = new OpenAI({
  * @param context the context message to help form a response
  * @returns gpt response object
  */
-const getGPTSummarizeResonse = async (message, context) => await openai.chat.completions.create({
+const getGPTSummarizeResponse = async (message, context) => await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
         {
@@ -33,7 +33,11 @@ const getGPTSummarizeResonse = async (message, context) => await openai.chat.com
         },
         {
             "role": "system",
-            "content": context
+            "content": context.harmContext
+        },
+        {
+            "role": "system",
+            "content": context.vocabLevelContext
         }
     ],
 });
@@ -44,4 +48,4 @@ const getTTSResponse = async (message, voice) => await openai.audio.speech.creat
     input: message,
 });
 
-export {getGPTSummarizeResonse, getTTSResponse};
+export {getGPTSummarizeResponse, getTTSResponse};

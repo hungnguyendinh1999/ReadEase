@@ -6,7 +6,7 @@
  */
 import express from 'express';
 import cors from "cors";
-import {getGPTSummarizeResonse, getTTSResponse} from './openaiService.js';
+import {getGPTSummarizeResponse, getTTSResponse} from './openaiService.js';
 
 const app = express();  // Server is instantiated
 
@@ -28,13 +28,25 @@ app.get('/', (req, res) => {
 app.post('/summarize', async (req, res) => {
     const message = req.body.params['0']['message'];
     const context = req.body.params['0']['context'];
+    /**
+     * Message: the text input by users
+     * Context: the prompting instruction to mitigate harm
+     */
 
     if (!message || !context) {
         return res.status(400).send("No message or context provided");
     }
 
-    const response = await getGPTSummarizeResonse(message);
-    res.send(response.choices[0].message.content);
+    if (!context.harmContext) {
+        return res.status(400).send("Missing harmContext under context")
+    }
+
+    if (!context.vocabLevelContext) {
+        return res.status(400).send("Missing vocabLevelContext under context")
+    }
+    const response = await getGPTSummarizeResponse(message);
+    res.send(response.choices[0].message.content); // Send back to FE
+    // res.send(context) // FOr testing purposes only
 });
 
 app.post('/tts', async (req, res) => {
