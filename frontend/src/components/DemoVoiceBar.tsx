@@ -5,15 +5,21 @@ import FableVoice from "../assets/voices/fable.wav"
 import NovaVoice from "../assets/voices/nova.wav"
 import OnyxVoice from "../assets/voices/onyx.wav"
 import ShimmerVoice from "../assets/voices/shimmer.wav"
+import DaddyVoice from "../assets/voices/daddy.mp3"
 import PlayVoiceButton from "./PlayVoiceButton";
 import Dropdown from "./atom/Dropdown";
 import './DemoVoiceBar.css';
 
-const DemoVoiceBar: React.FC = () => {
-    const [soundPath, setSoundPath] = useState<string>("");
-    const [selectedVoice, setSelectedVoice] = useState<string | null>(localStorage.getItem('settings-voice'));
+interface DemoVoiceBarProps {
+    voice: string;
+    onChange: (voice: string) => void;
+}
 
-    const setVoice = (voice: string | null) => {
+const DemoVoiceBar: React.FC<DemoVoiceBarProps> = ({voice, onChange}) => {
+    const [soundPath, setSoundPath] = useState<string>("");
+    const [selectedVoice, setSelectedVoice] = useState<string>(voice);
+
+    const setVoice = (voice: string) => {
         if (voice === "Shimmer") {
             setSoundPath(ShimmerVoice);
         } else if (voice === "Echo") {
@@ -34,9 +40,9 @@ const DemoVoiceBar: React.FC = () => {
     }, [selectedVoice]);
 
     const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-        localStorage.setItem('settings-voice', event.target.value);
         setSelectedVoice(event.target.value)
         setVoice(event.target.value);
+        onChange(event.target.value);
     };
 
     const options = ["Alloy", "Echo", "Fable", "Nova", "Onyx", "Shimmer"];

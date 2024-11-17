@@ -12,7 +12,7 @@
     justify-content: center; /* Centers horizontally */
     align-items: center; /* Centers vertically */
     flex-direction: column;
-    background-color: var(--main-gray);
+    background-color: var(--main-white);
     clip-path: polygon(0 0, 100% 0, 80% 25%, 90% 65%, 75% 100%, 0 100%);
 }
 

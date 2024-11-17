@@ -5,8 +5,12 @@ import UploadFileButton from "../components/molecules/UploadFileButton";
 import ToSpeechButton from "../components/molecules/ToSpeechButton";
 import PlayVoiceButton from "../components/PlayVoiceButton";
 import Loading from "../components/Loading";
+import {createTTSResponseService} from "../services/backend-service";
+import { useSettings } from "../contexts/SettingsContext";
 
 const ReadaloudScreen: FC = () => {
+    const {voice} = useSettings();
+
     const fileInputRef = useRef(null);
     const [text, setText] = useState<string>("");
     const [isToSpeech, setIsToSpeech] = useState<boolean>(false);
@@ -28,7 +32,7 @@ const ReadaloudScreen: FC = () => {
 
     const handleToSpeech = async () => {
         setIsLoading(true);
-        const response = await fetch("http://127.0.0.1:8080/tts?text=" + encodeURIComponent(text));
+        const response = await createTTSResponseService().post({message: text, voice: voice.toLowerCase()});
         setResponseStream(response);
         if (!response.ok) {
             throw new Error("Failed to fetch audio");
@@ -45,6 +49,10 @@ const ReadaloudScreen: FC = () => {
             setIsToSpeech(true);
         }
     }, [responseStream]);
+
+    useEffect(() => {
+        setIsToSpeech(false);
+    }, [voice]);
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -73,7 +81,7 @@ const ReadaloudScreen: FC = () => {
                         {/* Use custom TextBox component */}
                         <TextBox
                             value={text} onChange={handleTextChange}
-                            placeholder="Type text here, or upload a txt file"
+                            placeholder="Type text here, or upload a txt file, then press the synthesis button on the button right to start."
                         />
                     </div>
 

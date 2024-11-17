@@ -51,12 +51,26 @@
 }
 
 .nav-title {
-    width: 100%;
-    color: var(--main-white);
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+  width: 100%;
+  color: var(--main-white);
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--main-white);
+}
+
+.menu-items {
+  flex-grow: 1;
+}
+
+.settings-container {
+  margin-top: auto;
+  padding-top: 20px;
 }
