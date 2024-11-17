@@ -63,7 +63,12 @@ const ReadaloudScreen: FC = () => {
                     setText("");
                     setIsToSpeech(false);
                 } else {
-                    setText(e.target.result);
+                    const result = e.target?.result;
+                    if (typeof result === "string") {
+                        setText(result); // Safely set the state
+                    } else {
+                        console.error("FileReader result is not a string");
+                    }
                     setIsToSpeech(false);
                 }
             };

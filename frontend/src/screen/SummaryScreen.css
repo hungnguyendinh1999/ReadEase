@@ -94,7 +94,7 @@
 #summary-output-container {
     border: 1px solid #ccc; /* Light gray border */
     border-radius: 18px; /* Rounded corners */
-    background-color: var(--subtle-background); /* Subtle background color */
+    background-color: var(--textbox-background-color);
     display: flex;
     padding: 1%;
     flex-direction: column; /* Stack elements vertically */
@@ -103,6 +103,10 @@
     margin: 0 auto; /* Center horizontally */
     width: 95%; /* Adjust as needed */
     height: 80%;
+}
+
+#summary-title-wrapper {
+    display: flex;
 }
 
 .hide-caret {
