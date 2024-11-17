@@ -29,10 +29,6 @@ class HttpService {
     }
 }
 
-/**
- * Creates a connection for unmodfied chat interactions.
- * @returns new HttpService object to the default response route.
- */
 const createSummarizeResponseService = () => {
     return new HttpService("/summarize");
 }
@@ -41,7 +37,17 @@ const createTTSResponseService = () => {
     return new HttpService("/tts");
 }
 
+const createDummyResponseService = () => {
+    return new HttpService("/dummy");
+}
+
+const createDummyTTSResponseService = () => {
+    return new HttpService("/dummy-tts");
+}
+
 export {
     createSummarizeResponseService,
     createTTSResponseService,
+    createDummyResponseService,
+    createDummyTTSResponseService
 };

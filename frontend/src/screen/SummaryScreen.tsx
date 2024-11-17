@@ -1,12 +1,17 @@
-import React, { useState, ChangeEvent, FC, useRef } from "react";
+import React, {useState, ChangeEvent, FC, useRef, useEffect} from "react";
 import "./SummaryScreen.css";
 import TextBox from "../components/atom/TextBox";
 import UploadFileButton from "../components/molecules/UploadFileButton";
 import SubmitButton from "../components/molecules/SubmitTextButton";
 import Dropdown from "../components/atom/Dropdown";
-import {createSummarizeResponseService} from "../services/backend-service"
+import {
+    createDummyResponseService, createDummyTTSResponseService,
+    createSummarizeResponseService,
+    createTTSResponseService
+} from "../services/backend-service"
 import Loading from "../components/Loading";
-import SpeakerButton from "../components/molecules/SpeakerButton"
+import PlayVoiceButton from "../components/PlayVoiceButton";
+import {useSettings} from "../contexts/SettingsContext";
 
 type VocabLevel = {
     level: string;
@@ -24,20 +29,6 @@ const vocabLevelArray: VocabLevel[] = [
 const harmContext =
     "If the input text contains harmful, illegal, or offensive content, respond with 'Content not allowed.' and give a 1-sentence explanation.";
 
-const constructVocabContext = (selectedVocabLevelString: string) => {
-    const defaultContext =
-        "In a neutral and concise manner. "
-    // get selectedVocabLevel from selectedVocabLevelString
-    const vocabLevel = vocabLevelArray.find(
-        (option) => option.level === selectedVocabLevelString
-    );
-    if (vocabLevel) {
-        return `${defaultContext} ${vocabLevel.instruction}`;
-    }
-
-    return defaultContext; // Fallback if no level is matched
-};
-
 const SummaryScreen: FC = () => {
     // Define state with types
     const fileInputRef = useRef(null);
@@ -48,7 +39,11 @@ const SummaryScreen: FC = () => {
     const [height, setHeight] = useState<string>("80%");
     const [summary, setSummary] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
-    const [isReadingClicked, setIsReadingClicked] = useState<boolean>(false);
+
+    const {voice} = useSettings();
+    const [soundPath, setSoundPath] = useState<string>("");
+    const [responseTTSStream, setResponseTTSStream] = useState(null);
+    const [isToSpeech, setIsToSpeech] = useState<boolean>(false);
     
 
     // Event handler for textarea input
@@ -61,16 +56,36 @@ const SummaryScreen: FC = () => {
         setVocabLevel(event.target.value);
     };
 
-    const handleSpeak = () => {
-        // TODO
-        console.log("handleSpeak is called")
-        setIsReadingClicked(true)
-    }
-
     // Placeholder functions for button actions
     const handleFileUpload = () => {
         fileInputRef.current.click();
     };
+
+    const ttsSynth = async (summaryText) => {
+        setIsToSpeech(false);
+        console.log(summaryText);
+        if (summaryText !== null && summaryText !== "") {
+            const ttsResponse = await createDummyTTSResponseService().post({message: summaryText, voice: voice.toLowerCase()});
+            setResponseTTSStream(ttsResponse);
+            if (!ttsResponse.ok) {
+                throw new Error("Failed to fetch audio");
+            }
+
+            const blob = await ttsResponse.blob();
+            const url = URL.createObjectURL(blob);
+            setSoundPath(url);
+        }
+    }
+
+    useEffect(() => {
+        if (responseTTSStream !== null && responseTTSStream.status === 200) {
+            setIsToSpeech(true);
+        }
+    }, [responseTTSStream]);
+
+    useEffect(() => {
+        ttsSynth(summary)
+    }, [voice]);
 
     const handleSummarize = async () => {
         // Submit logic will go here
@@ -78,19 +93,18 @@ const SummaryScreen: FC = () => {
 
         setIsLoading(true);
         setIsSubmitted(true); // Trigger animations and state changes
+        setIsToSpeech(false);
         // Animation
         setHeight("10%");
         console.log("sending text of length" + text.length);
 
-        const context = constructVocabContext(vocabLevel);
+        const vocabString = vocabLevelArray.find((option) => option.level === vocabLevel).instruction;
         try {
             // Request Summary
-            const response = await createSummarizeResponseService().post({
+            const response = await createDummyResponseService().post({
                 message: text.trim(),
-                context: {
-                    harmContext:harmContext,
-                    vocabLevelContext: context
-                }
+                context: harmContext,
+                vocabLevel: vocabString,
             });
 
             if (!response.ok) {
@@ -99,6 +113,7 @@ const SummaryScreen: FC = () => {
 
             const summaryText = await response.text(); // Assuming BE returns plain text
             setSummary(summaryText); // Display the summary in the new textbox
+            await ttsSynth(summaryText);
         } catch (error) {
             setErrorMessage("Failed to generate summary. Please try again.");
         } finally {
@@ -179,7 +194,7 @@ const SummaryScreen: FC = () => {
                             </div>
                             <div id="summary-speaker">
                                 {/* Speaker icon button here */}
-                                <SpeakerButton label="" onClick={handleSpeak}/>
+                                {isToSpeech && <PlayVoiceButton soundPath={soundPath} pauseOnToggle={true}/>}
                             </div>
                         </div>
                         <div id="smaller-container" className="hide-caret">

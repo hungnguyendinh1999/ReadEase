@@ -18,26 +18,27 @@ const openai = new OpenAI({
  * Uses the provided message history
  * @param message the message history to load in
  * @param context the context message to help form a response
+ * @param vocabLevel vocab level
  * @returns gpt response object
  */
-const getGPTSummarizeResponse = async (message, context) => await openai.chat.completions.create({
+const getGPTSummarizeResponse = async (message, context, vocabLevel) => await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
         {
-            role: "user",
-            content: message
+            "role": "user",
+            "content": "Summarize this given user message in a neutral and concise manner, but still contains good amount of detail"
+        },
+        {
+            "role": "user",
+            "content": message
         },
         {
             "role": "system",
-            "content": "Summarize this given user message"
+            "content": context
         },
         {
             "role": "system",
-            "content": context.harmContext
-        },
-        {
-            "role": "system",
-            "content": context.vocabLevelContext
+            "content": vocabLevel
         }
     ],
 });

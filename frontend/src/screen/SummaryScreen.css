@@ -13,12 +13,10 @@
 }
 
 #summary-input-container {
-    border: 1px solid #ccc; /* Light gray border */
     border-radius: 18px; /* Rounded corners */
     background-color: var(--textbox-background-color); /* Subtle background color */
     display: flex;
     flex-direction: column; /* Stack elements vertically */
-    gap: 12px; /* Space between elements */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     margin: 0 auto; /* Center horizontally */
     width: 95%; /* Adjust as needed */
@@ -62,9 +60,11 @@
     display: flex;
     align-items: center; /* Vertically align buttons and dropdown */
     justify-content: space-between; /* Align buttons to the left */
-    gap: 12px; /* Space between the buttons */
-    border-top: var(--main-black) 1px solid;
-    background-color: var(--main-white);
+    border-top: var(--main-gray) 1px solid;
+    border-bottom: transparent 1px solid;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    background-color: var(--subtle-background);
     width: 100%;
     padding: 15px;
     /* Animation */
@@ -92,7 +92,6 @@
 }
 
 #summary-output-container {
-    border: 1px solid #ccc; /* Light gray border */
     border-radius: 18px; /* Rounded corners */
     background-color: var(--textbox-background-color);
     display: flex;
@@ -100,7 +99,6 @@
     flex-direction: column; /* Stack elements vertically */
     gap: 12px; /* Space between elements */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    margin: 0 auto; /* Center horizontally */
     width: 95%; /* Adjust as needed */
     height: 80%;
 }
