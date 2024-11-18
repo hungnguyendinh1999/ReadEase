@@ -25,6 +25,45 @@ interface SettingsProviderProps {
   children: ReactNode;
 }
 
+/**
+ * SettingsProvider component that provides settings context to its children.
+ * 
+ * @param {SettingsProviderProps} props - The properties for the SettingsProvider component.
+ * @param {React.ReactNode} props.children - The child components that will have access to the settings context.
+ * 
+ * @returns {JSX.Element} The SettingsProvider component.
+ * 
+ * @description
+ * This component initializes and provides various settings such as voice, background color, font color, font typeface,
+ * font weight, font size, font style, and text decoration to its children. The settings are stored in local storage
+ * and CSS variables are updated accordingly.
+ * 
+ * @example
+ * ```tsx
+ * <SettingsProvider>
+ *   <YourComponent />
+ * </SettingsProvider>
+ * ```
+ * 
+ * @context
+ * The context value provided includes:
+ * - `voice`: The selected voice.
+ * - `setVoice`: Function to update the voice.
+ * - `backgroundColor`: The background color of the text box.
+ * - `setBackgroundColor`: Function to update the background color.
+ * - `fontColor`: The font color of the text box.
+ * - `setFontColor`: Function to update the font color.
+ * - `fontTypeface`: The font typeface of the text box.
+ * - `setFontTypeface`: Function to update the font typeface.
+ * - `fontWeight`: The font weight of the text box.
+ * - `setFontWeight`: Function to update the font weight.
+ * - `fontSize`: The font size of the text box.
+ * - `setFontSize`: Function to update the font size.
+ * - `fontStyle`: The font style of the text box.
+ * - `setFontStyle`: Function to update the font style.
+ * - `textDecoration`: The text decoration of the text box.
+ * - `setTextDecoration`: Function to update the text decoration.
+ */
 export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
   const [voice, setVoice] = useState(() => localStorage.getItem("voice") || "Alloy");
   const [backgroundColor, setBackgroundColor] = useState(
@@ -53,6 +92,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     document.documentElement.style.setProperty(name, value);
   }
 
+  // use
   useEffect(() => {
     updateCSSVariable("--voice", voice);
     localStorage.setItem("voice", voice);

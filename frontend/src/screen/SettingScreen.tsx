@@ -112,6 +112,53 @@ const presets = [
   }
 ];
 
+/**
+ * `SettingScreen` is a React functional component that provides a user interface for adjusting various settings
+ * such as voice, background color, font color, typeface, font weight, font style, text decoration, and font size.
+ * It also allows users to select predefined presets and apply them to the settings.
+ *
+ * @component
+ * @example
+ * return (
+ *   <SettingScreen />
+ * )
+ *
+ * @returns {JSX.Element} The rendered component.
+ *
+ * @remarks
+ * The component uses local state to manage the selected preset and settings. It provides functions to handle
+ * preset changes, update individual settings, and toggle style settings. The settings are displayed in a
+ * left-side configuration panel, and a sample textbox is provided to preview the applied settings.
+ *
+ * @function
+ * @name SettingScreen
+ *
+ * @hook
+ * @name useSettings
+ * @description Custom hook to manage settings state.
+ *
+ * @state {string} selectedPresetName - The name of the currently selected preset.
+ * @state {object} localSettings - The local state object containing the current settings.
+ * @state {string} userText - The text entered by the user in the sample textbox.
+ *
+ * @param {string} key - The key of the setting to update.
+ * @param {string} value - The new value for the setting.
+ *
+ * @param {string} presetName - The name of the preset to apply.
+ *
+ * @param {keyof typeof localSettings} key - The key of the style setting to toggle.
+ * @param {string} value - The value to toggle the style setting to.
+ * @param {string} defaultValue - The default value to revert the style setting to.
+ *
+ * @param {string} key - The key of the setting to update.
+ * @param {string} value - The new value for the setting.
+ *
+ * @param {string} presetName - The name of the preset to apply.
+ *
+ * @param {keyof typeof localSettings} key - The key of the style setting to toggle.
+ * @param {string} value - The value to toggle the style setting to.
+ * @param {string} defaultValue - The default value to revert the style setting to.
+ */
 const SettingScreen: React.FC = () => {
   const {
     voice,
@@ -180,7 +227,17 @@ const SettingScreen: React.FC = () => {
   // Local state to manage user text in textbox (initially set to a default text)
   const [userText, setUserText] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
 
-  // Settings (left-side) configuration
+  /*
+    * The settingsConfig array contains the configuration for the settings displayed on the left side of the screen.
+    * Each setting is defined by an object with the following properties:
+    * - key: The unique key for the setting.
+    * - icon: The icon for the setting.
+    * - label: The label for the setting.
+    * - component: The component to render for the setting (e.g., ColorPicker, Dropdown, StyleToggleButton).
+    * - isSection: A boolean indicating whether the setting is a section header.
+    *
+    * The settingsConfig array is mapped to render the settings in the UI.
+  */
   const settingsConfig = [
     {
       key: "voice",

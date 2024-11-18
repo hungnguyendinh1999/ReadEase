@@ -8,6 +8,16 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
+/**
+ * Modal component that renders a modal dialog.
+ *
+ * @param {ModalProps} props - The properties for the Modal component.
+ * @param {boolean} props.isOpen - Determines if the modal is open.
+ * @param {() => void} props.onClose - Function to call when the modal is closed.
+ * @param {React.ReactNode} props.children - The content to display inside the modal.
+ *
+ * @returns {JSX.Element | null} The modal element if `isOpen` is true, otherwise null.
+ */
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
