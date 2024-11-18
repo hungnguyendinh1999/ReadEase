@@ -2,6 +2,7 @@
     height: 100vh;
     width: 100%;
     background-color: var(--main-black);
+    overflow-x: hidden;
 }
 
 #home-pane-left {
