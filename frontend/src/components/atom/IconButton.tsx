@@ -2,18 +2,22 @@ import React, {FC} from 'react';
 import './IconButton.css';
 
 interface IconButtonProps {
-    label?: string;
     onClick: () => void;
     iconSrc: string;
+    size?: number;
+    iconSize?: number;
+    isCircular?: boolean;
     className?: string;
     inverseColor?: boolean;
 }
 
-const IconButton: FC<IconButtonProps> = ({label = '', onClick, iconSrc, className = "", inverseColor = false}) => {
+const IconButton: FC<IconButtonProps> = ({onClick, iconSrc, size = 30, iconSize = 50, isCircular = true, className = "", inverseColor = false}) => {
+    let backgroundClass = inverseColor ? "inverse" : "normal";
+    let borderRadius = isCircular ? "50%" : "10%";
+
     return (
-        <button className={`icon-button ${className}`} onClick={onClick}>
-            <img src={iconSrc} alt={`${label} Icon`} className="button-icon"/>
-            {label && <span className="button-label" style={inverseColor ? {color: "#F5F5F5"} : {color: "#333333"}}>{label}</span>}
+        <button style={{height: size, width: size, borderRadius: borderRadius}} className={`button-img ${className} ${backgroundClass}`} onClick={onClick}>
+            <img style={{height: iconSize + "%"}} src={iconSrc}/>
         </button>
     );
 };

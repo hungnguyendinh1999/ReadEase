@@ -1,6 +1,6 @@
 import React from "react";
 import "./Loading.css"
-import IconWhite from "../assets/icon-white.png"
+import IconWhite from "../../assets/icon-white.png"
 
 interface LoadingProps {
     size: number;

@@ -7,6 +7,7 @@
 import express from 'express';
 import cors from "cors";
 import {getGPTSummarizeResponse, getTTSResponse} from './openaiService.js';
+import fs from 'fs';
 
 const app = express();  // Server is instantiated
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 app.post('/summarize', async (req, res) => {
     const message = req.body.params['0']['message'];
     const context = req.body.params['0']['context'];
+    const vocab = req.body.params['0']['vocabLevel'];
     /**
      * Message: the text input by users
      * Context: the prompting instruction to mitigate harm
@@ -37,17 +39,33 @@ app.post('/summarize', async (req, res) => {
         return res.status(400).send("No message or context provided");
     }
 
-    if (!context.harmContext) {
-        return res.status(400).send("Missing harmContext under context")
-    }
-
-    if (!context.vocabLevelContext) {
+    if (!vocab) {
         return res.status(400).send("Missing vocabLevelContext under context")
     }
-    const response = await getGPTSummarizeResponse(message);
+    const response = await getGPTSummarizeResponse(message, context, vocab);
     res.send(response.choices[0].message.content); // Send back to FE
-    // res.send(context) // FOr testing purposes only
 });
+
+app.post('/dummy', async (req, res) => {
+    res.send("Technology is transforming the way we interact with the world. From artificial intelligence to renewable energy, innovations are shaping a brighter future. By embracing these advancements, we can solve complex problems, improve efficiency, and connect with one another like never before. Let's harness the power of progress to build a sustainable and inclusive tomorrow");
+})
+
+app.post('/dummy-tts', async (req, res) => {
+    fs.readFile('./res/alloy.wav', (err, data) => {
+        if (err) {
+            console.error('Error reading the .wav file:', err);
+            res.status(500).send('Error reading the audio file');
+            return;
+        }
+
+        res.set({
+            'Content-Type': 'audio/wav',
+            'Content-Disposition': 'inline; filename=tts.mp3',
+        });
+
+        res.send(data);
+    });
+})
 
 app.post('/tts', async (req, res) => {
     const message = req.body.params['0']['message'];

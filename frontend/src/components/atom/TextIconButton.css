@@ -1,0 +1,28 @@
+.icon-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s, border-color 0.3s;
+    height: 40px; /* Fixed height for consistency */
+}
+
+.icon-button.button-hover-normal:hover {
+    background-color: var(--main-gray);
+}
+
+.icon-button.button-hover-inverse:hover {
+    background-color: var(--main-hover);
+}
+
+.button-icon {
+    width: 24px;
+}
+
+.button-label {
+    font-size: 14px;
+}

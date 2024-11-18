@@ -1,13 +1,13 @@
 import React, {ChangeEvent, useState, useEffect} from "react";
-import AlloyVoice from "../assets/voices/alloy.wav"
-import EchoVoice from "../assets/voices/echo.wav"
-import FableVoice from "../assets/voices/fable.wav"
-import NovaVoice from "../assets/voices/nova.wav"
-import OnyxVoice from "../assets/voices/onyx.wav"
-import ShimmerVoice from "../assets/voices/shimmer.wav"
+import AlloyVoice from "../../assets/voices/alloy.wav"
+import EchoVoice from "../../assets/voices/echo.wav"
+import FableVoice from "../../assets/voices/fable.wav"
+import NovaVoice from "../../assets/voices/nova.wav"
+import OnyxVoice from "../../assets/voices/onyx.wav"
+import ShimmerVoice from "../../assets/voices/shimmer.wav"
 import DaddyVoice from "../assets/voices/daddy.mp3"
 import PlayVoiceButton from "./PlayVoiceButton";
-import Dropdown from "./atom/Dropdown";
+import Dropdown from "../atom/Dropdown";
 import './DemoVoiceBar.css';
 
 interface DemoVoiceBarProps {

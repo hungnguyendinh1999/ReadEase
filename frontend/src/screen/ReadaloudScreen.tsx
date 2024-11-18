@@ -3,9 +3,9 @@ import "./ReadaloudScreen.css";
 import TextBox from "../components/atom/TextBox";
 import UploadFileButton from "../components/molecules/UploadFileButton";
 import ToSpeechButton from "../components/molecules/ToSpeechButton";
-import PlayVoiceButton from "../components/PlayVoiceButton";
-import Loading from "../components/Loading";
-import {createTTSResponseService} from "../services/backend-service";
+import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
+import Loading from "../components/atom/Loading";
+import {createDummyTTSResponseService, createTTSResponseService} from "../services/backend-service";
 import { useSettings } from "../contexts/SettingsContext";
 
 const ReadaloudScreen: FC = () => {
@@ -31,16 +31,18 @@ const ReadaloudScreen: FC = () => {
     };
 
     const handleToSpeech = async () => {
-        setIsLoading(true);
-        const response = await createTTSResponseService().post({message: text, voice: voice.toLowerCase()});
-        setResponseStream(response);
-        if (!response.ok) {
-            throw new Error("Failed to fetch audio");
-        }
+        if (text !== "") {
+            setIsLoading(true);
+            const response = await createDummyTTSResponseService().post({message: text, voice: voice.toLowerCase()});
+            setResponseStream(response);
+            if (!response.ok) {
+                throw new Error("Failed to fetch audio");
+            }
 
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        setSoundPath(url);
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            setSoundPath(url);
+        }
     };
 
     useEffect(() => {
@@ -86,7 +88,7 @@ const ReadaloudScreen: FC = () => {
                         {/* Use custom TextBox component */}
                         <TextBox
                             value={text} onChange={handleTextChange}
-                            placeholder="Type text here, or upload a txt file, then press the synthesis button on the button right to start."
+                            placeholder="Type text here, or upload a txt file, then press the synthesis button on the bottom right to start."
                         />
                     </div>
 
@@ -94,9 +96,7 @@ const ReadaloudScreen: FC = () => {
                     <div id="readalout-button-group">
                         {/* Left aligned button */}
                         <div id="readalout-left-buttons">
-                            <UploadFileButton label="Upload File"
-                                onClick={handleFileUpload} inverseColor={true}
-                            />
+                            <UploadFileButton label="Upload File" onClick={handleFileUpload} />
                         </div>
 
                         {/* Right aligned button */}
@@ -104,7 +104,7 @@ const ReadaloudScreen: FC = () => {
                             {isLoading && !isToSpeech && <Loading size={35}/>}
                             {!isLoading && isToSpeech && <PlayVoiceButton soundPath={soundPath} pauseOnToggle={true}
                                                             inverseColor={true} size={35}/>}
-                            {!isLoading && !isToSpeech && <ToSpeechButton label="" onClick={handleToSpeech}/>}
+                            {!isLoading && !isToSpeech && <ToSpeechButton onClick={handleToSpeech} inverseColor={true}/>}
                         </div>
                     </div>
                 </div>

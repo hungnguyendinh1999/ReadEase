@@ -1,16 +1,14 @@
 import React, {FC} from 'react';
-import './SubmitTextButton.css'
-import IconButton from '../atom/IconButton';
+import IconButton from "../atom/IconButton";
 import ttsIcon from '../../assets/tts.png';
-import "./ToSpeechButton.css"
 
 interface ToSpeechButtonProps {
-    label?: string;
     onClick: () => void;
+    inverseColor?: boolean;
 }
 
-const ToSpeechButton: FC<ToSpeechButtonProps> = ({label = 'Submit', onClick}) => {
-    return <IconButton label={label} onClick={onClick} iconSrc={ttsIcon} className="to-speech-button"/>;
+const ToSpeechButton: FC<ToSpeechButtonProps> = ({onClick, inverseColor = false}) => {
+    return <IconButton onClick={onClick} iconSrc={ttsIcon} className="to-speech-button" size={35} iconSize={50} isCircular={false} inverseColor={inverseColor}/>;
 };
 
 export default ToSpeechButton;
