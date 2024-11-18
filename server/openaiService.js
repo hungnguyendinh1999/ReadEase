@@ -7,7 +7,7 @@ import fs from 'fs';
 
 let apiKey = ""
 try {
-    fs.readFileSync("./api_key.txt", 'utf8').trim();
+    apiKey = fs.readFileSync("./api_key.txt", 'utf8').trim();
 } catch (error) {
     console.error("API key file not found. Assuming this is dev mode");
 }
