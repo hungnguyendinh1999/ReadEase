@@ -68,32 +68,4 @@
     width: 80%;
     margin-right: 20%;
     margin-top: 20px;
-    border: var(--main-white) 2px solid;
-    border-radius: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 10px;
-    cursor: pointer;
-}
-
-.home-feature-title {
-    width: 100%;
-    text-align: left;
-    color: var(--main-white);
-    font-size: 25px;
-    font-weight: bold;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-}
-
-.home-feature-desc {
-    width: 100%;
-    text-align: left;
-    color: var(--main-white);
-    font-size: 15px;
-    margin-top: -15px;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
 }

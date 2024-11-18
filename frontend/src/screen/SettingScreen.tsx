@@ -14,7 +14,7 @@ import "./SettingScreen.css";
 import ColorPicker from "../components/molecules/ColorPicker";
 import Dropdown from "../components/atom/Dropdown";
 import StyleToggleButton from "../components/atom/StyleToggleButton";
-import DemoVoiceBar from "../components/DemoVoiceBar";
+import DemoVoiceBar from "../components/molecules/DemoVoiceBar";
 
 
 const predefinedBackgroundColors = ["#A8DADC", "#F4A261", "#457B9D", "#FFE8D6", "#1D3557", "#FFFFFF", "#000000"];

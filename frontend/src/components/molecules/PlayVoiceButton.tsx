@@ -1,10 +1,11 @@
 import React, {useState, useRef, useEffect} from "react";
-import PlayIcon from "../assets/play.png"
-import PauseIcon from "../assets/pause.png"
-import StopIcon from "../assets/stop.png"
-import PlayBIcon from "../assets/play-black.png"
-import PauseBIcon from "../assets/pause-black.png"
-import StopBIcon from "../assets/stop-black.png"
+import PlayIcon from "../../assets/play.png"
+import PauseIcon from "../../assets/pause.png"
+import StopIcon from "../../assets/stop.png"
+import PlayBIcon from "../../assets/play-black.png"
+import PauseBIcon from "../../assets/pause-black.png"
+import StopBIcon from "../../assets/stop-black.png"
+import IconButton from "../atom/IconButton";
 
 interface PlayVoiceButtonProps {
     soundPath: string;
@@ -13,7 +14,7 @@ interface PlayVoiceButtonProps {
     size?: number;
 }
 
-const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({soundPath, pauseOnToggle = false, inverseColor = false, size=30}) => {
+const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({soundPath, pauseOnToggle = false, inverseColor = false, size = 30}) => {
     const playIcon = inverseColor ? PlayBIcon : PlayIcon;
     const pauseIcon = inverseColor ? PauseBIcon : PauseIcon;
     const stopIcon = inverseColor ? StopBIcon : StopIcon;
@@ -76,11 +77,9 @@ const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({soundPath, pauseOnTogg
     }, [soundPath]);
 
     return (
-        <div id="voice-btn" className="button-img" style={inverseColor ?
-            {backgroundColor: "#F5F5F5", height: size, width: size} :
-            {backgroundColor: "#333333", height: size, width: size}} onClick={togglePlay}>
-            <img src={label}/>
-            <audio onCanPlay={handleCanPlay} ref={audioRef} src={soundPath}/>
+        <div>
+            <audio style={{visibility: "collapse"}} onCanPlay={handleCanPlay} ref={audioRef} src={soundPath}/>
+            <IconButton onClick={togglePlay} iconSrc={label} size={size} iconSize={40} inverseColor={inverseColor}/>
         </div>
     );
 };

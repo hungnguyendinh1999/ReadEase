@@ -6,9 +6,10 @@ interface TextBoxProps {
     onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
     placeholder?: string;
     rows?: number;
+    readonly?: boolean;
 }
 
-const TextBox: FC<TextBoxProps> = ({value, onChange, placeholder = 'Enter text here...', rows = 5}) => {
+const TextBox: FC<TextBoxProps> = ({value, onChange, placeholder = 'Enter text here...', rows = 5, readonly = false}) => {
     return (
         <textarea
             value={value}
@@ -16,6 +17,7 @@ const TextBox: FC<TextBoxProps> = ({value, onChange, placeholder = 'Enter text h
             placeholder={placeholder}
             rows={rows}
             className="custom-textbox"
+            readOnly={readonly}
         />
     );
 };

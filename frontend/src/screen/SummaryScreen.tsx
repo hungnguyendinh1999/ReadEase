@@ -2,16 +2,18 @@ import React, {useState, ChangeEvent, FC, useRef, useEffect} from "react";
 import "./SummaryScreen.css";
 import TextBox from "../components/atom/TextBox";
 import UploadFileButton from "../components/molecules/UploadFileButton";
-import SubmitButton from "../components/molecules/SubmitTextButton";
+import SubmitButton from "../components/molecules/SubmitButton";
 import Dropdown from "../components/atom/Dropdown";
 import {
     createDummyResponseService, createDummyTTSResponseService,
     createSummarizeResponseService,
     createTTSResponseService
 } from "../services/backend-service"
-import Loading from "../components/Loading";
-import PlayVoiceButton from "../components/PlayVoiceButton";
+import Loading from "../components/atom/Loading";
+import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
 import {useSettings} from "../contexts/SettingsContext";
+import Typewriter from "../components/atom/Typewriter";
+import BackButton from "../components/molecules/BackButton";
 
 type VocabLevel = {
     level: string;
@@ -36,7 +38,7 @@ const SummaryScreen: FC = () => {
     const [vocabLevel, setVocabLevel] = useState<string>("Default");
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [height, setHeight] = useState<string>("80%");
+    const [width, setWidth] = useState<string>("90%");
     const [summary, setSummary] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -95,8 +97,7 @@ const SummaryScreen: FC = () => {
         setIsSubmitted(true); // Trigger animations and state changes
         setIsToSpeech(false);
         // Animation
-        setHeight("10%");
-        console.log("sending text of length" + text.length);
+        setWidth("45%");
 
         const vocabString = vocabLevelArray.find((option) => option.level === vocabLevel).instruction;
         try {
@@ -141,75 +142,63 @@ const SummaryScreen: FC = () => {
         }
     };
 
+    const backButton = () => {
+        setIsSubmitted(false);
+        setWidth("90%");
+    }
+
     return (
         <div id="summary-screen">
-            <div className={`flex-box ${isSubmitted ? "shrink-outer" : ""}`}>
+            <div className="flex-box">
                 <input type="file" ref={fileInputRef} style={{display: 'none'}}
                     accept=".txt" onChange={handleFileChange}/>
-                <div id="summary-input-container" style={{ height: height }}>
-                    <div
-                        id="summary-textbox-container"
-                        className={`${isSubmitted ? "shrink" : ""}`}
-                    >
+                <div id="summary-input-container" style={{width: width}}>
+                    <div id="summary-title-wrapper">
+                        {!isLoading && !isSubmitted &&
+                            <UploadFileButton label="Upload File" onClick={handleFileUpload}/>}
+                        <div id="summary-title" className="center-text disable-selection">
+                            <p>Source</p>
+                        </div>
+                        {!isLoading && !isSubmitted &&
+                        <Dropdown
+                            options={vocabLevelArray.map(item => item.level)}
+                            value={vocabLevel}
+                            onChange={handleVocabLevelChange}
+                        />}
+                        {!isLoading && !isSubmitted && <SubmitButton onClick={handleSummarize} inverseColor={true}/>}
+                        {isLoading && <Loading size={35}/>}
+                    </div>
+                    <div id="summary-textbox-container">
                         {/* Use custom TextBox component */}
                         <TextBox
                             value={text}
                             onChange={handleTextChange}
                             placeholder="Type text here, or upload a txt file"
+                            readonly={isSubmitted}
                         />
                     </div>
+                </div>
 
-                    {/* Button Group */}
-                    <div
-                        id="summary-button-group"
-                        className={`${isSubmitted ? "hidden" : ""}`}
-                    >
-                        {/* Left aligned button */}
-                        <div id="summary-left-buttons">
-                            <UploadFileButton
-                                label="Upload File"
-                                onClick={handleFileUpload}
-                            />
+                <div id="summary-output-container" style={{visibility: isSubmitted ? "visible" : "collapse"}}>
+                    <div id="summary-title-wrapper">
+                        <BackButton size={35} onClick={backButton} inverseColor={true}/>
+                        <div id="summary-title" className="center-text disable-selection">
+                            <p>Summary</p>
                         </div>
+                        {isToSpeech && <PlayVoiceButton size={35} soundPath={soundPath} pauseOnToggle={true} inverseColor={true}/>}
+                    </div>
+                    <div id="smaller-container" className="hide-caret">
+                        {isLoading ? (
+                            <Loading size={30}/>
+                        ): errorMessage ? (
+                            <p className="error">{errorMessage}</p>
+                        ) : (
+                            <Typewriter value={summary} speed={4}/>
+                        )}
 
-                        {/* Right aligned button */}
-                        <div id="summary-right-buttons">
-                            <Dropdown
-                                options={vocabLevelArray.map(item => item.level)}
-                                value={vocabLevel}
-                                onChange={handleVocabLevelChange}
-                            />
-                            {!isLoading && <SubmitButton label="" onClick={handleSummarize} />} 
-                            {isLoading && <Loading size={35}/>}
-                        </div>
                     </div>
                 </div>
             </div>
-            {isSubmitted && (
-                <div className="flex-box">
-                    <div id="summary-output-container">
-                        <div id="summary-title-wrapper">
-                            <div id="summary-title" className="center-text disable-selection">
-                                <h1>Summarized Text</h1>
-                            </div>
-                            <div id="summary-speaker">
-                                {/* Speaker icon button here */}
-                                {isToSpeech && <PlayVoiceButton soundPath={soundPath} pauseOnToggle={true}/>}
-                            </div>
-                        </div>
-                        <div id="smaller-container" className="hide-caret">
-                            {isLoading ? (
-                                <p>Loading...</p> // Replace with a spinner
-                            ): errorMessage ? (
-                                <p className="error">{errorMessage}</p>
-                              ) : (
-                                <TextBox value={summary} onChange={() => {}} placeholder="Summary will appear here..."/>
-                              )}
-                            
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };

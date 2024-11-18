@@ -11,7 +11,7 @@
 }
 
 .upload-file-button:hover {
-    background-color: var(--main-gray); /* Subtle hover effect */
+    background-color: var(--main-hover); /* Subtle hover effect */
 }
 
 .upload-file-button .button-icon {

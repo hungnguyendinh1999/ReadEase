@@ -1,24 +1,24 @@
-.icon-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: transparent;
-    border: none;
+.button-img {
     cursor: pointer;
-    padding: 6px 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    height: 40px; /* Fixed height for consistency */
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    margin: 5px;
+    border: none;
 }
 
-.icon-button:hover {
-    background-color: var(--main-gray);
+.button-img.normal {
+    background-color: var(--main-black);
 }
 
-.button-icon {
-    width: 24px;
+.button-img.inverse {
+    background-color: var(--main-white);
 }
 
-.button-label {
-    font-size: 14px;
+.button-img.normal:hover {
+    background-color: var(--main-hover);
+}
+
+.button-img.inverse:hover {
+    background-color: var(--main-hover-light);
 }

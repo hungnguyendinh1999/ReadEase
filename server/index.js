@@ -47,7 +47,7 @@ app.post('/summarize', async (req, res) => {
 });
 
 app.post('/dummy', async (req, res) => {
-    res.send("This call works!");
+    res.send("Technology is transforming the way we interact with the world. From artificial intelligence to renewable energy, innovations are shaping a brighter future. By embracing these advancements, we can solve complex problems, improve efficiency, and connect with one another like never before. Let's harness the power of progress to build a sustainable and inclusive tomorrow");
 })
 
 app.post('/dummy-tts', async (req, res) => {
