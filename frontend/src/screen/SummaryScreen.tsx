@@ -4,11 +4,7 @@ import TextBox from "../components/atom/TextBox";
 import UploadFileButton from "../components/molecules/UploadFileButton";
 import SubmitButton from "../components/molecules/SubmitButton";
 import Dropdown from "../components/atom/Dropdown";
-import {
-    createDummyResponseService, createDummyTTSResponseService,
-    createSummarizeResponseService,
-    createTTSResponseService
-} from "../services/backend-service"
+import {createSummarizeResponseService, createTTSResponseService} from "../services/backend-service"
 import Loading from "../components/atom/Loading";
 import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
 import {useSettings} from "../contexts/SettingsContext";
@@ -73,7 +69,7 @@ const SummaryScreen: FC = () => {
     const ttsSynth = async (summaryText) => {
         setIsToSpeech(false);
         if (summaryText !== null && summaryText !== "") {
-            const ttsResponse = await createDummyTTSResponseService().post({message: summaryText, voice: voice.toLowerCase()});
+            const ttsResponse = await createTTSResponseService().post({message: summaryText, voice: voice.toLowerCase()});
             setResponseTTSStream(ttsResponse);
             if (!ttsResponse.ok) {
                 throw new Error("Failed to fetch audio");
@@ -111,7 +107,7 @@ const SummaryScreen: FC = () => {
         const vocabString = vocabLevelArray.find((option) => option.level === vocabLevel).instruction;
         try {
             // Request Summary
-            const response = await createDummyResponseService().post({
+            const response = await createSummarizeResponseService().post({
                 message: text.trim(),
                 context: harmContext,
                 vocabLevel: vocabString,

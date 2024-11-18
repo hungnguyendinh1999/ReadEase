@@ -61,24 +61,6 @@ const createTTSResponseService = () => {
 }
 
 /**
- * Endpoint: /dummy
- * Dummy endpoint for summarization, or anything that needs to make POST request to the server, for dev purpose
- * @return string sample sentence
- */
-const createDummyResponseService = () => {
-    return new HttpService("/dummy");
-}
-
-/**
- * Endpoint: /dummy-tts
- * Dummy endpoint for tts. Returns a media file that can be played
- * @return arrayBuffer array buffer data that can be converted into blob for playing mp3
- */
-const createDummyTTSResponseService = () => {
-    return new HttpService("/dummy-tts");
-}
-
-/**
  * Endpoint: /feedback
  * Take feedback data from client and append it to the server's CSV file
  * @param req Request from client. Should contain:
@@ -95,7 +77,5 @@ const createFeedbackResponseService = () => {
 export {
     createSummarizeResponseService,
     createTTSResponseService,
-    createDummyResponseService,
-    createDummyTTSResponseService,
     createFeedbackResponseService
 };

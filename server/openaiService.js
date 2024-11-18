@@ -5,7 +5,12 @@
 import OpenAI from 'openai';
 import fs from 'fs';
 
-let apiKey = fs.readFileSync("./api_key.txt", 'utf8').trim();
+let apiKey = ""
+try {
+    fs.readFileSync("./api_key.txt", 'utf8').trim();
+} catch (error) {
+    console.error("API key file not found. Assuming this is dev mode");
+}
 const isDev = !apiKey;
 
 // Creates an OpenAI connection using the provided api key
