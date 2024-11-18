@@ -12,7 +12,7 @@
 - For frontend, within the root directory of frontend, run `npm run dev`
 
 ### Icon Attribution
-“The Noun Project” provided us with the icons used in this project. This section is for proper attribution to the icon source, even for non-commercial use. The icons are stored in the [Frontend's asset folder]((./frontend/src/assets)
+“The Noun Project” provided us with the icons used in this project. This section is for proper attribution to the icon source, even for non-commercial use. The icons are stored in the [Frontend's asset folder](./frontend/src/assets)
 
 * “File” icon by fahron from [Nount Project](https://thenounproject.com/icon/file-3946982/) (CC BY 3.0) 
 * “Send” Icon by Muhajir ila Robbi from [Noun Project](https://thenounproject.com/icon/send-2498628/) (CC BY 3.0) 
