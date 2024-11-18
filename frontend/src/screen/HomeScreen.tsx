@@ -8,8 +8,13 @@ import DoubleLineTextButton from "../components/atom/DoubleLineTextButton";
 
 interface HomeScreenProps {
     openSettingsModal: () => void;
-  }
+}
 
+/**
+ * Home screen for root path. Contains logo, title and some buttons for quick navigation into features
+ * @author Khoa Nguyen
+ * @author Ryan Quinn
+ */
 const HomeScreen: React.FC<HomeScreenProps> = ({openSettingsModal}) => {
     const navigate = useNavigate();
 
@@ -17,7 +22,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({openSettingsModal}) => {
         navigate("/summary");
         openSettingsModal();
     };
-    
     return (
         <div id="home-pane">
             <div id="home-pane-left">
