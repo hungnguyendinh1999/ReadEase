@@ -173,7 +173,7 @@ const SummaryScreen: FC = () => {
                         <TextBox
                             value={text}
                             onChange={handleTextChange}
-                            placeholder="Type text here, or upload a txt file"
+                            placeholder="Type text here, or upload a *.txt file, then choose the vocabulary level and click on the summarize button on the top right to start."
                             readonly={isSubmitted}
                         />
                     </div>

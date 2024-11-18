@@ -88,7 +88,7 @@ const ReadaloudScreen: FC = () => {
                         {/* Use custom TextBox component */}
                         <TextBox
                             value={text} onChange={handleTextChange}
-                            placeholder="Type text here, or upload a txt file, then press the synthesis button on the button right to start."
+                            placeholder="Type text here, or upload a txt file, then press the synthesis button on the bottom right to start."
                         />
                     </div>
 
