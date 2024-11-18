@@ -5,7 +5,7 @@ import UploadFileButton from "../components/molecules/UploadFileButton";
 import ToSpeechButton from "../components/molecules/ToSpeechButton";
 import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
 import Loading from "../components/atom/Loading";
-import {createDummyTTSResponseService, createTTSResponseService} from "../services/backend-service";
+import {createTTSResponseService} from "../services/backend-service";
 import { useSettings } from "../contexts/SettingsContext";
 
 /**
@@ -41,7 +41,7 @@ const ReadaloudScreen: FC = () => {
         if (text !== "") {
             setIsLoading(true);
 
-            const response = await createDummyTTSResponseService().post({message: text, voice: voice.toLowerCase()});
+            const response = await createTTSResponseService().post({message: text, voice: voice.toLowerCase()});
             setResponseStream(response);
             if (!response.ok) {
                 throw new Error("Failed to fetch audio");
