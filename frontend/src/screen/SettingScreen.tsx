@@ -227,7 +227,17 @@ const SettingScreen: React.FC = () => {
   // Local state to manage user text in textbox (initially set to a default text)
   const [userText, setUserText] = useState("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
 
-  // Settings (left-side) configuration
+  /*
+    * The settingsConfig array contains the configuration for the settings displayed on the left side of the screen.
+    * Each setting is defined by an object with the following properties:
+    * - key: The unique key for the setting.
+    * - icon: The icon for the setting.
+    * - label: The label for the setting.
+    * - component: The component to render for the setting (e.g., ColorPicker, Dropdown, StyleToggleButton).
+    * - isSection: A boolean indicating whether the setting is a section header.
+    *
+    * The settingsConfig array is mapped to render the settings in the UI.
+  */
   const settingsConfig = [
     {
       key: "voice",
