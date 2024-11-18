@@ -9,7 +9,6 @@ let apiKey = ""
 try {
     apiKey = fs.readFileSync("./api_key.txt", 'utf8').trim();
 } catch (error) {
-    console.log(error);
     console.error("API key file not found. Assuming this is dev mode");
 }
 const isDev = !apiKey;
