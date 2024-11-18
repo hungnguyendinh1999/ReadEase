@@ -1,0 +1,32 @@
+/* Styles for the row containing the question and radio buttons */
+.row-radio-buttons {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: left;
+    flex-direction: row;
+    width: 100%; /* Full-width row */
+    margin-bottom: 20px; /* Add spacing between rows */
+}
+
+/* Styles for the question text */
+.question-box {
+    flex: 1; /* Take up available space */
+    min-width: 100px; /* Set a minimum width */
+    max-width: 200px; /* Limit maximum width */
+    padding: 10px; /* Add some padding around the text */
+    background-color: #f9f9f9; /* Light background */
+    text-align: center; /* Center text horizontally */
+    word-wrap: break-word; /* Allow wrapping of long words */
+    overflow-wrap: break-word; /* Support word wrap in all browsers */
+    margin-right: 20px; /* Add spacing between question and buttons */
+}
+
+/* Container for the radio buttons */
+.radio-buttons-container {
+    display: flex; /* Activates flexbox */
+    flex-direction: row; /* Makes children align horizontally */
+    gap: 10px; /* Adds spacing between the radio buttons */
+    justify-content: flex-start; /* Aligns buttons to the left (default) */
+    align-items: center; /* Ensures vertical alignment */
+  }
+  

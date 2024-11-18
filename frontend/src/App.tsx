@@ -3,11 +3,13 @@ import Sidebar from "./components/SideBar"
 import SummaryIcon from "./assets/summary.png"
 import SettingIcon from "./assets/setting.png"
 import ReadAloudIcon from "./assets/read-aloud.png"
+import FeedbackIcon from "./assets/feedback.png"
 import SummaryScreen from "./screen/SummaryScreen"
 import ReadaloudScreen from "./screen/ReadaloudScreen"
 import SettingScreen from "./screen/SettingScreen"
 import Modal from "./components/Modal";
 import HomeScreen from "./screen/HomeScreen"
+import FeedbackScreen from "./screen/FeedbackScreen";
 
 import { BrowserRouter as Router, Routes, Route, useLocation} from "react-router-dom";
 import React, { useState } from "react";
@@ -22,6 +24,7 @@ function AppLayout() {
   const sidebarParams = [
     { imageSrc: SummaryIcon, title: "Summary", path: "/summary" },
     { imageSrc: ReadAloudIcon, title: "Read Aloud", path: "/readaloud" },
+    { imageSrc: FeedbackIcon, title: "Feedback", path: "/feedback" },
     { imageSrc: SettingIcon, title: "Settings", path: "/settings" },
   ];
 
@@ -35,6 +38,7 @@ function AppLayout() {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/summary" element={<SummaryScreen />} />
           <Route path="/readaloud" element={<ReadaloudScreen />} />
+          <Route path="/feedback" element={<FeedbackScreen />} />
         </Routes>
         
         <Modal isOpen={isModalOpen} onClose={closeModal}>

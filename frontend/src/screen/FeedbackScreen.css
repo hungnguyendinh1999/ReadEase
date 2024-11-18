@@ -1,0 +1,77 @@
+.feedback-screen {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+#feedback-screen {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center horizontally */
+    height: 100vh; /* Make the container fill the viewport */
+    text-align: center; /* Center text inside elements */
+    margin: 0 auto; /* Ensure the container itself is centered */
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+/* Add some spacing between elements */
+#feedback-screen > div {
+    margin-bottom: 20px;
+}
+
+#feedback-screen h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#feedback-screen p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#not-sure-yet {
+    display: flex; /* Align items in a row */
+    flex-direction: row; /* Ensure row layout */
+    align-items: center; /* Vertically center the textbox and button */
+    justify-content: center; /* Center them horizontally in the parent */
+    gap: 10px; /* Add spacing between the textbox and button */
+    margin-top: 20px; /* Add spacing above */
+}
+
+#feedback-textbox-container {
+    width: 100%;
+    height: 82%;
+    padding: 15px;
+}
+
+#feedback-input-container {
+    border-radius: 18px; /* Rounded corners */
+    background-color: var(--textbox-background-color); /* Subtle background color */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 90%; /* Adjust as needed */
+    margin-right: 10px;
+    align-items: center; /* Center child elements horizontally */
+    justify-content: center; /* Center child elements vertically */
+    /* Animation */
+    min-height: 150px; /* Default min height */
+    transition: width 0.3s ease;
+}
+
+.horizontal-row{
+    display:flex;
+    flex-direction: row;
+}
+
+.right-aligned-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: right;
+}
+.right-aligned-box div {
+    margin-left:auto;
+}
+
