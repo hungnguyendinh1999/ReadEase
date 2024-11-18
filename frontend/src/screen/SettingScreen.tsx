@@ -15,6 +15,7 @@ import ColorPicker from "../components/molecules/ColorPicker";
 import Dropdown from "../components/atom/Dropdown";
 import StyleToggleButton from "../components/atom/StyleToggleButton";
 import DemoVoiceBar from "../components/molecules/DemoVoiceBar";
+import SingleLineTextButton from "../components/atom/SingleLineTextButton";
 
 
 const predefinedBackgroundColors = ["#A8DADC", "#F4A261", "#457B9D", "#FFE8D6", "#1D3557", "#FFFFFF", "#000000"];
@@ -347,21 +348,16 @@ const SettingScreen: React.FC = () => {
           />
         </fieldset>
       </div>
-      <button
-        className="apply-button"
-        onClick={() => {
-          setVoice(localSettings.voice);
-          setBackgroundColor(localSettings.backgroundColor);
-          setFontColor(localSettings.fontColor);
-          setFontTypeface(localSettings.fontTypeface);
-          setFontWeight(localSettings.fontWeight);
-          setFontStyle(localSettings.fontStyle);
-          setTextDecoration(localSettings.textDecoration);
-          setFontSize(localSettings.fontSize);
-        }}
-      >
-        Apply Settings
-      </button>
+      <SingleLineTextButton className="apply-button" onClick={() => {
+        setVoice(localSettings.voice);
+        setBackgroundColor(localSettings.backgroundColor);
+        setFontColor(localSettings.fontColor);
+        setFontTypeface(localSettings.fontTypeface);
+        setFontWeight(localSettings.fontWeight);
+        setFontStyle(localSettings.fontStyle);
+        setTextDecoration(localSettings.textDecoration);
+        setFontSize(localSettings.fontSize);
+      }} text={"Apply Settings"} textSize={16} height={52} width={150}/>
     </div>
   );
 };

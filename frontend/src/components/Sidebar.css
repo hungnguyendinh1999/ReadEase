@@ -36,6 +36,7 @@
     width: 100%;
     height: 90px;
     cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .nav-container:hover {

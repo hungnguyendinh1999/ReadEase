@@ -7,7 +7,7 @@
     cursor: pointer;
     padding: 6px 10px;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, border-color 0.3s;
     height: 40px; /* Fixed height for consistency */
 }
 
