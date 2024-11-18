@@ -6,6 +6,7 @@ import OpenAI from 'openai';
 import fs from 'fs';
 
 let apiKey = fs.readFileSync("./api_key.txt", 'utf8').trim();
+const isDev = !apiKey;
 
 // Creates an OpenAI connection using the provided api key
 const openai = new OpenAI({
@@ -53,4 +54,4 @@ const getTTSResponse = async (message, voice) => await openai.audio.speech.creat
     input: message,
 });
 
-export {getGPTSummarizeResponse, getTTSResponse};
+export {getGPTSummarizeResponse, getTTSResponse, isDev};

@@ -5,7 +5,7 @@
  */
 import express from 'express';
 import cors from "cors";
-import {getGPTSummarizeResponse, getTTSResponse} from './openaiService.js';
+import {getGPTSummarizeResponse, getTTSResponse, isDev} from './openaiService.js';
 import fs from 'fs';
 
 // Server object
@@ -46,8 +46,13 @@ app.post('/summarize', async (req, res) => {
     if (!vocab) {
         return res.status(400).send("Missing vocabLevelContext under context")
     }
-    const response = await getGPTSummarizeResponse(message, context, vocab);
-    res.send(response.choices[0].message.content); // Send back to FE
+
+    if (isDev){
+        res.send("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+    } else {
+        const response = await getGPTSummarizeResponse(message, context, vocab);
+        res.send(response.choices[0].message.content); // Send back to FE
+    }
 });
 
 /**
@@ -66,21 +71,38 @@ app.post('/tts', async (req, res) => {
         return res.status(400).send("No message or voice provided");
     }
 
-    try {
-        const mp3 = await getTTSResponse(message, voice)
+    if (isDev) {
+        fs.readFile('./res/alloy.wav', (err, data) => {
+            if (err) {
+                console.error('Error reading the .wav file:', err);
+                res.status(500).send('Error reading the audio file');
+                return;
+            }
 
-        // Convert the MP3 response to a buffer
-        const buffer = Buffer.from(await mp3.arrayBuffer());
+            res.set({
+                'Content-Type': 'audio/wav',
+                'Content-Disposition': 'inline; filename=tts.mp3',
+            });
 
-        // Send the buffer to the client with appropriate headers
-        res.set({
-            "Content-Type": "audio/mpeg",
-            "Content-Disposition": "inline; filename=tts.mp3",
+            res.send(data);
         });
-        res.send(buffer);
-    } catch (error) {
-        console.error("Error generating TTS:", error);
-        res.status(500).send("Failed to generate TTS.");
+    } else {
+        try {
+            const mp3 = await getTTSResponse(message, voice)
+
+            // Convert the MP3 response to a buffer
+            const buffer = Buffer.from(await mp3.arrayBuffer());
+
+            // Send the buffer to the client with appropriate headers
+            res.set({
+                "Content-Type": "audio/mpeg",
+                "Content-Disposition": "inline; filename=tts.mp3",
+            });
+            res.send(buffer);
+        } catch (error) {
+            console.error("Error generating TTS:", error);
+            res.status(500).send("Failed to generate TTS.");
+        }
     }
 });
 
@@ -111,37 +133,6 @@ app.post('/feedback', async (req, res) => {
 
     res.send("Response recorded.");
 });
-
-/**
- * Endpoint: /dummy
- * Dummy endpoint for summarization, or anything that needs to make POST request to the server, for dev purpose
- * @return string sample sentence
- */
-app.post('/dummy', async (req, res) => {
-    res.send("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
-})
-
-/**
- * Endpoint: /dummy-tts
- * Dummy endpoint for tts. Returns a media file that can be played
- * @return arrayBuffer array buffer data that can be converted into blob for playing mp3
- */
-app.post('/dummy-tts', async (req, res) => {
-    fs.readFile('./res/alloy.wav', (err, data) => {
-        if (err) {
-            console.error('Error reading the .wav file:', err);
-            res.status(500).send('Error reading the audio file');
-            return;
-        }
-
-        res.set({
-            'Content-Type': 'audio/wav',
-            'Content-Disposition': 'inline; filename=tts.mp3',
-        });
-
-        res.send(data);
-    });
-})
 
 // Web Port
 const port = process.env.PORT || 8080;
