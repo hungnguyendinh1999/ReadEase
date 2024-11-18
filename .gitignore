@@ -129,3 +129,4 @@ dist
 .idea/*
 server/api_key.txt
 .DS_Store
+feedback.csv

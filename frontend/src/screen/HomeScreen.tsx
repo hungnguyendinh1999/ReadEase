@@ -11,14 +11,14 @@ const HomeScreen: React.FC = () => {
         <div id="home-pane">
             <div id="home-pane-left">
                 <img className="icon" id="home-icon" src={Icon}/>
-                <p id="home-title">ReadEase</p>
-                <p id="home-subtitle">An Assistive Learning Platform for Dyslexia</p>
+                <a id="home-title">ReadEase</a>
+                <a id="home-subtitle">An Assistive Learning Platform for Dyslexia</a>
                 <Link id="home-customize-btn" className="link button" to="/summary">
                     <SingleLineTextButton onClick={() => {}} text={"Customize Your Experience"} height={60} width={300}/>
                 </Link>
             </div>
             <div id="home-pane-right">
-                <p id="home-feature">Core Features</p>
+                <a id="home-feature">Core Features</a>
                 <Link className="link home-feature-btn" to="/summary">
                     <DoubleLineTextButton onClick={() => {}}
                                           headerText={"Summarization"} indentation={"left"}

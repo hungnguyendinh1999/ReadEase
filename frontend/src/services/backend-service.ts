@@ -45,9 +45,14 @@ const createDummyTTSResponseService = () => {
     return new HttpService("/dummy-tts");
 }
 
+const createFeedbackResponseService = () => {
+    return new HttpService("/feedback");
+}
+
 export {
     createSummarizeResponseService,
     createTTSResponseService,
     createDummyResponseService,
-    createDummyTTSResponseService
+    createDummyTTSResponseService,
+    createFeedbackResponseService
 };

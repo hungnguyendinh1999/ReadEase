@@ -65,7 +65,6 @@ const SummaryScreen: FC = () => {
 
     const ttsSynth = async (summaryText) => {
         setIsToSpeech(false);
-        console.log(summaryText);
         if (summaryText !== null && summaryText !== "") {
             const ttsResponse = await createDummyTTSResponseService().post({message: summaryText, voice: voice.toLowerCase()});
             setResponseTTSStream(ttsResponse);
