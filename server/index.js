@@ -47,7 +47,7 @@ app.post('/summarize', async (req, res) => {
 });
 
 app.post('/dummy', async (req, res) => {
-    res.send("Technology is transforming the way we interact with the world. From artificial intelligence to renewable energy, innovations are shaping a brighter future. By embracing these advancements, we can solve complex problems, improve efficiency, and connect with one another like never before. Let's harness the power of progress to build a sustainable and inclusive tomorrow");
+    res.send("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
 })
 
 app.post('/dummy-tts', async (req, res) => {
@@ -91,6 +91,24 @@ app.post('/tts', async (req, res) => {
         console.error("Error generating TTS:", error);
         res.status(500).send("Failed to generate TTS.");
     }
+});
+
+app.post('/feedback', async (req, res) => {
+    const summarizeScore = req.body.params['0']['summarizationScore'];
+    const ttsScore = req.body.params['0']['ttsScore'];
+    const customizationScore = req.body.params['0']['customizationScore'];
+    const other = req.body.params['0']['other'];
+
+    const csvRow = `${summarizeScore},${ttsScore},${customizationScore},"${other}"\n`;
+    const filePath = '../feedback.csv';
+    if (!fs.existsSync(filePath)) {
+        const headers = 'Summarization Score,TTS Score,Customization Score,Other\n';
+        fs.writeFileSync(filePath, headers);
+    }
+
+    fs.appendFileSync(filePath, csvRow, 'utf8');
+
+    res.send("Response recorded.");
 });
 
 // We define the port to listen on, and do so
