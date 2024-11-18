@@ -1,24 +1,39 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Icon from "../assets/icon.png"
 import "./HomeScreen.css";
 import RightBackground from "../assets/home-back.png"
 import SingleLineTextButton from "../components/atom/SingleLineTextButton";
 import DoubleLineTextButton from "../components/atom/DoubleLineTextButton";
 
-const HomeScreen: React.FC = () => {
+interface HomeScreenProps {
+    openSettingsModal: () => void;
+}
+
+/**
+ * Home screen for root path. Contains logo, title and some buttons for quick navigation into features
+ * @author Khoa Nguyen
+ * @author Ryan Quinn
+ */
+const HomeScreen: React.FC<HomeScreenProps> = ({openSettingsModal}) => {
+    const navigate = useNavigate();
+
+    const customizeExperienceClick = () => {
+        navigate("/summary");
+        openSettingsModal();
+    };
     return (
         <div id="home-pane">
             <div id="home-pane-left">
                 <img className="icon" id="home-icon" src={Icon}/>
-                <p id="home-title">ReadEase</p>
-                <p id="home-subtitle">An Assistive Learning Platform for Dyslexia</p>
-                <Link id="home-customize-btn" className="link button" to="/summary">
+                <a id="home-title">ReadEase</a>
+                <a id="home-subtitle">An Assistive Learning Platform for Dyslexia</a>
+                <button id="home-customize-btn" className="link button" onClick={customizeExperienceClick}>
                     <SingleLineTextButton onClick={() => {}} text={"Customize Your Experience"} height={60} width={300}/>
-                </Link>
+                </button>
             </div>
             <div id="home-pane-right">
-                <p id="home-feature">Core Features</p>
+                <a id="home-feature">Core Features</a>
                 <Link className="link home-feature-btn" to="/summary">
                     <DoubleLineTextButton onClick={() => {}}
                                           headerText={"Summarization"} indentation={"left"}

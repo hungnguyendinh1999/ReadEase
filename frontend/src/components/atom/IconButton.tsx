@@ -11,6 +11,18 @@ interface IconButtonProps {
     inverseColor?: boolean;
 }
 
+/**
+ * Button with a single icon in the center
+ * @author Khoa Nguyen
+ *
+ * @param onClick function when click
+ * @param iconSrc source image for icon
+ * @param size size of the button
+ * @param iconSize size of the icon
+ * @param isCircular circle button if true, otherwise squared button
+ * @param className additional class name
+ * @param inverseColor black background if true, otherwise white background
+ */
 const IconButton: FC<IconButtonProps> = ({onClick, iconSrc, size = 30, iconSize = 50, isCircular = true, className = "", inverseColor = false}) => {
     let backgroundClass = inverseColor ? "inverse" : "normal";
     let borderRadius = isCircular ? "50%" : "10%";

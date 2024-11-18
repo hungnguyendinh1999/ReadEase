@@ -2,14 +2,14 @@
  * Express server which connects to OpenAI backend.
  * Defines REST api to interact with gpt model.
  * Provides for context injections, basic testing, and user feedback.
- * @author Christopher Curtis
  */
 import express from 'express';
 import cors from "cors";
 import {getGPTSummarizeResponse, getTTSResponse} from './openaiService.js';
 import fs from 'fs';
 
-const app = express();  // Server is instantiated
+// Server object
+const app = express();
 
 // These options enable us to dump json payloads and define the return signal
 const corsOptions = {
@@ -20,20 +20,24 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-// Defines default route to demonstate server status
+// Default route, just to have it
 app.get('/', (req, res) => {
     res.send("The server is up!");
 });
 
-// Gets responses from GPT model with no additional context
+/**
+ * Endpoint: /summarize
+ * Send data to OpenAI API to summarize
+ * @param req Request from client. Should contain:
+ *      - 'message': text to summarize
+ *      - 'context': instruct OpenAPI about what potential avoidance and dangerous content
+ *      - 'vocabLevel': level of vocabulary that we expect from OpenAI API response
+ * @return string summarization from OpenAI API
+ */
 app.post('/summarize', async (req, res) => {
     const message = req.body.params['0']['message'];
     const context = req.body.params['0']['context'];
     const vocab = req.body.params['0']['vocabLevel'];
-    /**
-     * Message: the text input by users
-     * Context: the prompting instruction to mitigate harm
-     */
 
     if (!message || !context) {
         return res.status(400).send("No message or context provided");
@@ -46,27 +50,14 @@ app.post('/summarize', async (req, res) => {
     res.send(response.choices[0].message.content); // Send back to FE
 });
 
-app.post('/dummy', async (req, res) => {
-    res.send("Technology is transforming the way we interact with the world. From artificial intelligence to renewable energy, innovations are shaping a brighter future. By embracing these advancements, we can solve complex problems, improve efficiency, and connect with one another like never before. Let's harness the power of progress to build a sustainable and inclusive tomorrow");
-})
-
-app.post('/dummy-tts', async (req, res) => {
-    fs.readFile('./res/alloy.wav', (err, data) => {
-        if (err) {
-            console.error('Error reading the .wav file:', err);
-            res.status(500).send('Error reading the audio file');
-            return;
-        }
-
-        res.set({
-            'Content-Type': 'audio/wav',
-            'Content-Disposition': 'inline; filename=tts.mp3',
-        });
-
-        res.send(data);
-    });
-})
-
+/**
+ * Endpoint: /tts
+ * Send data to OpenAI API to synthesize into text-to-speech
+ * @param req Request from client. Should contain:
+ *      - 'message': text to synthesize
+ *      - 'voice': voice to use for the output
+ * @return arrayBuffer array buffer data that can be converted into blob for playing mp3
+ */
 app.post('/tts', async (req, res) => {
     const message = req.body.params['0']['message'];
     const voice = req.body.params['0']['voice'];
@@ -93,7 +84,66 @@ app.post('/tts', async (req, res) => {
     }
 });
 
-// We define the port to listen on, and do so
+/**
+ * Endpoint: /feedback
+ * Take feedback data from client and append it to the server's CSV file
+ * @param req Request from client. Should contain:
+ *      - 'summarizationScore': score that the user rate for the summarization feature
+ *      - 'ttsScore': score that the user rate for the tts feature
+ *      - 'customizationScore': score that the user rate for the customization feature
+ *      - 'other': other comments user might have
+ * @return string whether the response is recorded or not
+ */
+app.post('/feedback', async (req, res) => {
+    const summarizeScore = req.body.params['0']['summarizationScore'];
+    const ttsScore = req.body.params['0']['ttsScore'];
+    const customizationScore = req.body.params['0']['customizationScore'];
+    const other = req.body.params['0']['other'];
+
+    const csvRow = `${summarizeScore},${ttsScore},${customizationScore},"${other}"\n`;
+    const filePath = '../feedback.csv';
+    if (!fs.existsSync(filePath)) {
+        const headers = 'Summarization Score,TTS Score,Customization Score,Other\n';
+        fs.writeFileSync(filePath, headers);
+    }
+
+    fs.appendFileSync(filePath, csvRow, 'utf8');
+
+    res.send("Response recorded.");
+});
+
+/**
+ * Endpoint: /dummy
+ * Dummy endpoint for summarization, or anything that needs to make POST request to the server, for dev purpose
+ * @return string sample sentence
+ */
+app.post('/dummy', async (req, res) => {
+    res.send("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+})
+
+/**
+ * Endpoint: /dummy-tts
+ * Dummy endpoint for tts. Returns a media file that can be played
+ * @return arrayBuffer array buffer data that can be converted into blob for playing mp3
+ */
+app.post('/dummy-tts', async (req, res) => {
+    fs.readFile('./res/alloy.wav', (err, data) => {
+        if (err) {
+            console.error('Error reading the .wav file:', err);
+            res.status(500).send('Error reading the audio file');
+            return;
+        }
+
+        res.set({
+            'Content-Type': 'audio/wav',
+            'Content-Disposition': 'inline; filename=tts.mp3',
+        });
+
+        res.send(data);
+    });
+})
+
+// Web Port
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Listening on port ${port}...`);

@@ -31,6 +31,12 @@ const vocabLevelArray: VocabLevel[] = [
 const harmContext =
     "If the input text contains harmful, illegal, or offensive content, respond with 'Content not allowed.' and give a 1-sentence explanation.";
 
+/**
+ * Summarize screen, allows user to input text and ask the system to summarize for the text for them.
+ * The process should go: input text -> summarize (OpenAI API request) -> synthesis (OpenAI API request)
+ * @author Hung Nguyen
+ * @author Khoa Nguyen
+ */
 const SummaryScreen: FC = () => {
     // Define state with types
     const fileInputRef = useRef(null);
@@ -58,14 +64,14 @@ const SummaryScreen: FC = () => {
         setVocabLevel(event.target.value);
     };
 
-    // Placeholder functions for button actions
+    // Request file upload dialog
     const handleFileUpload = () => {
         fileInputRef.current.click();
     };
 
+    // Summarize requests synthesis, we send user's input to our server, and our server will handle communication to OpenAPI
     const ttsSynth = async (summaryText) => {
         setIsToSpeech(false);
-        console.log(summaryText);
         if (summaryText !== null && summaryText !== "") {
             const ttsResponse = await createDummyTTSResponseService().post({message: summaryText, voice: voice.toLowerCase()});
             setResponseTTSStream(ttsResponse);
@@ -79,12 +85,15 @@ const SummaryScreen: FC = () => {
         }
     }
 
+    // Detects if the response from server is received. If yes, we allow user to play the audio
     useEffect(() => {
         if (responseTTSStream !== null && responseTTSStream.status === 200) {
             setIsToSpeech(true);
         }
     }, [responseTTSStream]);
 
+    // Detects if user change to different voice in the settings. We want the voice to accurately reflect what user
+    // chose, this part is automatically, since the synthesis is part of the summarize process
     useEffect(() => {
         ttsSynth(summary)
     }, [voice]);
@@ -122,6 +131,7 @@ const SummaryScreen: FC = () => {
         }
     };
 
+    // Handle file read
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -132,7 +142,7 @@ const SummaryScreen: FC = () => {
                 } else {
                     const result = e.target?.result;
                     if (typeof result === "string") {
-                        setText(result); // Safely set the state
+                        setText(result);
                     } else {
                         console.error("FileReader result is not a string");
                     }
@@ -142,6 +152,7 @@ const SummaryScreen: FC = () => {
         }
     };
 
+    // Handle back button from finish summarizing back to the start
     const backButton = () => {
         setIsSubmitted(false);
         setWidth("90%");
@@ -179,25 +190,27 @@ const SummaryScreen: FC = () => {
                     </div>
                 </div>
 
-                <div id="summary-output-container" style={{visibility: isSubmitted ? "visible" : "collapse"}}>
-                    <div id="summary-title-wrapper">
-                        <BackButton size={35} onClick={backButton} inverseColor={true}/>
-                        <div id="summary-title" className="center-text disable-selection">
-                            <p>Summary</p>
+                {isSubmitted &&
+                    <div id="summary-output-container">
+                        <div id="summary-title-wrapper">
+                            <BackButton size={35} onClick={backButton} inverseColor={true}/>
+                            <div id="summary-title" className="center-text disable-selection">
+                                <p>Summary</p>
+                            </div>
+                            {isToSpeech && <PlayVoiceButton size={35} soundPath={soundPath} pauseOnToggle={true} inverseColor={true}/>}
                         </div>
-                        {isToSpeech && <PlayVoiceButton size={35} soundPath={soundPath} pauseOnToggle={true} inverseColor={true}/>}
-                    </div>
-                    <div id="smaller-container" className="hide-caret">
-                        {isLoading ? (
-                            <Loading size={30}/>
-                        ): errorMessage ? (
-                            <p className="error">{errorMessage}</p>
-                        ) : (
-                            <Typewriter value={summary} speed={4}/>
-                        )}
+                        <div id="smaller-container" className="hide-caret">
+                            {isLoading ? (
+                                <Loading size={30}/>
+                            ): errorMessage ? (
+                                <p className="error">{errorMessage}</p>
+                            ) : (
+                                <Typewriter value={summary} speed={4}/>
+                            )}
 
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     );

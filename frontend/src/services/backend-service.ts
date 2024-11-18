@@ -1,23 +1,29 @@
 /**
- * Defines a reusable HTTP-Service class.
- * Contains a post method.
+ * fetch wrapper, that acts as an HTTP Service for POST and GET requests
+ * @author Khoa Nguyen
  */
 class HttpService {
     private readonly baseURL: string;
 
     /**
-     * Constructs an HTTP service object. Base URL is defined the api-client file.
-     * Directs requests to provided endpoint of the base url.
+     * Create a service object, providing the endpoint. The port and IP stays static for now.
      * @param endpoint the target route to post to
      */
     constructor(endpoint: string) {
         this.baseURL = "http://127.0.0.1:8080" + endpoint;
     }
 
+    /**
+     * Make GET request
+     */
     get() {
         return fetch(this.baseURL, {method: "GET"})
     }
 
+    /**
+     * Make POST request, accept data to be stored in body before getting sent
+     * @param data data to be wrapped in body
+     */
     post(data: any) {
         return fetch(this.baseURL, {
             method: "POST",
@@ -29,25 +35,67 @@ class HttpService {
     }
 }
 
+/**
+ * Endpoint: /summarize
+ * Send data to OpenAI API to summarize
+ * @param req Request from client. Should contain:
+ *      - 'message': text to summarize
+ *      - 'context': instruct OpenAPI about what potential avoidance and dangerous content
+ *      - 'vocabLevel': level of vocabulary that we expect from OpenAI API response
+ * @return string summarization from OpenAI API
+ */
 const createSummarizeResponseService = () => {
     return new HttpService("/summarize");
 }
 
+/**
+ * Endpoint: /tts
+ * Send data to OpenAI API to synthesize into text-to-speech
+ * @param req Request from client. Should contain:
+ *      - 'message': text to synthesize
+ *      - 'voice': voice to use for the output
+ * @return arrayBuffer array buffer data that can be converted into blob for playing mp3
+ */
 const createTTSResponseService = () => {
     return new HttpService("/tts");
 }
 
+/**
+ * Endpoint: /dummy
+ * Dummy endpoint for summarization, or anything that needs to make POST request to the server, for dev purpose
+ * @return string sample sentence
+ */
 const createDummyResponseService = () => {
     return new HttpService("/dummy");
 }
 
+/**
+ * Endpoint: /dummy-tts
+ * Dummy endpoint for tts. Returns a media file that can be played
+ * @return arrayBuffer array buffer data that can be converted into blob for playing mp3
+ */
 const createDummyTTSResponseService = () => {
     return new HttpService("/dummy-tts");
+}
+
+/**
+ * Endpoint: /feedback
+ * Take feedback data from client and append it to the server's CSV file
+ * @param req Request from client. Should contain:
+ *      - 'summarizationScore': score that the user rate for the summarization feature
+ *      - 'ttsScore': score that the user rate for the tts feature
+ *      - 'customizationScore': score that the user rate for the customization feature
+ *      - 'other': other comments user might have
+ * @return string whether the response is recorded or not
+ */
+const createFeedbackResponseService = () => {
+    return new HttpService("/feedback");
 }
 
 export {
     createSummarizeResponseService,
     createTTSResponseService,
     createDummyResponseService,
-    createDummyTTSResponseService
+    createDummyTTSResponseService,
+    createFeedbackResponseService
 };

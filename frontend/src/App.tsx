@@ -35,7 +35,7 @@ function AppLayout() {
       {!hideSidebar && <Sidebar params={sidebarParams} onSettingsClick={openModal} />}
       <div style={{ marginLeft: "80px" }}>
         <Routes>
-          <Route path="/" element={<HomeScreen />} />
+          <Route path="/" element={<HomeScreen openSettingsModal={openModal} />} />
           <Route path="/summary" element={<SummaryScreen />} />
           <Route path="/readaloud" element={<ReadaloudScreen />} />
           <Route path="/feedback" element={<FeedbackScreen />} />

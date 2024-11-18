@@ -26,7 +26,7 @@
 
 #home-title {
     text-align: center;
-    text-color: var(--main-black);
+    color: var(--main-black);
     font-size: 40px;
     font-weight: bold;
     margin-right: 20%;
@@ -36,12 +36,17 @@
     text-align: center;
     color: var(--main-black);
     font-size: 20px;
-    margin-top: -15px;
     font-weight: bold;
     margin-right: 20%;
 }
 
 #home-customize-btn {
+    all: unset;
+    margin-right: 20%;
+    margin-top: 20px;
+}
+
+#home-customize-btn:hover {
     margin-right: 20%;
     margin-top: 20px;
 }

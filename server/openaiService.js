@@ -1,7 +1,6 @@
 /**
  * Used for connecting to OpenAI.
  * Provides connection, and response function wrapper
- * @author Christopher Curtis
  */
 import OpenAI from 'openai';
 import fs from 'fs';
@@ -15,8 +14,7 @@ const openai = new OpenAI({
 
 /**
  * Function for getting a response from the gpt model.
- * Uses the provided message history
- * @param message the message history to load in
+ * @param message the text to summarize
  * @param context the context message to help form a response
  * @param vocabLevel vocab level
  * @returns gpt response object
@@ -43,6 +41,12 @@ const getGPTSummarizeResponse = async (message, context, vocabLevel) => await op
     ],
 });
 
+/**
+ * Function for getting a tts sound file from api
+ * @param message the text to synthesize to tts
+ * @param voice voice used for the process
+ * @returns gpt response object
+ */
 const getTTSResponse = async (message, voice) => await openai.audio.speech.create({
     model: "tts-1",
     voice: voice,
