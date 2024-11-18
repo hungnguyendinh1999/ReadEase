@@ -15,16 +15,20 @@ interface SidebarProps {
  * @param onSettingsClick action perform when setting button is clicked
  */
 const Sidebar: React.FC<SidebarProps> = ({ params, onSettingsClick }) => {
-  const menuItems = params.filter((item) => item.title !== "Settings");
+  const lowerMenuTitles : string[] = ["Feedback"];
+
+  const upperMenuItems = params.filter((item) => item.title !== "Settings" && !lowerMenuTitles.includes(item.title));
+  const lowerMenuItems = params.filter((item) => lowerMenuTitles.includes(item.title));
   const settingsItem = params.find((item) => item.title === "Settings");
+  let index = 0;
 
   return (
     <div className="sidebar">
       <div id="icon-holder">
         <img id="sidebar-icon" className="icon" src={Icon} alt="Sidebar Icon" />
       </div>
-      {menuItems.map((item, index) => (
-        <Link key={"nav-link-" + index} className="nav-link" to={item.path}>
+      {upperMenuItems.map((item) => (
+        <Link key={"nav-link-" + index++} className="nav-link" to={item.path}>
           <div className="nav-container">
             <img className="nav-icon" src={item.imageSrc} alt={item.title} />
             <p className="nav-title">{item.title}</p>
@@ -34,6 +38,15 @@ const Sidebar: React.FC<SidebarProps> = ({ params, onSettingsClick }) => {
       
       {settingsItem && (
         <div className="settings-container">
+          {/* Surprise! Lower level links */}
+          {lowerMenuItems.map((item) => (
+            <Link key={"nav-link-" + index++} className="nav-link" to={item.path}>
+              <div className="nav-container">
+                <img className="nav-icon" src={item.imageSrc} alt={item.title} />
+                <p className="nav-title">{item.title}</p>
+              </div>
+            </Link>
+          ))}
           {/* Remove the Link and use onSettingsClick to open modal */}
           <div className="nav-link" onClick={onSettingsClick} style={{ cursor: "pointer" }}>
             <div className="nav-container">
