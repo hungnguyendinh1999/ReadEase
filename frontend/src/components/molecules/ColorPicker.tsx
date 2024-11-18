@@ -9,6 +9,16 @@ interface ColorPickerProps {
   onColorSelect: (color: string) => void;
 }
 
+/**
+ * ColorPicker component allows users to select a color from a given list of colors.
+ *
+ * @param {string} label - The label for the color picker.
+ * @param {string[]} colors - An array of color values to choose from.
+ * @param {string} selectedColor - The currently selected color.
+ * @param {(color: string) => void} onColorSelect - Callback function to handle color selection.
+ *
+ * @returns {JSX.Element} The rendered ColorPicker component.
+ */
 const ColorPicker: React.FC<ColorPickerProps> = ({
   label,
   colors,

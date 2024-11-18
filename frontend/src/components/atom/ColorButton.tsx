@@ -7,6 +7,17 @@ interface ColorButtonProps {
   }
   
 
+/**
+ * ColorButton component renders a button with a specified color.
+ * The button can be selected or unselected, indicated by a border style.
+ * 
+ * @param {Object} props - The properties object.
+ * @param {string} props.color - The color of the button.
+ * @param {boolean} props.isSelected - Indicates if the button is selected.
+ * @param {Function} props.onClick - The function to call when the button is clicked.
+ * 
+ * @returns {JSX.Element} The rendered button component.
+ */
 const ColorButton: React.FC<ColorButtonProps> = ({color, isSelected, onClick}) => {
     return (
         <button
