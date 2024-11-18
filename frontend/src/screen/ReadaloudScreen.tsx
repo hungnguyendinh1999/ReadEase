@@ -8,6 +8,11 @@ import Loading from "../components/atom/Loading";
 import {createDummyTTSResponseService, createTTSResponseService} from "../services/backend-service";
 import { useSettings } from "../contexts/SettingsContext";
 
+/**
+ * Read Aloud screen, allows user to input text and ask the system to read it out into audio.
+ * The process should go: text input -> synthesis (OpenAI API request) -> play tts audio that gets returned
+ * @author Khoa Nguyen
+ */
 const ReadaloudScreen: FC = () => {
     const {voice} = useSettings();
 
@@ -19,20 +24,23 @@ const ReadaloudScreen: FC = () => {
     const [soundPath, setSoundPath] = useState<string>("");
     const [responseStream, setResponseStream] = useState(null); // The most recent query response
 
-    // Event handler for textarea input
+    // Event handler for when input text changes. This should reset the process from the start, since we want
+    // the text to match with the audio at all time
     const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setText(event.target.value);
         setIsToSpeech(false);
     };
 
-    // Placeholder functions for button actions
+    // Request file upload dialog
     const handleFileUpload = () => {
         fileInputRef.current.click();
     };
 
+    // User requests synthesis, we send user's input to our server, and our server will handle communication to OpenAPI
     const handleToSpeech = async () => {
         if (text !== "") {
             setIsLoading(true);
+
             const response = await createDummyTTSResponseService().post({message: text, voice: voice.toLowerCase()});
             setResponseStream(response);
             if (!response.ok) {
@@ -45,6 +53,7 @@ const ReadaloudScreen: FC = () => {
         }
     };
 
+    // Detects if the response from server is received. If yes, we allow user to play the audio
     useEffect(() => {
         setIsLoading(false);
         if (responseStream !== null && responseStream.status === 200) {
@@ -52,10 +61,13 @@ const ReadaloudScreen: FC = () => {
         }
     }, [responseStream]);
 
+    // Detects if user change to different voice in the settings. We want the voice to accurately reflect what user
+    // chose, but user still have to press the synthesis button again, just to give them a choice
     useEffect(() => {
         setIsToSpeech(false);
     }, [voice]);
 
+    // Handle file read
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -67,7 +79,7 @@ const ReadaloudScreen: FC = () => {
                 } else {
                     const result = e.target?.result;
                     if (typeof result === "string") {
-                        setText(result); // Safely set the state
+                        setText(result);
                     } else {
                         console.error("FileReader result is not a string");
                     }

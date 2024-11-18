@@ -7,6 +7,13 @@ interface SidebarProps {
   onSettingsClick: () => void;
 }
 
+/**
+ * Sidebar component that anchors on the left of the screen almost at all time
+ * @author Khoa Nguyen
+ *
+ * @param params navigation buttons, with image, title and the url path to the screen
+ * @param onSettingsClick action perform when setting button is clicked
+ */
 const Sidebar: React.FC<SidebarProps> = ({ params, onSettingsClick }) => {
   const menuItems = params.filter((item) => item.title !== "Settings");
   const settingsItem = params.find((item) => item.title === "Settings");

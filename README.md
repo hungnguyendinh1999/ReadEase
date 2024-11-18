@@ -1,17 +1,12 @@
-# ReadEase: An Assistive Learning Platform for Dyslexia
+<p align="center"><img src="res/icon.png"></p> 
+<h1 align="center"><b>ReadEase</b></h1>
+<h4 align="center">An Assistive Learning Platform for Dyslexia</h4>
 
-## Installation instruction
+### Installation
+- For dependencies for both frontend and server directory, run `npm i`
+- For server specifically, run `npm install -g nodemon`
+- Create a file called `api_key.txt` within server root directory and paste your OpenAI API key in
 
-To install necessary software go the project root folders for both the frontend and server folders, and enter: `npm i`
-
-Enter the server folder, and run `npm install -g nodemon`
-
-Enter your OPENAI api key in the corresponding server file.
-
-First run the server with `nodemon index.js` from the server folder.
-
-Then, from a different terminal window, run the frontend with `npm run dev` from the frontend folder.
-
-NOTE: Your editor may show errors when using `react-hook-form` in a couple of the components, such as:
-`Module '"react-hook-form"' has no exported member 'useForm'.` This should not prevent the code from running, and can be
-ignored.
+### Run Application
+- For server, within the root directory of server, run `nodemon index.js`
+- For frontend, within the root directory of frontend, run `npm run dev`

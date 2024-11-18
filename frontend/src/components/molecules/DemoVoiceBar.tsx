@@ -15,6 +15,14 @@ interface DemoVoiceBarProps {
     onChange: (voice: string) => void;
 }
 
+/**
+ * A bar that allows user to select a voice from a dropdown list. The play button next to the dropdown will load
+ * the appropriate media so user can try out the voices.
+ * @author Khoa Nguyen
+ *
+ * @param voice currently chosen voice
+ * @param onChange function when new voice is selected
+ */
 const DemoVoiceBar: React.FC<DemoVoiceBarProps> = ({voice, onChange}) => {
     const [soundPath, setSoundPath] = useState<string>("");
     const [selectedVoice, setSelectedVoice] = useState<string>(voice);
@@ -35,16 +43,18 @@ const DemoVoiceBar: React.FC<DemoVoiceBarProps> = ({voice, onChange}) => {
         }
     }
 
+    // Detects when a new voice is selected, determine what voice file to load into the media button
     useEffect(() => {
         setVoice(selectedVoice)
     }, [selectedVoice]);
 
+    // Detect when new voice is selected. Update local and parents
     const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
         setSelectedVoice(event.target.value)
-        setVoice(event.target.value);
         onChange(event.target.value);
     };
 
+    // List of available voices, provided by OpenAI
     const options = ["Alloy", "Echo", "Fable", "Nova", "Onyx", "Shimmer"];
 
     return (

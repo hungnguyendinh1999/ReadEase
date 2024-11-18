@@ -13,6 +13,20 @@ interface SingleLineTextButtonProps {
     inverseColor?: boolean;
 }
 
+/**
+ * Button with text
+ * @author Khoa Nguyen
+ *
+ * @param onClick function when click
+ * @param headerText text to display
+ * @param height height of the button
+ * @param width width of the button
+ * @param indentation text alignment
+ * @param outlined if the button is an outlined button, or a filled button
+ * @param textSize size of texts
+ * @param className additional class name
+ * @param inverseColor black background if true, otherwise white
+ */
 const SingleLineTextButton: FC<SingleLineTextButtonProps> = ({onClick, text, height = 15, width = 30, indentation = "center", outlined = false, textSize = 20, className = "", inverseColor = false}) => {
     let backgroundClass = (inverseColor ? "inverse" : "normal") + (outlined ? "outline" : "");
 

@@ -6,6 +6,10 @@ import RightBackground from "../assets/home-back.png"
 import SingleLineTextButton from "../components/atom/SingleLineTextButton";
 import DoubleLineTextButton from "../components/atom/DoubleLineTextButton";
 
+/**
+ * Home screen for root path. Contains logo, title and some buttons for quick navigation into features
+ * @author Khoa Nguyen
+ */
 const HomeScreen: React.FC = () => {
     return (
         <div id="home-pane">

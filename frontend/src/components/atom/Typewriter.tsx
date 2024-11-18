@@ -5,6 +5,13 @@ interface TypewriterProps {
     speed: number;
 }
 
+/**
+ * Panel that display text with typing out animation
+ * @author Khoa Nguyen
+ *
+ * @param value entire value to display
+ * @param speed speed of the typing
+ */
 const Typerwriter: FC<TypewriterProps> = ({value, speed}) => {
     const [displayText, setDisplayText] = useState("");
 
