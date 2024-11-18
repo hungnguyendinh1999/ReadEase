@@ -178,25 +178,27 @@ const SummaryScreen: FC = () => {
                     </div>
                 </div>
 
-                <div id="summary-output-container" style={{visibility: isSubmitted ? "visible" : "collapse"}}>
-                    <div id="summary-title-wrapper">
-                        <BackButton size={35} onClick={backButton} inverseColor={true}/>
-                        <div id="summary-title" className="center-text disable-selection">
-                            <p>Summary</p>
+                {isSubmitted &&
+                    <div id="summary-output-container">
+                        <div id="summary-title-wrapper">
+                            <BackButton size={35} onClick={backButton} inverseColor={true}/>
+                            <div id="summary-title" className="center-text disable-selection">
+                                <p>Summary</p>
+                            </div>
+                            {isToSpeech && <PlayVoiceButton size={35} soundPath={soundPath} pauseOnToggle={true} inverseColor={true}/>}
                         </div>
-                        {isToSpeech && <PlayVoiceButton size={35} soundPath={soundPath} pauseOnToggle={true} inverseColor={true}/>}
-                    </div>
-                    <div id="smaller-container" className="hide-caret">
-                        {isLoading ? (
-                            <Loading size={30}/>
-                        ): errorMessage ? (
-                            <p className="error">{errorMessage}</p>
-                        ) : (
-                            <Typewriter value={summary} speed={4}/>
-                        )}
+                        <div id="smaller-container" className="hide-caret">
+                            {isLoading ? (
+                                <Loading size={30}/>
+                            ): errorMessage ? (
+                                <p className="error">{errorMessage}</p>
+                            ) : (
+                                <Typewriter value={summary} speed={4}/>
+                            )}
 
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     );
