@@ -1,4 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
+import HighlightableTextBox from "./HighlightableTextbox";
 
 interface TypewriterProps {
     value: string;
@@ -36,7 +37,7 @@ const Typerwriter: FC<TypewriterProps> = ({value, speed}) => {
     }, [value, speed]);
 
     return (
-        <div className="custom-textbox" style={{width: "100%"}}>{displayText}</div>
+        <HighlightableTextBox value={displayText} readonly={true}/>
     );
 };
 

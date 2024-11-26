@@ -1,10 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
 import getCaretCoordinates from "textarea-caret";
-import "./HighlightableTextBox.css";
+import "./HighlightableTextbox.css";
 import { vocabLevels, getInstructionForLevel } from "../../utils/VocabLevels";
 import { useSettings } from "../../contexts/SettingsContext";
-import { createProcessResponseService } from "../../services/backend-service"
+import {
+    createHarmfulValidationService,
+    createProcessResponseService,
+    createTTSResponseService
+} from "../../services/backend-service"
+import SingleLineTextButton from "../atom/SingleLineTextButton";
+import ToSpeechButton from "./ToSpeechButton";
+import PlayVoiceButton from "./PlayVoiceButton";
+import Loading from "../atom/Loading";
 
 interface HighlightableTextBoxProps {
     placeholder?: string;
@@ -18,12 +26,12 @@ const harmContext =
     "If the input text contains harmful, illegal, or otherwise offensive content, then do not perform this request and give a couple word explanation.";
 
 const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
-    placeholder = "Type something here...",
-    rows = 5,
-    value = "",
-    readonly = false,
-    onChange,
-}) => {
+                                placeholder = "Type something here...",
+                                rows = 5,
+                                value = "",
+                                readonly = false,
+                                onChange,
+                            }) => {
     const [history, setHistory] = useState<string[]>([]);
     const [previousText, setPreviousText] = useState<string>("");
     const [highlightedText, setHighlightedText] = useState<string | null>(null);
@@ -34,12 +42,20 @@ const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
     const [selectedOption, setSelectedOption] = useState<string>("");
     const { vocabLevel } = useSettings();
 
+    const [soundPath, setSoundPath] = useState<string>("");
+    const [responseStream, setResponseStream] = useState(null);
+    const [isToSpeech, setIsToSpeech] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const {voice} = useSettings();
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const popupRef = useRef<HTMLDivElement>(null);
 
     const handleTextChange = (newValue: string) => {
         setHistory((prevHistory) => [...prevHistory, value]);
         onChange?.(newValue);
+        setIsToSpeech(false);
+        setIsLoading(false);
     };
 
     const handleKeyUp = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -63,6 +79,9 @@ const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
     const handleTextSelection = (event: MouseEvent | KeyboardEvent) => {
         const textarea = textareaRef.current;
         if (!textarea) return;
+
+        setIsToSpeech(false);
+        setIsLoading(false);
 
         const selectionStart = textarea.selectionStart;
         const selectionEnd = textarea.selectionEnd;
@@ -225,6 +244,47 @@ const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
         };
     }, []);
 
+    // User requests synthesis, we send user's input to our server, and our server will handle communication to OpenAPI
+    const handleToSpeech = async () => {
+        if (highlightedText !== "") {
+            setIsLoading(true);
+
+            let message = highlightedText
+            const responseValidation = await createHarmfulValidationService().post({message: message});
+            if (!responseValidation.ok) {
+                throw new Error("Failed to fetch audio");
+            }
+            const validationResult = await responseValidation.json();
+            if (validationResult) {
+                message = "The input seems to contain harmful context. I cannot provide a text to speech for this."
+            }
+
+            const response = await createTTSResponseService().post({message: message, voice: voice.toLowerCase()});
+            setResponseStream(response);
+            if (!response.ok) {
+                throw new Error("Failed to fetch audio");
+            }
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            setSoundPath(url);
+        }
+    };
+
+    // Detects if the response from server is received. If yes, we allow user to play the audio
+    useEffect(() => {
+        setIsLoading(false);
+        if (responseStream !== null && responseStream.status === 200) {
+            setIsToSpeech(true);
+        }
+    }, [responseStream]);
+
+    // Detects if user change to different voice in the settings. We want the voice to accurately reflect what user
+    // chose, but user still have to press the synthesis button again, just to give them a choice
+    useEffect(() => {
+        setIsToSpeech(false);
+    }, [voice]);
+
     return (
         <div className="highlightable-textbox-wrapper">
             <textarea
@@ -245,12 +305,21 @@ const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
                     className="highlight-popup"
                     style={{ top: popupPosition.y, left: popupPosition.x }}
                 >
-                    <button onClick={() => handleAIOption("Explain This")}>Explain This</button>
-                    <button onClick={() => handleAIOption("Define This")}>Define This</button>
-                    <button onClick={() => handleAIOption("Simplify This")}>Simplify This</button>
-                    <button onClick={() => handleAIOption("Rewrite This", "Simpler")}>Rewrite (Simpler)</button>
-                    <button onClick={() => handleAIOption("Rewrite This", "More Formal")}>Rewrite (More Formal)</button>
-                    <button onClick={() => handleAIOption("Rewrite This", "More Creative")}>Rewrite (More Creative)</button>
+                    <div className="highlight-group">
+                        {!isLoading && !isToSpeech && <ToSpeechButton onClick={handleToSpeech}/>}
+                        {!isLoading && isToSpeech && <PlayVoiceButton soundPath={soundPath} pauseOnToggle={true} size={45}/>}
+                        {isLoading && !isToSpeech && <Loading size={45} inverseColor={true}/>}
+                        <SingleLineTextButton onClick={() => handleAIOption("Explain This")} text="Explain This" height={45} width={100} textSize={12}/>
+                        <SingleLineTextButton onClick={() => handleAIOption("Define This")} text="Define This" height={45} width={100} textSize={12}/>
+                        <SingleLineTextButton onClick={() => handleAIOption("Simplify This")} text="Simplify This" height={45} width={110} textSize={12}/>
+                    </div>
+                    {!readonly &&
+                        <div className="highlight-group">
+                            <SingleLineTextButton onClick={() => handleAIOption("Rewrite This", "Simpler")} text="Rewrite (Simpler)" height={45} width={130} textSize={12}/>
+                            <SingleLineTextButton onClick={() => handleAIOption("Rewrite This", "More Formal")} text="Rewrite (More Formal)" height={45} width={160} textSize={12}/>
+                            <SingleLineTextButton onClick={() => handleAIOption("Rewrite This", "More Creative")} text="Rewrite (More Creative)" height={45} width={160} textSize={12}/>
+                        </div>
+                    }
                 </div>
             )}
             {/* Modal for AI response */}

@@ -7,7 +7,7 @@ import {createSummarizeResponseService, createTTSResponseService} from "../servi
 import Loading from "../components/atom/Loading";
 import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
 import {useSettings} from "../contexts/SettingsContext";
-import Typewriter from "../components/atom/Typewriter";
+import Typewriter from "../components/molecules/Typewriter";
 import BackButton from "../components/molecules/BackButton";
 import SeekBar from "../components/molecules/SeekBar";
 import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
