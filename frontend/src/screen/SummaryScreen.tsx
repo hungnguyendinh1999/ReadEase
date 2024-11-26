@@ -11,6 +11,7 @@ import Typewriter from "../components/atom/Typewriter";
 import BackButton from "../components/molecules/BackButton";
 import SeekBar from "../components/molecules/SeekBar";
 import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
+import DisclaimerSection from "../components/molecules/DisclaimerSection";
 import HighlightableTextBox from "../components/molecules/HighlightableTextbox";
 import { vocabLevels, getInstructionForLevel } from "../utils/VocabLevels";
 
@@ -147,6 +148,9 @@ const SummaryScreen: FC = () => {
 
     return (
         <div id="summary-screen">
+            {/* Disclaimer */}
+            <DisclaimerSection/>
+            {/* The Summary Screen */}
             <div className="flex-box">
                 <input type="file" ref={fileInputRef} style={{display: 'none'}}
                     accept=".txt" onChange={handleFileChange}/>
@@ -175,6 +179,7 @@ const SummaryScreen: FC = () => {
                             readonly={isSubmitted}
                         />
                     </div>
+                    
                 </div>
 
                 {isSubmitted &&
