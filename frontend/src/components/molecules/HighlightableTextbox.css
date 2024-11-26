@@ -43,8 +43,10 @@
     padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
-    background: var(--secondary-background-color);
-    color: var(--textbox-font-color);
+    /* background: var(--secondary-background-color); */
+    background: var(--main-white);
+    color: var(--main-black);
+    /* color: var(--textbox-font-color); */
     border: none;
     border-radius: 3px;
     transition: background 0.3s;
@@ -52,7 +54,7 @@
 }
 
 .highlight-popup button:hover {
-    background: var(--main-hover);
+    background: var(--main-hover-light);
 }
 
 .highlightable-textbox:focus {

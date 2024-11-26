@@ -37,6 +37,11 @@ const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const popupRef = useRef<HTMLDivElement>(null);
 
+    const handleTextChange = (newValue: string) => {
+        setHistory((prevHistory) => [...prevHistory, value]);
+        onChange?.(newValue);
+    };
+
     const handleKeyUp = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === "Tab") {
             // Do not deselect text when tabbing
@@ -225,7 +230,7 @@ const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
             <textarea
                 ref={textareaRef}
                 value={value}
-                onChange={(e) => onChange?.(e.target.value)}
+                onChange={(e) => handleTextChange(e.target.value)}
                 placeholder={placeholder}
                 rows={rows}
                 className="highlightable-textbox"
