@@ -44,6 +44,18 @@
     padding: 8px;
 }
 
+#summary-playback-container {
+    height: 10%;
+    display: flex;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+    background-color: var(--main-black);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    gap: 10px;
+}
+
 #summary-textbox-container {
     width: 100%;
     height: 82%;
