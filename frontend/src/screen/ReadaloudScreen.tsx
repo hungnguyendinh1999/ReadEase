@@ -9,6 +9,7 @@ import {createHarmfulValidationService, createTTSResponseService} from "../servi
 import { useSettings } from "../contexts/SettingsContext";
 import SeekBar from "../components/molecules/SeekBar";
 import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
+import HighlightableTextBox from "../components/molecules/HighlightableTextbox";
 import DisclaimerSection from "../components/molecules/DisclaimerSection";
 
 /**
@@ -30,8 +31,8 @@ const ReadaloudScreen: FC = () => {
 
     // Event handler for when input text changes. This should reset the process from the start, since we want
     // the text to match with the audio at all time
-    const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(event.target.value);
+    const handleTextChange = (newValue: string) => {
+        setText(newValue);
         setIsToSpeech(false);
     };
 
@@ -113,7 +114,7 @@ const ReadaloudScreen: FC = () => {
                 <div id="readalout-container">
                     <div id="readalout-textbox">
                         {/* Use custom TextBox component */}
-                        <TextBox
+                        <HighlightableTextBox
                             value={text} onChange={handleTextChange}
                             placeholder="Type text here, or upload a *.txt file, then press the synthesis button on the bottom right to start."
                         />
