@@ -7,7 +7,7 @@ import {createSummarizeResponseService, createTTSResponseService} from "../servi
 import Loading from "../components/atom/Loading";
 import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
 import {useSettings} from "../contexts/SettingsContext";
-import Typewriter from "../components/atom/Typewriter";
+import Typewriter from "../components/molecules/Typewriter";
 import BackButton from "../components/molecules/BackButton";
 import SeekBar from "../components/molecules/SeekBar";
 import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
@@ -148,8 +148,6 @@ const SummaryScreen: FC = () => {
 
     return (
         <div id="summary-screen">
-            {/* Disclaimer */}
-            <DisclaimerSection/>
             {/* The Summary Screen */}
             <div className="flex-box">
                 <input type="file" ref={fileInputRef} style={{display: 'none'}}
@@ -158,9 +156,7 @@ const SummaryScreen: FC = () => {
                     <div id="summary-title-wrapper">
                         {!isLoading && !isSubmitted &&
                             <UploadFileButton label="Upload File" onClick={handleFileUpload}/>}
-                        <div id="summary-title" className="center-text disable-selection">
-                            <p>Source</p>
-                        </div>
+                        <div id="summary-title" className="center-text disable-selection"> Source </div>
                         {!isLoading && !isSubmitted &&
                         <Dropdown
                             options={vocabLevels.map((v) => v.level)}
@@ -179,16 +175,14 @@ const SummaryScreen: FC = () => {
                             readonly={isSubmitted}
                         />
                     </div>
-                    
+
                 </div>
 
                 {isSubmitted &&
                     <div id="summary-output-container">
                         <div id="summary-title-wrapper">
                             <BackButton size={35} onClick={backButton} inverseColor={true}/>
-                            <div id="summary-title" className="center-text disable-selection">
-                                <p>Summary</p>
-                            </div>
+                            <div id="summary-title" className="center-text disable-selection"> Summary </div>
                         </div>
                         <div id="smaller-container" className="hide-caret">
                             {errorMessage ? (
@@ -208,6 +202,8 @@ const SummaryScreen: FC = () => {
                     </div>
                 }
             </div>
+            {/* Disclaimer */}
+            <DisclaimerSection/>
         </div>
     );
 };

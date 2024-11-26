@@ -106,13 +106,12 @@ const ReadaloudScreen: FC = () => {
     };
 
     return (
-        <div id="summary-screen">
-            <DisclaimerSection/>
+        <div id="readaloud-screen">
             <div id="flex-box">
                 <input type="file" ref={fileInputRef} style={{display: 'none'}}
                     accept=".txt" onChange={handleFileChange}/>
-                <div id="readalout-container">
-                    <div id="readalout-textbox">
+                <div id="readaloud-container">
+                    <div id="readaloud-textbox">
                         {/* Use custom TextBox component */}
                         <HighlightableTextBox
                             value={text} onChange={handleTextChange}
@@ -121,14 +120,14 @@ const ReadaloudScreen: FC = () => {
                     </div>
 
                     {/* Button Group */}
-                    <div id="readalout-button-group">
+                    <div id="readaloud-button-group">
                         {/* Left aligned button */}
-                        <div id="readalout-left-buttons">
+                        <div id="readaloud-left-buttons">
                             <UploadFileButton label="Upload File" onClick={handleFileUpload} />
                         </div>
 
                         {/* Right aligned button */}
-                        <div id="readalout-right-buttons">
+                        <div id="readaloud-right-buttons">
                             {isLoading && !isToSpeech && <Loading size={35}/>}
                             {!isLoading && isToSpeech && <SeekBar audioRef={audioRef}/>}
                             {!isLoading && isToSpeech && <PlaybackSpeed audioRef={audioRef}/>}
@@ -140,6 +139,7 @@ const ReadaloudScreen: FC = () => {
                     </div>
                 </div>
             </div>
+            <DisclaimerSection/>
         </div>
     );
 };

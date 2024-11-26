@@ -1,6 +1,5 @@
 import React from "react";
 import "./Modal.css";
-import CloseButton from "../../assets/close.png"
 import { useRef, useEffect } from "react";
 
 interface ModalProps {
@@ -38,19 +37,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         ref={modalRef}
         tabIndex={0}
       >
-        <img 
-          src={CloseButton} 
-          className="modal-close" 
-          onClick={onClose}
-          alt="Close"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              onClose();
-              e.preventDefault();
-            };
-          }}
-        />
         {children}
       </div>
     </div>
