@@ -18,7 +18,7 @@ interface SingleLineTextButtonProps {
  * @author Khoa Nguyen
  *
  * @param onClick function when click
- * @param headerText text to display
+ * @param text text to display
  * @param height height of the button
  * @param width width of the button
  * @param indentation text alignment

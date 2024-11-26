@@ -10,6 +10,7 @@ import { useSettings } from "../contexts/SettingsContext";
 import SeekBar from "../components/molecules/SeekBar";
 import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
 import HighlightableTextBox from "../components/molecules/HighlightableTextbox";
+import DisclaimerSection from "../components/molecules/DisclaimerSection";
 
 /**
  * Read Aloud screen, allows user to input text and ask the system to read it out into audio.
@@ -106,6 +107,7 @@ const ReadaloudScreen: FC = () => {
 
     return (
         <div id="summary-screen">
+            <DisclaimerSection/>
             <div id="flex-box">
                 <input type="file" ref={fileInputRef} style={{display: 'none'}}
                     accept=".txt" onChange={handleFileChange}/>
