@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import "./DisclaimerSection.css";
 
-import Modal from "../Modal";
+import Modal from "./Modal";
 import DisclaimerScreen from "../../screen/DisclaimerScreen";
 
 const DisclaimerSection: FC = () => {
