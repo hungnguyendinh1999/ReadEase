@@ -3,8 +3,16 @@ import React, { createContext, useState, useContext, useEffect, ReactNode } from
 interface SettingsContextType {
   voice: string;
   setVoice: React.Dispatch<React.SetStateAction<string>>;
+  vocabLevel: string;
+  setVocabLevel: React.Dispatch<React.SetStateAction<string>>;
   backgroundColor: string;
   setBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
+  secondaryBackgroundColor: string;
+  setSecondaryBackgroundColor: React.Dispatch<React.SetStateAction<string>>;
+  accentLightColor: string;
+  setAccentLightColor: React.Dispatch<React.SetStateAction<string>>;
+  accentDarkColor: string;
+  setAccentDarkColor: React.Dispatch<React.SetStateAction<string>>;
   fontColor: string;
   setFontColor: React.Dispatch<React.SetStateAction<string>>;
   fontTypeface: string;
@@ -49,6 +57,8 @@ interface SettingsProviderProps {
  * The context value provided includes:
  * - `voice`: The selected voice.
  * - `setVoice`: Function to update the voice.
+ * - `vocabLevel`: The selected vocabulary level.
+ * - `setVocabLevel`: Function to update the vocabulary level.
  * - `backgroundColor`: The background color of the text box.
  * - `setBackgroundColor`: Function to update the background color.
  * - `fontColor`: The font color of the text box.
@@ -66,8 +76,18 @@ interface SettingsProviderProps {
  */
 export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
   const [voice, setVoice] = useState(() => localStorage.getItem("voice") || "Alloy");
+  const [vocabLevel, setVocabLevel] = useState(() => localStorage.getItem("vocabLevel") || "Default");
   const [backgroundColor, setBackgroundColor] = useState(
     () => localStorage.getItem("backgroundColor") || "#ffffff"
+  );
+  const [secondaryBackgroundColor, setSecondaryBackgroundColor] = useState(
+    () => localStorage.getItem("secondaryBackgroundColor") || "#f1f1f1"
+  );
+  const [accentLightColor, setAccentLightColor] = useState(
+    () => localStorage.getItem("accentLightColor") || "#A8A8A8"
+  );
+  const [accentDarkColor, setAccentDarkColor] = useState(
+    () => localStorage.getItem("accentDarkColor") || "#333333"
   );
   const [fontColor, setFontColor] = useState(
     () => localStorage.getItem("fontColor") || "#000000"
@@ -92,16 +112,35 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     document.documentElement.style.setProperty(name, value);
   }
 
-  // use
   useEffect(() => {
     updateCSSVariable("--voice", voice);
     localStorage.setItem("voice", voice);
   }, [voice]);
 
   useEffect(() => {
+    updateCSSVariable("--vocab-level", vocabLevel);
+    localStorage.setItem("vocabLevel", vocabLevel);
+  }, [vocabLevel]);
+
+  useEffect(() => {
     updateCSSVariable("--textbox-background-color", backgroundColor);
     localStorage.setItem("backgroundColor", backgroundColor);
   }, [backgroundColor]);
+
+  useEffect(() => {
+    updateCSSVariable("--secondary-background-color", secondaryBackgroundColor);
+    localStorage.setItem("secondaryBackgroundColor", secondaryBackgroundColor);
+  }, [secondaryBackgroundColor]);
+
+  useEffect(() => {
+    updateCSSVariable("--accent-light-color", accentLightColor);
+    localStorage.setItem("accentLightColor", accentLightColor);
+  }, [accentLightColor]);
+
+  useEffect(() => {
+    updateCSSVariable("--accent-dark-color", accentDarkColor);
+    localStorage.setItem("accentDarkColor", accentDarkColor);
+  }, [accentDarkColor]);
 
   useEffect(() => {
     updateCSSVariable("--textbox-font-color", fontColor);
@@ -138,8 +177,16 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
       value={{
         voice,
         setVoice,
+        vocabLevel,
+        setVocabLevel,
         backgroundColor,
         setBackgroundColor,
+        secondaryBackgroundColor,
+        setSecondaryBackgroundColor,
+        accentLightColor,
+        setAccentLightColor,
+        accentDarkColor,
+        setAccentDarkColor,
         fontColor,
         setFontColor,
         fontTypeface,

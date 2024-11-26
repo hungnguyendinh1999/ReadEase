@@ -1,0 +1,61 @@
+.highlightable-textbox {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    resize: none;
+    color: var(--textbox-font-color);
+    background-color: var(--textbox-background-color);
+    font-family: var(--textbox-font-typeface);
+    font-weight: var(--textbox-font-weight);
+    font-size: var(--textbox-font-size);
+    font-style: var(--textbox-font-style);
+    text-decoration: var(--textbox-text-decoration);
+}
+
+.highlightable-textbox-wrapper {
+    border-radius: 18px;
+    background-color: var(--textbox-background-color);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.highlight-popup {
+    position: absolute;
+    background: var(--main-white);
+    border: 1px solid var(--main-gray);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1000;
+    display: flex;
+    gap: 5px;
+    width: 44%;
+    max-width: 425px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.highlight-popup button {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background: var(--secondary-background-color);
+    color: var(--textbox-font-color);
+    border: none;
+    border-radius: 3px;
+    transition: background 0.3s;
+    white-space: nowrap;        
+}
+
+.highlight-popup button:hover {
+    background: var(--main-hover);
+}
+
+.highlightable-textbox:focus {
+    outline: none;
+    border: none;
+}

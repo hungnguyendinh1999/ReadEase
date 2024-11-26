@@ -5,7 +5,13 @@
  */
 import express from 'express';
 import cors from "cors";
-import {getGPTSummarizeResponse, getTTSResponse, isDev} from './openaiService.js';
+import {getGPTSummarizeResponse, 
+    getTTSResponse, 
+    getGPTSimplifyResponse, 
+    getGPTDefineResponse, 
+    getGPTExplainResponse, 
+    getGPTRewriteResponse, 
+    isDev} from './openaiService.js';
 import fs from 'fs';
 
 // Server object
@@ -132,6 +138,58 @@ app.post('/feedback', async (req, res) => {
     fs.appendFileSync(filePath, csvRow, 'utf8');
 
     res.send("Response recorded.");
+});
+
+/**
+ * Endpoint: /process
+ * Send data to OpenAI API to process the text
+ * @param req Request from client. Should contain:
+ *      - 'text': text to process
+ *      - 'context': context text to help form a response
+ *      - 'vocabLevel': vocab level
+ *      - 'type': type of process to do
+ * @return string response from OpenAI API
+ * @throws error if there is an error processing the request
+ * @throws 400 if the request is missing required fields
+ * @throws 500 if there is an error processing the request
+ * @throws 400 if the type is invalid
+ */
+app.post('/process', async (req, res) => {
+    const text = req.body.params['0']['text'];
+    const context = req.body.params['0']['context'];
+    const vocabLevel = req.body.params['0']['vocabLevel'];
+    const type = req.body.params['0']['type'];
+    const style = req.body.params['0']['style'] || "default";
+
+    console.log(req.body.params);
+
+    if (!text || !context) {
+        return res.status(400).send("No text or context provided");
+    }
+
+    if (!type || !['explain', 'define', 'simplify', 'rewrite'].includes(type)) {
+        return res.status(400).send("Invalid or missing type");
+    }
+
+    const gptFunctions = {
+        explain: getGPTExplainResponse,
+        define: getGPTDefineResponse,
+        simplify: getGPTSimplifyResponse,
+        rewrite: getGPTRewriteResponse
+    };
+
+    try {
+        if (isDev){
+            res.send("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+        } else {
+            const response = await gptFunctions[type](text, context, vocabLevel, style);
+            console.log(response.choices[0])
+            res.send(response.choices[0].message.content);
+        }
+    } catch (error) {
+        console.error("Error processing request:", error);
+        res.status(500).send("An error occurred while processing your request.");
+    }
 });
 
 // Web Port

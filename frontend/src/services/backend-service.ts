@@ -74,8 +74,23 @@ const createFeedbackResponseService = () => {
     return new HttpService("/feedback");
 }
 
+/**
+ * Endpoint: /process
+ * Send data to OpenAI API to process
+ * @param req Request from client. Should contain:
+ *      - 'text': text to process
+ *      - 'context': instruct OpenAPI about what potential avoidance and dangerous content
+ *      - 'vocabLevel': level of vocabulary that we expect from OpenAI API response
+ *      - 'type': type of processing that we want to do
+ * @return string response from OpenAI API
+ */
+const createProcessResponseService = () => {
+    return new HttpService("/process");
+}
+
 export {
     createSummarizeResponseService,
     createTTSResponseService,
-    createFeedbackResponseService
+    createFeedbackResponseService,
+    createProcessResponseService
 };
