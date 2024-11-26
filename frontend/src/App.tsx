@@ -7,7 +7,7 @@ import FeedbackIcon from "./assets/feedback.png"
 import SummaryScreen from "./screen/SummaryScreen"
 import ReadaloudScreen from "./screen/ReadaloudScreen"
 import SettingScreen from "./screen/SettingScreen"
-import Modal from "./components/Modal";
+import Modal from "./components/molecules/Modal";
 import HomeScreen from "./screen/HomeScreen"
 import FeedbackScreen from "./screen/FeedbackScreen";
 

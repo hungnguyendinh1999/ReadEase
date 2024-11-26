@@ -1,6 +1,5 @@
 import React, {useState, ChangeEvent, FC, useRef, useEffect} from "react";
 import "./SummaryScreen.css";
-import TextBox from "../components/atom/TextBox";
 import UploadFileButton from "../components/molecules/UploadFileButton";
 import SubmitButton from "../components/molecules/SubmitButton";
 import Dropdown from "../components/atom/Dropdown";
@@ -12,19 +11,8 @@ import Typewriter from "../components/atom/Typewriter";
 import BackButton from "../components/molecules/BackButton";
 import SeekBar from "../components/molecules/SeekBar";
 import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
-
-type VocabLevel = {
-    level: string;
-    instruction: string;
-};
-
-const vocabLevelArray: VocabLevel[] = [
-    { level: 'Default', instruction: 'Use the same level of language as the input text.' },
-    { level: 'ELI5', instruction: 'Use the same level of language as eli5.' },
-    { level: 'Simple', instruction: 'Use simple and easy-to-understand language.' },
-    { level: 'Intermediate', instruction: 'Use moderately complex language for intermediate readers.' },
-    { level: 'Advanced', instruction: 'Use advanced language with technical details where appropriate.' },
-  ];
+import HighlightableTextBox from "../components/molecules/HighlightableTextbox";
+import { vocabLevels, getInstructionForLevel } from "../utils/VocabLevels";
 
 const harmContext =
     "If the input text contains harmful, illegal, or offensive content, respond with 'Content not allowed.' and give a 1-sentence explanation.";
@@ -34,19 +22,19 @@ const harmContext =
  * The process should go: input text -> summarize (OpenAI API request) -> synthesis (OpenAI API request)
  * @author Hung Nguyen
  * @author Khoa Nguyen
+ * @author Ryan Quinn
  */
 const SummaryScreen: FC = () => {
     // Define state with types
     const fileInputRef = useRef(null);
     const [text, setText] = useState<string>("");
-    const [vocabLevel, setVocabLevel] = useState<string>("Default");
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [width, setWidth] = useState<string>("90%");
     const [summary, setSummary] = useState<string>("");
     const [errorMessage, setErrorMessage] = useState<string>("");
 
-    const {voice} = useSettings();
+    const {voice, vocabLevel, setVocabLevel} = useSettings();
     let audioRef = useRef(null);
     const [soundPath, setSoundPath] = useState<string>("");
     const [responseTTSStream, setResponseTTSStream] = useState(null);
@@ -54,8 +42,8 @@ const SummaryScreen: FC = () => {
     
 
     // Event handler for textarea input
-    const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(event.target.value);
+    const handleTextChange = (newValue: string) => {
+        setText(newValue);
     };
 
     // Event handler for Vocab Level
@@ -107,7 +95,7 @@ const SummaryScreen: FC = () => {
         // Animation
         setWidth("45%");
 
-        const vocabString = vocabLevelArray.find((option) => option.level === vocabLevel).instruction;
+        const vocabString = getInstructionForLevel(vocabLevel);
         try {
             // Request Summary
             const response = await createSummarizeResponseService().post({
@@ -171,7 +159,7 @@ const SummaryScreen: FC = () => {
                         </div>
                         {!isLoading && !isSubmitted &&
                         <Dropdown
-                            options={vocabLevelArray.map(item => item.level)}
+                            options={vocabLevels.map((v) => v.level)}
                             value={vocabLevel}
                             onChange={handleVocabLevelChange}
                         />}
@@ -180,7 +168,7 @@ const SummaryScreen: FC = () => {
                     </div>
                     <div id="summary-textbox-container">
                         {/* Use custom TextBox component */}
-                        <TextBox
+                        <HighlightableTextBox
                             value={text}
                             onChange={handleTextChange}
                             placeholder="Type text here, or upload a *.txt file, then choose the vocabulary level and click on the summarize button on the top right to start."
