@@ -11,7 +11,7 @@ import {getGPTSummarizeResponse,
     getGPTDefineResponse, 
     getGPTExplainResponse, 
     getGPTRewriteResponse, 
-    isDev} from './openaiService.js';
+    getHarmfulCheckResponse, isDev} from './openaiService.js';
 import fs from 'fs';
 
 // Server object
@@ -62,6 +62,30 @@ app.post('/summarize', async (req, res) => {
 });
 
 /**
+ * Endpoint: /harmfulcheck
+ * Send data to OpenAI API to summarize
+ * @param req Request from client. Should contain:
+ *      - 'message': text to validate
+ * @return boolean is harmful or not
+ */
+app.post('/harmfulcheck', async (req, res) => {
+    const message = req.body.params['0']['message'];
+
+    if (!message) {
+        return res.status(400).send("No message or context provided");
+    }
+
+    if (isDev){
+        res.send(false);
+    } else {
+        const response = await getHarmfulCheckResponse(message);
+        const content = response.choices[0].message.content.toLowerCase(); // Convert to lowercase
+        const isHarmful = content.includes("yes"); // Check if it contains "yes"
+        res.send(isHarmful); // Send back to FE
+    }
+});
+
+/**
  * Endpoint: /tts
  * Send data to OpenAI API to synthesize into text-to-speech
  * @param req Request from client. Should contain:
@@ -78,7 +102,22 @@ app.post('/tts', async (req, res) => {
     }
 
     if (isDev) {
-        fs.readFile('./res/alloy.wav', (err, data) => {
+        let voicePath = './res/'
+        if (voice === 'echo') {
+            voicePath = voicePath + 'echo.wav';
+        } else if (voice === 'fable') {
+            voicePath = voicePath + 'fable.wav';
+        } else if (voice === 'nova') {
+            voicePath = voicePath + 'nova.wav';
+        } else if (voice === 'onyx') {
+            voicePath = voicePath + 'onyx.wav';
+        } else if (voice === 'shimmer') {
+            voicePath = voicePath + 'shimmer.wav';
+        } else {
+            voicePath = voicePath + 'alloy.wav';
+        }
+
+        fs.readFile(voicePath, (err, data) => {
             if (err) {
                 console.error('Error reading the .wav file:', err);
                 res.status(500).send('Error reading the audio file');

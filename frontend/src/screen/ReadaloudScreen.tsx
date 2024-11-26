@@ -5,8 +5,10 @@ import UploadFileButton from "../components/molecules/UploadFileButton";
 import ToSpeechButton from "../components/molecules/ToSpeechButton";
 import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
 import Loading from "../components/atom/Loading";
-import {createTTSResponseService} from "../services/backend-service";
+import {createHarmfulValidationService, createTTSResponseService} from "../services/backend-service";
 import { useSettings } from "../contexts/SettingsContext";
+import SeekBar from "../components/molecules/SeekBar";
+import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
 
 /**
  * Read Aloud screen, allows user to input text and ask the system to read it out into audio.
@@ -15,6 +17,7 @@ import { useSettings } from "../contexts/SettingsContext";
  */
 const ReadaloudScreen: FC = () => {
     const {voice} = useSettings();
+    let audioRef = useRef(null);
 
     const fileInputRef = useRef(null);
     const [text, setText] = useState<string>("");
@@ -41,7 +44,17 @@ const ReadaloudScreen: FC = () => {
         if (text !== "") {
             setIsLoading(true);
 
-            const response = await createTTSResponseService().post({message: text, voice: voice.toLowerCase()});
+            let message = text
+            const responseValidation = await createHarmfulValidationService().post({message: message});
+            if (!responseValidation.ok) {
+                throw new Error("Failed to fetch audio");
+            }
+            const validationResult = await responseValidation.json();
+            if (validationResult) {
+                message = "The input seems to contain harmful context. I cannot provide a text to speech for this."
+            }
+
+            const response = await createTTSResponseService().post({message: message, voice: voice.toLowerCase()});
             setResponseStream(response);
             if (!response.ok) {
                 throw new Error("Failed to fetch audio");
@@ -114,7 +127,10 @@ const ReadaloudScreen: FC = () => {
                         {/* Right aligned button */}
                         <div id="readalout-right-buttons">
                             {isLoading && !isToSpeech && <Loading size={35}/>}
-                            {!isLoading && isToSpeech && <PlayVoiceButton soundPath={soundPath} pauseOnToggle={true}
+                            {!isLoading && isToSpeech && <SeekBar audioRef={audioRef}/>}
+                            {!isLoading && isToSpeech && <PlaybackSpeed audioRef={audioRef}/>}
+                            {!isLoading && isToSpeech && <PlayVoiceButton audioRef={audioRef}
+                                                            soundPath={soundPath} pauseOnToggle={true}
                                                             inverseColor={true} size={35}/>}
                             {!isLoading && !isToSpeech && <ToSpeechButton onClick={handleToSpeech} inverseColor={true}/>}
                         </div>

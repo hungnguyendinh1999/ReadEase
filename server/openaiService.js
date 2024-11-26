@@ -48,6 +48,25 @@ const getGPTSummarizeResponse = async (message, context, vocabLevel, style) => a
 });
 
 /**
+ * Function for getting a response from the gpt model.
+ * @param message the text to validate
+ */
+const getHarmfulCheckResponse = async (message) => await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+        {
+            "role": "system",
+            "content": "Can you check the provided content for anything harmful, such as adult content, material that can be" +
+                "used for scamming, or anything politically motivated message. Say yes if it contains these material, otherwise say no"
+        },
+        {
+            "role": "user",
+            "content": message
+        },
+    ],
+});
+
+/**
  * Function for getting a tts sound file from api
  * @param message the text to synthesize to tts
  * @param voice voice used for the process
@@ -130,4 +149,4 @@ export {getGPTDefineResponse,
     getGPTRewriteResponse,
     getGPTSummarizeResponse, 
     getTTSResponse, 
-    isDev};
+    getHarmfulCheckResponse, isDev};
