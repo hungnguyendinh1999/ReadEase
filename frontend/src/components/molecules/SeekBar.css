@@ -1,0 +1,38 @@
+#seek-bar {
+    appearance: none;
+    height: 5px;
+    border-radius: 15px;
+    background-color: var(--main-white);
+}
+
+#seek-bar::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: var(--main-black);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--main-white);
+}
+
+#seek-bar::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background-color: var(--main-black);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--main-white);
+}
+
+#seek-bar::-ms-thumb {
+    width: 16px;
+    height: 16px;
+    background-color: var(--main-black);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--main-white);
+}
+
+.seek-duration {
+    color: var(--main-white);
+}

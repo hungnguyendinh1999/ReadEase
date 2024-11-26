@@ -9,6 +9,7 @@ import IconButton from "../atom/IconButton";
 
 interface PlayVoiceButtonProps {
     soundPath: string;
+    audioRef?: React.RefObject<HTMLAudioElement>;
     pauseOnToggle?: boolean;
     inverseColor?: boolean;
     size?: number;
@@ -19,16 +20,16 @@ interface PlayVoiceButtonProps {
  * @author Khoa Nguyen
  *
  * @param soundPath current audio data path to be played
+ * @param audioRef
  * @param pauseOnToggle allows pausing if true, otherwise the media can only be stopped once played
  * @param inverseColor button background is black if true, otherwise white background
  * @param size size of the button
  */
-const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({soundPath, pauseOnToggle = false, inverseColor = false, size = 30}) => {
+const PlayVoiceButton: React.FC<PlayVoiceButtonProps> = ({soundPath, audioRef = useRef(null), pauseOnToggle = false, inverseColor = false, size = 30}) => {
     const playIcon = inverseColor ? PlayBIcon : PlayIcon;
     const pauseIcon = inverseColor ? PauseBIcon : PauseIcon;
     const stopIcon = inverseColor ? StopBIcon : StopIcon;
 
-    const audioRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [label, setLabel] = useState(playIcon);
     const [isAudioLoaded, setIsAudioLoaded] = useState(false);

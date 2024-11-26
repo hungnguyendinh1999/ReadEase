@@ -61,6 +61,17 @@ const createTTSResponseService = () => {
 }
 
 /**
+ * Endpoint: /harmfulcheck
+ * Send data to OpenAI API to summarize
+ * @param req Request from client. Should contain:
+ *      - 'message': text to validate
+ * @return boolean is harmful or not
+ */
+const createHarmfulValidationService = () => {
+    return new HttpService("/harmfulcheck");
+}
+
+/**
  * Endpoint: /feedback
  * Take feedback data from client and append it to the server's CSV file
  * @param req Request from client. Should contain:
@@ -77,5 +88,6 @@ const createFeedbackResponseService = () => {
 export {
     createSummarizeResponseService,
     createTTSResponseService,
-    createFeedbackResponseService
+    createFeedbackResponseService,
+    createHarmfulValidationService
 };
