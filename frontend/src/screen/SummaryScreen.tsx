@@ -10,6 +10,8 @@ import PlayVoiceButton from "../components/molecules/PlayVoiceButton";
 import {useSettings} from "../contexts/SettingsContext";
 import Typewriter from "../components/atom/Typewriter";
 import BackButton from "../components/molecules/BackButton";
+import SeekBar from "../components/molecules/SeekBar";
+import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
 
 type VocabLevel = {
     level: string;
@@ -45,6 +47,7 @@ const SummaryScreen: FC = () => {
     const [errorMessage, setErrorMessage] = useState<string>("");
 
     const {voice} = useSettings();
+    let audioRef = useRef(null);
     const [soundPath, setSoundPath] = useState<string>("");
     const [responseTTSStream, setResponseTTSStream] = useState(null);
     const [isToSpeech, setIsToSpeech] = useState<boolean>(false);
@@ -193,18 +196,22 @@ const SummaryScreen: FC = () => {
                             <div id="summary-title" className="center-text disable-selection">
                                 <p>Summary</p>
                             </div>
-                            {isToSpeech && <PlayVoiceButton size={35} soundPath={soundPath} pauseOnToggle={true} inverseColor={true}/>}
                         </div>
                         <div id="smaller-container" className="hide-caret">
-                            {isLoading ? (
-                                <Loading size={30}/>
-                            ): errorMessage ? (
+                            {errorMessage ? (
                                 <p className="error">{errorMessage}</p>
                             ) : (
                                 <Typewriter value={summary} speed={4}/>
                             )}
-
                         </div>
+                        {isToSpeech &&
+                            <div id="summary-playback-container">
+                                <SeekBar audioRef={audioRef}/>
+                                <PlaybackSpeed audioRef={audioRef}/>
+                                <PlayVoiceButton audioRef={audioRef} size={35} soundPath={soundPath}
+                                                 pauseOnToggle={true} inverseColor={true}/>
+                            </div>
+                        }
                     </div>
                 }
             </div>
