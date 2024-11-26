@@ -2,10 +2,15 @@
     height: 100vh;
     width: 100%;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .flex-box {
     height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +26,7 @@
     flex-direction: column; /* Stack elements vertically */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     width: 90%; /* Adjust as needed */
-    height: 90%;
+    height: 95%;
     margin-right: 10px;
     /* Animation */
     min-height: 150px; /* Default min height */
@@ -76,7 +81,7 @@
     flex-direction: column; /* Stack elements vertically */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     width: 45%; /* Adjust as needed */
-    height: 90%;
+    height: 95%;
     margin-left: 10px;
     transition: width 0.3s ease;
 }
@@ -89,10 +94,11 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 9px;
+    padding: 15px;
 }
 
 #summary-title {
+    height: 100%;
     color: var(--main-white);
     font-size: 30px;
     font-weight: bold;

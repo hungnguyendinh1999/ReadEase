@@ -13,14 +13,13 @@ const DisclaimerSection: FC = () => {
     return (
         <div id="disclaimer">
             <div className="inline-container">
-                <p className="disclaimer-text">
+                <div className="disclaimer-text">
                     AI-generated content can make mistakes. By using this
                     application, you agree to our{" "}
                     <a id="disclaimer-link" onClick={openModal}>
-                        DISCLAIMER
+                        disclaimer
                     </a>
-                    .
-                </p>
+                </div>
             </div>
 
             {/* Modal with DisclaimerScreen */}

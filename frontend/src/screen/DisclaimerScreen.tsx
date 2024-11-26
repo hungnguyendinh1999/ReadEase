@@ -27,9 +27,6 @@ const DisclaimerScreen: FC = () => {
                         This tool is provided for informational purposes only and should not replace human judgment or expertise.
                     </li>
                 </ul>
-                <p>
-                    By clicking "Accept" and continuing to use this product, you agree to these terms.
-                </p>
             </div>
         </div>
     );

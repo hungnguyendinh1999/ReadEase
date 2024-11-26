@@ -2,25 +2,31 @@
     height: 100vh;
     width: 100%;
     overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #flex-box {
     height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-#readalout-container {
+#readaloud-container {
     border-radius: 18px; /* Rounded corners */
     background-color: var(--textbox-background-color);
     gap: 12px; /* Space between elements */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     width: 95%; /* Adjust as needed */
-    height: 90%;
+    height: 96%;
 }
 
-#readalout-button-group {
+#readaloud-button-group {
     display: flex;
     align-items: center; /* Vertically align buttons and dropdown */
     justify-content: space-between; /* Align buttons to the left */
@@ -34,20 +40,20 @@
     border-bottom-right-radius: 18px;
 }
 
-#readalout-textbox {
+#readaloud-textbox {
     width: 100%;
     height: 92%;
     padding: 15px;
 }
 
-#readalout-left-buttons {
+#readaloud-left-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px; /* Space between buttons on the left */
 }
 
-#readalout-right-buttons {
+#readaloud-right-buttons {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -7,17 +7,18 @@
 
 .inline-container {
     display: flex;
-    gap: 10px;
     align-items: center;
+    padding-bottom: 10px;
 }
 
 #disclaimer-link {
     color: blue;
     text-decoration: underline;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .disclaimer-text {
-    color: var(--text-color--textbox-font-color);
+    color: var(--main-black);
+    font-size: 15px;
 }

@@ -4,18 +4,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--subtle-background);
+    background-color: var(--textbox-background-color);
     color: var(--textbox-font-color);
     font-family: var(--textbox-font-family);
     text-align: left;
-
 }
 
 .disclaimer-container {
     background-color: var(--textbox-background-color);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
 .disclaimer-container h1 {
@@ -30,5 +27,4 @@
     margin-bottom: 20px;
     font-style: var(--textbox-font-style);
     font-weight: var(--textbox-font-weight);
-    
 }
