@@ -38,13 +38,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({openSettingsModal}) => {
                     <DoubleLineTextButton onClick={() => {}}
                                           headerText={"Summarization"} indentation={"left"}
                                           descText={"to break down lengthy passages into simple, digestible summaries."}
-                                          height={90} width={500} outlined={true} inverseColor={true} textSize={15}/>
+                                          height={90} width={500} outlined={true} inverseColor={true} textSize={14}/>
                 </Link>
                 <Link className="link home-feature-btn" to="/readaloud">
                     <DoubleLineTextButton onClick={() => {}} indentation={"left"}
                                           headerText={"Text-to-Speech"}
                                           descText={"to convert text into audio, making reading easier and more accessible."}
-                                          height={90} width={500} outlined={true} inverseColor={true} textSize={15}/>
+                                          height={90} width={500} outlined={true} inverseColor={true} textSize={14}/>
                 </Link>
             </div>
         </div>

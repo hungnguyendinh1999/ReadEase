@@ -41,7 +41,7 @@
 }
 
 #summary-title {
-    padding: 8px;
+    padding: 0px;
 }
 
 #summary-playback-container {
@@ -82,14 +82,13 @@
 }
 
 #summary-title-wrapper {
-    height: 10%;
     display: flex;
     border-top-left-radius: 18px;
     border-top-right-radius: 18px;
     background-color: var(--main-black);
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    padding: 9px;
 }
 
 #summary-title {
