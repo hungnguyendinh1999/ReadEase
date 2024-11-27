@@ -28,17 +28,21 @@
     background: var(--main-white);
     border: 1px solid var(--main-gray);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: auto;
     padding: 5px;
     border-radius: 4px;
     z-index: 1000;
     display: flex;
+    flex-wrap: nowrap;
     gap: 5px;
     flex-direction: column;
     justify-content: center;
+    /*min-width: 600px;*/
 }
 
 .highlight-group {
     display: flex;
+    flex-wrap: nowrap;
     gap: 5px;
 }
 
@@ -53,7 +57,8 @@
     border: none;
     border-radius: 3px;
     transition: background 0.3s;
-    white-space: nowrap;        
+    white-space: nowrap;
+    width: auto;
 }
 
 .highlight-popup button:hover {

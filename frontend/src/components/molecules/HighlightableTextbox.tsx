@@ -317,7 +317,7 @@ const HighlightableTextBox: React.FC<HighlightableTextBoxProps> = ({
                         <div className="highlight-group">
                             <SingleLineTextButton onClick={() => handleAIOption("Rewrite This", "Simpler")} text="Rewrite (Simpler)" height={45} width={130} textSize={12}/>
                             <SingleLineTextButton onClick={() => handleAIOption("Rewrite This", "More Formal")} text="Rewrite (More Formal)" height={45} width={160} textSize={12}/>
-                            <SingleLineTextButton onClick={() => handleAIOption("Rewrite This", "More Creative")} text="Rewrite (More Creative)" height={45} width={160} textSize={12}/>
+                            <SingleLineTextButton onClick={() => handleAIOption("Rewrite This", "More Creative")} text="Rewrite (More Creative)" height={45} width={168} textSize={12}/>
                         </div>
                     }
                 </div>
