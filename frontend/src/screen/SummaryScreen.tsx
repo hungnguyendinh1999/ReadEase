@@ -14,7 +14,7 @@ import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
 import DisclaimerSection from "../components/molecules/DisclaimerSection";
 import HighlightableTextBox from "../components/molecules/HighlightableTextbox";
 import { vocabLevels, getInstructionForLevel, getTooltipForLevel } from "../utils/VocabLevels";
-import Tooltip from "../components/atom/ToolTip";
+import Tooltip from "../components/atom/Tooltip";
 
 const harmContext =
     "If the input text contains harmful, illegal, or offensive content, respond with 'Content not allowed.' and give a 1-sentence explanation.";

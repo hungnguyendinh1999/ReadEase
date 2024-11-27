@@ -1,5 +1,5 @@
 import React from "react";
-import "./ToolTip.css";
+import "./Tooltip.css";
 
 interface TooltipProps {
   text: string;
