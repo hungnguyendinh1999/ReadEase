@@ -1,0 +1,37 @@
+#tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+#tooltip-container .tooltip {
+    font-size: var(--textbox-font-size);
+    font-family: var(--textbox-font-family);
+}
+
+.tooltip {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transform: translateY(5px);
+    background-color: var(--main-white);
+    color: var(--main-black);
+    padding: 5px 10px;
+    border-radius: 5px;
+    max-width: 400px;
+    min-width: 200px;
+    font-size: var(--textbox-font-size);
+    font: var(--textbox-font-family);
+    width: auto;
+    height: auto;
+    white-space: normal;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translateY(10px);
+}

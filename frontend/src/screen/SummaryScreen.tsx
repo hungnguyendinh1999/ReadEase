@@ -13,7 +13,8 @@ import SeekBar from "../components/molecules/SeekBar";
 import PlaybackSpeed from "../components/molecules/PlaybackSpeed";
 import DisclaimerSection from "../components/molecules/DisclaimerSection";
 import HighlightableTextBox from "../components/molecules/HighlightableTextbox";
-import { vocabLevels, getInstructionForLevel } from "../utils/VocabLevels";
+import { vocabLevels, getInstructionForLevel, getTooltipForLevel } from "../utils/VocabLevels";
+import Tooltip from "../components/atom/Tooltip";
 
 const harmContext =
     "If the input text contains harmful, illegal, or offensive content, respond with 'Content not allowed.' and give a 1-sentence explanation.";
@@ -40,6 +41,7 @@ const SummaryScreen: FC = () => {
     const [soundPath, setSoundPath] = useState<string>("");
     const [responseTTSStream, setResponseTTSStream] = useState(null);
     const [isToSpeech, setIsToSpeech] = useState<boolean>(false);
+    const [isTooltipVisible, setTooltipVisible] = useState<boolean>(false);
     
 
     // Event handler for textarea input
@@ -157,12 +159,20 @@ const SummaryScreen: FC = () => {
                         {!isLoading && !isSubmitted &&
                             <UploadFileButton label="Upload File" onClick={handleFileUpload}/>}
                         <div id="summary-title" className="center-text disable-selection"> Source </div>
-                        {!isLoading && !isSubmitted &&
-                        <Dropdown
-                            options={vocabLevels.map((v) => v.level)}
-                            value={vocabLevel}
-                            onChange={handleVocabLevelChange}
-                        />}
+                        <div id="tooltip-container" 
+                            onMouseEnter={() => setTooltipVisible(true)}
+                            onMouseLeave={() => setTooltipVisible(false)}>
+                            <Tooltip
+                                text={getTooltipForLevel(vocabLevel)}
+                                visible={isTooltipVisible}
+                            />
+                            {!isLoading && !isSubmitted &&
+                            <Dropdown
+                                options={vocabLevels.map((v) => v.level)}
+                                value={vocabLevel}
+                                onChange={handleVocabLevelChange}
+                            />}
+                        </div>
                         {!isLoading && !isSubmitted && <SubmitButton onClick={handleSummarize} inverseColor={true}/>}
                         {isLoading && <Loading size={35}/>}
                     </div>
