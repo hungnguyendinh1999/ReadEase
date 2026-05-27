@@ -2,6 +2,9 @@
 <h1 align="center"><b>ReadEase</b></h1>
 <h4 align="center">An Assistive Learning Platform for Dyslexia</h4>
 
+### Demo Video!
+[Link to the Demo](https://youtu.be/uTomzvjfeBE)
+
 ### Installation
 - For dependencies for both frontend and server directory, run `npm i`
 - For server specifically, run `npm install -g nodemon`
@@ -10,9 +13,6 @@
 ### Run Application
 - For server, within the root directory of server, run `nodemon index.js`
 - For frontend, within the root directory of frontend, run `npm run dev`
-
-### Demo
-[Link to the Demo](https://youtu.be/uTomzvjfeBE)
 
 ### Icon Attribution
 “The Noun Project” provided us with the icons used in this project. This section is for proper attribution to the icon source, even for non-commercial use. The icons are stored in the [Frontend's asset folder](./frontend/src/assets)
